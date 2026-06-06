@@ -2,510 +2,14 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>哆啦A夢の秘密基地 — 小叮噹資訊館</title>
 <link rel="stylesheet" href="css/style.css">
 <style>
-body { background: #2a1a0e; }
+body { background: #162444; }
 
-/* ── ROOM WRAPPER ─────────────────────────── */
-.room-wrapper {
-  max-width: 900px;
-  margin: 30px auto 0;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.6);
-  position: relative;
-}
-
-/* ── CEILING ──────────────────────────────── */
-.room-ceiling {
-  background: #2a1206;
-  height: 38px;
-  display: flex;
-  align-items: flex-end;
-  padding: 0 12px;
-  gap: 22px;
-  border-bottom: 4px solid #1a0c04;
-}
-.ceiling-beam {
-  flex: 1;
-  height: 28px;
-  background: linear-gradient(90deg, #1a0a04 0%, #3d1e08 40%, #2a1206 100%);
-  border-radius: 0 0 3px 3px;
-  border-left: 2px solid #1a0a04;
-  border-right: 2px solid #1a0a04;
-}
-.ceiling-light {
-  position: absolute;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 22px;
-  background: #d4c090;
-  border-radius: 3px;
-  box-shadow: 0 0 12px rgba(255,220,120,0.3);
-}
-
-/* ── WALL AREA ────────────────────────────── */
-.room-wall {
-  display: flex;
-  background: #f0e4cc;
-  min-height: 300px;
-  align-items: stretch;
-  border-bottom: 6px solid #8b5e3c;
-}
-
-/* ── LEFT SHOJI PANEL ─────────────────────── */
-.left-panel {
-  width: 88px;
-  flex-shrink: 0;
-  background: #f5ede0;
-  border-right: 6px solid #7a4e2d;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-.shoji-top {
-  flex: 1;
-  border: 5px solid #7a4e2d;
-  border-bottom: 3px solid #7a4e2d;
-  margin: 6px 6px 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 3px;
-  padding: 3px;
-  background: #7a4e2d;
-}
-.shoji-pane {
-  background: rgba(230,245,255,0.7);
-}
-/* sunlight through left window */
-.shoji-top::after {
-  content: '';
-  position: absolute;
-  top: 20px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(255,220,120,0.15) 0%, transparent 60%);
-  pointer-events: none;
-}
-.left-plant {
-  height: 44px;
-  background: #8b5e3c;
-  border-top: 3px solid #5c3a1e;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 4px;
-}
-.plant-emoji { font-size: 28px; line-height: 1; }
-
-/* notes pinned to left wall (outside shoji) */
-.wall-notes {
-  position: absolute;
-  top: 10px;
-  left: -44px;
-  width: 38px;
-}
-.wall-note {
-  background: #ffe99a;
-  width: 30px;
-  height: 36px;
-  margin-bottom: 4px;
-  box-shadow: 1px 2px 4px rgba(0,0,0,0.15);
-  transform: rotate(-2deg);
-  font-size: 5px;
-  padding: 3px;
-  color: #555;
-  line-height: 1.5;
-  border-top: 3px solid #cc2222;
-}
-
-/* ── BOOKSHELF ────────────────────────────── */
-.bookshelf-section {
-  width: 130px;
-  flex-shrink: 0;
-  background: linear-gradient(180deg, #a06030 0%, #8b5020 100%);
-  border-right: 5px solid #5c3010;
-  border-left: 3px solid #6b3818;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  transition: filter 0.2s;
-  text-decoration: none;
-}
-.bookshelf-section:hover { filter: brightness(1.1); }
-
-.shelf-top-deco {
-  padding: 8px 6px 4px;
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
-  border-bottom: 3px solid #5c3010;
-  background: linear-gradient(180deg, #a06030 0%, #8b5020 100%);
-}
-.deco-ball { font-size: 20px; line-height: 1; }
-.deco-radio { font-size: 18px; line-height: 1; }
-
-.shelf-books {
-  flex: 1;
-  padding: 5px 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  border-bottom: 4px solid #5c3010;
-}
-.shelf-row {
-  display: flex;
-  gap: 2px;
-  align-items: flex-end;
-  background: rgba(0,0,0,0.08);
-  padding: 3px 4px;
-  border-radius: 2px;
-}
-.book-spine {
-  border-radius: 1px 0 0 1px;
-  flex-shrink: 0;
-}
-
-.shelf-drawers {
-  padding: 5px 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  background: linear-gradient(180deg, #6b3a18, #5c3010);
-}
-.mini-drawer {
-  height: 16px;
-  background: linear-gradient(90deg, #a06030, #c48050);
-  border-radius: 2px;
-  border: 1px solid #5c3010;
-  position: relative;
-}
-.mini-drawer::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 16px;
-  height: 4px;
-  background: #5c3010;
-  border-radius: 2px;
-}
-
-.shelf-nav-hint {
-  font-size: 0.62rem;
-  color: rgba(255,255,255,0.8);
-  text-align: center;
-  padding: 3px 4px;
-  font-weight: 700;
-  background: rgba(0,0,0,0.2);
-}
-
-/* ── CENTER WINDOW ────────────────────────── */
-.center-window {
-  flex: 1;
-  display: flex;
-  background: #f0e4cc;
-  position: relative;
-  overflow: hidden;
-}
-.curtain {
-  width: 28px;
-  flex-shrink: 0;
-  z-index: 2;
-  position: relative;
-}
-.curtain-left {
-  background: linear-gradient(90deg, #2d6b2d 0%, #3a8a3a 60%, #2d6b2d 100%);
-  border-right: 2px solid #1a4a1a;
-}
-.curtain-right {
-  background: linear-gradient(90deg, #2d6b2d 0%, #3a8a3a 40%, #2d6b2d 100%);
-  border-left: 2px solid #1a4a1a;
-}
-.curtain::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    180deg,
-    transparent 0px,
-    transparent 14px,
-    rgba(0,0,0,0.08) 14px,
-    rgba(0,0,0,0.08) 16px
-  );
-}
-.window-view {
-  flex: 1;
-  background: linear-gradient(180deg, #87ceeb 0%, #b0dcf0 40%, #6da86d 70%, #4a7a4a 100%);
-  border: 5px solid #8b6040;
-  border-top: 8px solid #8b6040;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-/* autumn trees outside */
-.outside-tree {
-  position: absolute;
-  bottom: 0;
-}
-.tree-trunk {
-  width: 10px;
-  background: #5c3a1e;
-  border-radius: 3px 3px 0 0;
-  margin: 0 auto;
-}
-.tree-top {
-  border-radius: 50% 50% 40% 40%;
-  margin-bottom: -4px;
-}
-.outside-house {
-  position: absolute;
-  bottom: 12px;
-  left: 20%;
-  width: 40px;
-  height: 30px;
-  background: #4488cc;
-  border-radius: 0;
-}
-.outside-house::before {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: -8px;
-  width: 0;
-  height: 0;
-  border-left: 28px solid transparent;
-  border-right: 28px solid transparent;
-  border-bottom: 18px solid #2266aa;
-}
-/* window frame crossbar */
-.window-view::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: -5px;
-  right: -5px;
-  height: 6px;
-  background: #8b6040;
-  transform: translateY(-50%);
-}
-.window-view::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: -8px;
-  bottom: -8px;
-  width: 6px;
-  background: #8b6040;
-  transform: translateX(-50%);
-}
-
-/* sunlight on floor from center window */
-.sunlight-rect {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 80px;
-  background: rgba(255,220,120,0.18);
-  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
-}
-
-/* ── DESK AREA ────────────────────────────── */
-.desk-section {
-  width: 110px;
-  flex-shrink: 0;
-  background: #f0e4cc;
-  display: flex;
-  flex-direction: column;
-  padding: 10px 6px 0;
-  border-left: 3px solid rgba(0,0,0,0.06);
-  cursor: pointer;
-  text-decoration: none;
-  transition: filter 0.2s;
-}
-.desk-section:hover { filter: brightness(0.95); }
-.desk-top-surface {
-  background: linear-gradient(180deg, #e8e8e8 0%, #d8d8d8 100%);
-  border-radius: 4px 4px 0 0;
-  height: 18px;
-  border: 1px solid #bbb;
-  border-bottom: 3px solid #999;
-  display: flex;
-  align-items: center;
-  padding: 0 6px;
-  gap: 5px;
-}
-.desk-lamp { font-size: 12px; }
-.desk-books-stack {
-  display: flex;
-  gap: 1px;
-  align-items: flex-end;
-  height: 22px;
-}
-.d-book {
-  width: 6px;
-  border-radius: 1px 0 0 1px;
-}
-
-.desk-body {
-  flex: 1;
-  background: linear-gradient(180deg, #e0e0e0 0%, #cccccc 100%);
-  border: 1px solid #bbb;
-  border-top: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-.desk-chair {
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 28px;
-  filter: hue-rotate(90deg) saturate(2);
-}
-.desk-nav-hint {
-  font-size: 0.6rem;
-  color: #888;
-  text-align: center;
-  padding: 3px 2px;
-  font-weight: 700;
-}
-
-/* ── DORAEMON BLUE DOOR ───────────────────── */
-.doraemon-door-wrap {
-  width: 94px;
-  flex-shrink: 0;
-  background: #0088cc;
-  border-left: 5px solid #005588;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  animation: door-glow 3s ease-in-out infinite;
-}
-@keyframes door-glow {
-  0%,100% { box-shadow: inset 0 0 20px rgba(0,150,255,0.2); }
-  50% { box-shadow: inset 0 0 40px rgba(0,180,255,0.4), 0 0 20px rgba(0,150,255,0.3); }
-}
-.doraemon-door-wrap:hover {
-  background: #00aaee;
-  filter: brightness(1.12);
-}
-/* Door rail/track at top */
-.door-track {
-  height: 10px;
-  background: #003366;
-  border-bottom: 2px solid #002244;
-}
-/* Three white circles (Doraemon-style) */
-.door-circles {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 16px 0;
-}
-.door-circle {
-  width: 34px;
-  height: 34px;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  transition: transform 0.3s;
-}
-.doraemon-door-wrap:hover .door-circle {
-  transform: scale(1.08);
-}
-.door-label {
-  display: block;
-  color: rgba(255,255,255,0.9);
-  font-size: 0.68rem;
-  font-weight: 800;
-  text-align: center;
-  padding: 8px 4px;
-  background: rgba(0,0,0,0.2);
-  letter-spacing: 0.05em;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-}
-
-/* ── TATAMI FLOOR ─────────────────────────── */
-.room-floor {
-  height: 90px;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      #c4b484 0px, #c4b484 59px,
-      #a89060 59px, #a89060 62px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0px, transparent 119px,
-      rgba(0,0,0,0.12) 119px, rgba(0,0,0,0.12) 122px
-    );
-  background-color: #c4b484;
-  border-top: 4px solid #8b6a30;
-  position: relative;
-}
-
-/* Sunlight patch on floor */
-.floor-sunlight {
-  position: absolute;
-  top: 5px;
-  left: 10%;
-  width: 22%;
-  height: 80px;
-  background: rgba(255, 220, 120, 0.18);
-  transform: skewX(8deg);
-  pointer-events: none;
-}
-
-/* ── ROOM LABELS ──────────────────────────── */
-.room-nav-label {
-  position: absolute;
-  background: rgba(0,0,0,0.55);
-  color: white;
-  font-size: 0.65rem;
-  font-weight: 800;
-  padding: 3px 8px;
-  border-radius: 10px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s;
-  white-space: nowrap;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  z-index: 10;
-}
-.bookshelf-section:hover .room-nav-label,
-.desk-section:hover .room-nav-label {
-  opacity: 1;
-}
-
-/* ── INTRO & CARDS (below room) ───────────── */
-.room-below {
-  background: #1a1005;
-  padding: 0 0 10px;
-}
+.room-below { background: #0f1e38; padding: 0 0 10px; }
 .room-hint {
   text-align: center;
   font-size: 0.82rem;
@@ -514,11 +18,7 @@ body { background: #2a1a0e; }
   font-style: italic;
 }
 .content-wrap { background: var(--cream); }
-
-.section-intro {
-  text-align: center;
-  padding: 32px 0 28px;
-}
+.section-intro { text-align: center; padding: 32px 0 28px; }
 .section-intro h2 {
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 1.6rem;
@@ -526,21 +26,48 @@ body { background: #2a1a0e; }
   color: var(--blue-dark);
   margin-bottom: 8px;
 }
-.section-intro p {
-  color: var(--text-mid);
-  max-width: 520px;
-  margin: 0 auto;
-}
+.section-intro p { color: var(--text-mid); max-width: 520px; margin: 0 auto; }
 
-@media (max-width: 640px) {
-  .left-panel { width: 48px; }
-  .bookshelf-section { width: 80px; }
-  .desk-section { width: 70px; }
-  .doraemon-door-wrap { width: 60px; }
-  .door-circle { width: 24px; height: 24px; }
-  .room-floor { height: 60px; }
-  .door-circles { gap: 8px; }
+/* ── PHOTO ROOM ── */
+.room-photo-wrap {
+  max-width: 900px;
+  margin: 30px auto 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+  position: relative;
 }
+.room-photo-img { width: 100%; display: block; }
+.room-hotspot {
+  position: absolute;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: all 0.25s;
+  text-decoration: none;
+}
+.room-hotspot:hover {
+  background: rgba(0,153,204,0.18);
+  border-color: rgba(0,200,255,0.65);
+  box-shadow: 0 0 16px rgba(0,153,204,0.35);
+}
+.room-hotspot-label {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.82);
+  color: white;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+.room-hotspot:hover .room-hotspot-label { opacity: 1; }
 </style>
 </head>
 <body>
@@ -570,142 +97,32 @@ body { background: #2a1a0e; }
 
 <!-- ── THE ROOM ── -->
 <div class="room-below">
-  <div class="room-wrapper">
+  <div class="room-photo-wrap">
+    <img src="room-nobita.jpg" alt="大雄的房間" class="room-photo-img">
 
-    <!-- Ceiling -->
-    <div class="room-ceiling">
-      <div class="ceiling-beam"></div>
-      <div class="ceiling-beam"></div>
-      <div class="ceiling-beam"></div>
-      <div class="ceiling-beam"></div>
-      <div class="ceiling-light"></div>
-    </div>
+    <!-- Bookshelf → Museums -->
+    <a href="museums.html" class="room-hotspot" style="left:23%;width:18%;top:15%;height:72%;" title="博物館">
+      <span class="room-hotspot-label">🏛️ 博物館</span>
+    </a>
 
-    <!-- Wall contents -->
-    <div class="room-wall">
+    <!-- Center window → Characters -->
+    <a href="characters.html" class="room-hotspot" style="left:41%;width:20%;top:5%;height:80%;" title="人物介紹">
+      <span class="room-hotspot-label">👥 人物介紹</span>
+    </a>
 
-      <!-- 1. Left shoji panel + plant -->
-      <div class="left-panel">
-        <div class="shoji-top">
-          <div class="shoji-pane"></div><div class="shoji-pane"></div>
-          <div class="shoji-pane"></div><div class="shoji-pane"></div>
-          <div class="shoji-pane"></div><div class="shoji-pane"></div>
-        </div>
-        <div class="left-plant">
-          <span class="plant-emoji">🌿</span>
-        </div>
-      </div>
+    <!-- Desk → Chronicle (Time Machine) -->
+    <a href="chronicle.html" class="room-hotspot" style="left:57%;width:19%;top:22%;height:60%;" title="哆啦A夢編年史">
+      <span class="room-hotspot-label">⏰ 哆啦A夢編年史</span>
+    </a>
 
-      <!-- 2. Bookshelf → characters -->
-      <a href="characters.html" class="bookshelf-section" title="人物介紹">
-        <div class="shelf-top-deco">
-          <span class="deco-ball">⚽</span>
-          <span class="deco-radio">📻</span>
-        </div>
-        <div class="shelf-books">
-          <div class="shelf-row">
-            <div class="book-spine" style="width:10px;height:44px;background:#cc3333"></div>
-            <div class="book-spine" style="width:8px;height:38px;background:#3388cc"></div>
-            <div class="book-spine" style="width:10px;height:48px;background:#dd8800"></div>
-            <div class="book-spine" style="width:8px;height:40px;background:#cc3333"></div>
-            <div class="book-spine" style="width:9px;height:42px;background:#dd4400"></div>
-            <div class="book-spine" style="width:10px;height:46px;background:#3366aa"></div>
-            <div class="book-spine" style="width:8px;height:36px;background:#cc3333"></div>
-            <div class="book-spine" style="width:10px;height:44px;background:#cc8800"></div>
-          </div>
-          <div class="shelf-row">
-            <div class="book-spine" style="width:9px;height:40px;background:#226622"></div>
-            <div class="book-spine" style="width:10px;height:46px;background:#cc3333"></div>
-            <div class="book-spine" style="width:8px;height:36px;background:#cc8800"></div>
-            <div class="book-spine" style="width:11px;height:50px;background:#3388cc"></div>
-            <div class="book-spine" style="width:9px;height:42px;background:#aa2222"></div>
-            <div class="book-spine" style="width:8px;height:38px;background:#ccaa00"></div>
-            <div class="book-spine" style="width:10px;height:44px;background:#226622"></div>
-          </div>
-          <div class="shelf-row">
-            <div class="book-spine" style="width:10px;height:38px;background:#cc6600"></div>
-            <div class="book-spine" style="width:8px;height:44px;background:#cc3333"></div>
-            <div class="book-spine" style="width:10px;height:40px;background:#3355aa"></div>
-            <div class="book-spine" style="width:9px;height:36px;background:#aa1111"></div>
-            <div class="book-spine" style="width:8px;height:48px;background:#ddaa00"></div>
-            <div class="book-spine" style="width:10px;height:42px;background:#cc3333"></div>
-            <div class="book-spine" style="width:9px;height:38px;background:#226622"></div>
-          </div>
-        </div>
-        <div class="shelf-drawers">
-          <div class="mini-drawer"></div>
-          <div class="mini-drawer"></div>
-          <div class="mini-drawer"></div>
-        </div>
-        <div class="shelf-nav-hint">👥 人物介紹</div>
-      </a>
-
-      <!-- 3. Center window with curtains + outside view → Museums -->
-      <a href="museums.html" class="center-window" style="text-decoration:none; display:flex; position:relative;" title="博物館">
-        <div class="curtain curtain-left"></div>
-        <div class="window-view">
-          <!-- outside: autumn trees + house -->
-          <div class="outside-house"></div>
-          <div class="outside-tree" style="left:55%; bottom:0">
-            <div class="tree-top" style="width:38px;height:46px;background:#cc6622;"></div>
-            <div class="tree-trunk" style="height:18px;"></div>
-          </div>
-          <div class="outside-tree" style="right:10%; bottom:0">
-            <div class="tree-top" style="width:28px;height:36px;background:#aa4411;"></div>
-            <div class="tree-trunk" style="height:14px;"></div>
-          </div>
-          <div class="outside-tree" style="left:5%; bottom:0">
-            <div class="tree-top" style="width:22px;height:30px;background:#dd8833;"></div>
-            <div class="tree-trunk" style="height:12px;"></div>
-          </div>
-          <!-- sunlight beam -->
-          <div class="sunlight-rect"></div>
-          <!-- hover label -->
-          <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.5);color:white;font-size:0.65rem;font-weight:800;padding:3px 10px;border-radius:10px;white-space:nowrap;font-family:'M PLUS Rounded 1c',sans-serif;pointer-events:none;">🏛️ 博物館</div>
-        </div>
-        <div class="curtain curtain-right"></div>
-      </a>
-
-      <!-- 4. Desk area → Taiwan column -->
-      <a href="taiwan.html" class="desk-section" title="台灣小叮噹">
-        <div style="font-size:0.62rem;color:#777;text-align:center;font-weight:700;padding:4px 2px;font-family:'M PLUS Rounded 1c',sans-serif;">📖 小叮噹</div>
-        <div class="desk-top-surface">
-          <span class="desk-lamp">🔦</span>
-          <div class="desk-books-stack">
-            <div class="d-book" style="height:18px;background:#3388cc"></div>
-            <div class="d-book" style="height:15px;background:#cc3333"></div>
-            <div class="d-book" style="height:20px;background:#226622"></div>
-          </div>
-        </div>
-        <div class="desk-body" style="height:100px; position:relative;">
-          <!-- chair below desk -->
-          <div style="font-size:0.55rem;color:#999;text-align:center;padding:6px 2px;line-height:1.4;">台灣<br>小叮噹<br>專欄</div>
-          <div class="desk-chair">🪑</div>
-        </div>
-      </a>
-
-      <!-- 5. BLUE DORAEMON DOOR → Chronicle (Time Machine) -->
-      <a href="chronicle.html" class="doraemon-door-wrap" title="進入時光機 → 哆啦A夢編年史">
-        <div class="door-track"></div>
-        <div class="door-circles">
-          <div class="door-circle"></div>
-          <div class="door-circle"></div>
-          <div class="door-circle"></div>
-        </div>
-        <span class="door-label">⏰ 時光機<br>編年史</span>
-      </a>
-
-    </div><!-- /room-wall -->
-
-    <!-- Tatami Floor -->
-    <div class="room-floor">
-      <div class="floor-sunlight"></div>
-    </div>
-
-  </div><!-- /room-wrapper -->
+    <!-- Blue door → Taiwan column -->
+    <a href="taiwan.html" class="room-hotspot" style="left:76%;width:16%;top:5%;height:82%;" title="台灣小叮噹">
+      <span class="room-hotspot-label">📖 台灣小叮噹</span>
+    </a>
+  </div>
 
   <div class="room-hint">
-    ✨ 點擊房間各處探索不同頁面 ── 藍色門通往時光機編年史，書架是人物介紹，窗外連到博物館，書桌是台灣小叮噹專欄
+    ✨ 點擊房間各處探索不同頁面 ── 藍色門是台灣小叮噹，書桌通往編年史，書架連到博物館，窗戶是人物介紹
   </div>
 </div>
 
