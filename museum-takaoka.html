@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高岡・冰見 藤子故鄉巡禮 · 哆啦A夢の秘密基地</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .museum-hero {
+    background: linear-gradient(135deg, #1a4a1a 0%, #336633 50%, #55aa55 100%);
+    color: white; padding: 52px 24px 44px; text-align: center;
+  }
+  .museum-hero h1 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 2rem; font-weight: 800; margin-bottom: 6px; line-height: 1.3;
+  }
+  .museum-hero .sub { font-size: 1rem; opacity: 0.85; margin-top: 6px; }
+  .breadcrumb { font-size: 0.82rem; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+  .breadcrumb a { color: rgba(255,255,255,0.8); text-decoration: none; }
+
+  .spot-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 32px; }
+  .spot-card { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 3px 14px var(--shadow); }
+  .spot-img {
+    height: 160px; display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem; flex-direction: column; gap: 8px;
+  }
+  .spot-label { font-size: 0.75rem; font-weight: 800; color: rgba(255,255,255,0.9); }
+  .spot-body { padding: 18px; }
+  .spot-body h3 { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 1rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .spot-body p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.65; }
+  .spot-info { margin-top: 12px; padding-top: 10px; border-top: 1px solid #eee; }
+  .spot-info-row { display: flex; gap: 8px; font-size: 0.8rem; padding: 3px 0; }
+  .spot-info-label { color: var(--text-light); font-weight: 700; min-width: 50px; flex-shrink: 0; }
+  .spot-info-val { color: var(--text-mid); }
+
+  .route-box {
+    background: linear-gradient(135deg, #e8f5e8, #d0ecd0);
+    border-radius: 14px; padding: 24px; margin-bottom: 32px;
+  }
+  .route-box h3 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.1rem; font-weight: 800; color: #225522; margin-bottom: 16px;
+  }
+  .route-steps { display: flex; flex-direction: column; gap: 0; }
+  .route-step {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 12px 0; border-bottom: 1px dashed #aaddaa; position: relative;
+  }
+  .route-step:last-child { border-bottom: none; }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #336633; color: white; font-size: 0.8rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .step-content h4 { font-size: 0.9rem; font-weight: 800; color: #225522; margin-bottom: 4px; }
+  .step-content p { font-size: 0.82rem; color: #446644; line-height: 1.6; margin: 0; }
+
+  .tram-feature {
+    background: linear-gradient(135deg, #336633, #55aa55);
+    border-radius: 14px; padding: 24px; color: white; margin-bottom: 32px;
+  }
+  .tram-feature h3 { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; }
+  .tram-feature p { opacity: 0.9; line-height: 1.7; font-size: 0.9rem; }
+  .tram-detail { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tram-detail-item { background: rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 12px; font-size: 0.82rem; }
+  .tram-detail-item strong { display: block; font-size: 0.78rem; opacity: 0.8; margin-bottom: 2px; }
+
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--blue-dark); font-weight: 700; font-size: 0.9rem; text-decoration: none; margin-bottom: 24px; }
+  .back-link:hover { color: var(--blue); }
+
+  @media (max-width: 560px) {
+    .tram-detail { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <div class="logo-icon">🔵</div>
+      <div class="logo-text">哆啦A夢の秘密基地<div class="logo-sub">小叮噹資訊館</div></div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">🏠 首頁</a>
+      <a href="chronicle.html">⏰ 編年史</a>
+      <a href="taiwan.html">🇹🇼 小叮噹</a>
+      <a href="museums.html" class="active">🏛️ 博物館</a>
+      <a href="characters.html">👥 人物</a>
+    </nav>
+  </div>
+</header>
+
+<div class="museum-hero">
+  <div class="breadcrumb"><a href="museums.html">← 博物館總覽</a> / 日本・富山縣</div>
+  <div style="font-size:3rem; margin-bottom:14px">🚃</div>
+  <h1>高岡・冰見<br>藤子不二雄故鄉巡禮</h1>
+  <p class="sub">哆啦A夢父親的出生地 · 銅像 · 彩繪電車 · 紀念館</p>
+</div>
+
+<div class="content-wrap">
+  <a href="museums.html" class="back-link">← 返回博物館總覽</a>
+
+  <p style="color:var(--text-mid); margin-bottom:28px; line-height:1.8;">富山縣是藤子・F・不二雄（高岡市）與藤子不二雄Ⓐ（冰見市）的共同故鄉。這裡不只有一個景點，而是一條可以花一整天探索的「聖地巡禮」路線——從哆啦A夢銅像到彩繪電車，從紀念館到誕生地碑，每個角落都有藤子不二雄的故事。</p>
+
+  <!-- Doraemon Tram - Feature section -->
+  <div class="tram-feature">
+    <h3>🚃 哆啦A夢彩繪電車（萬葉線）</h3>
+    <p>行駛於高岡市內的萬葉線輕軌，推出以哆啦A夢和夥伴們為主題的彩繪電車。車廂外觀全面繪製哆啦A夢插畫，車廂內部也有角色裝飾，本身就是一個移動的哆啦A夢展覽。搭乘一次這輛電車，就是最道地的「故鄉體驗」。</p>
+    <div class="tram-detail">
+      <div class="tram-detail-item"><strong>路線</strong>高岡駅前 ⇄ 越ノ潟（全線約20公里）</strong></div>
+      <div class="tram-detail-item"><strong>彩繪電車啟用</strong>2012年起（定期更新設計）</div>
+      <div class="tram-detail-item"><strong>票價</strong>依乘車距離，起跳約 ¥210</div>
+      <div class="tram-detail-item"><strong>乘車方式</strong>高岡駅（万葉線）出口搭乘</div>
+    </div>
+  </div>
+
+  <!-- Spot cards -->
+  <h2 class="section-title">📍 高岡・冰見 主要景點</h2>
+  <div class="spot-cards">
+
+    <div class="spot-card">
+      <div class="spot-img" style="background:linear-gradient(135deg,#002255,#0055aa)">
+        <span>🗿</span>
+        <span class="spot-label">高岡駅前 · 6座銅像</span>
+      </div>
+      <div class="spot-body">
+        <h3>高岡駅前 哆啦A夢銅像群</h3>
+        <p>高岡車站前廣場設有哆啦A夢、大雄、靜香、胖虎、小夫、哆啦美共6座真實比例銅像，分散在站前不同位置，每座都有各自的經典姿態，是最受歡迎的免費打卡景點。</p>
+        <div class="spot-info">
+          <div class="spot-info-row"><span class="spot-info-label">地點</span><span class="spot-info-val">JR・万葉線高岡駅前廣場</span></div>
+          <div class="spot-info-row"><span class="spot-info-label">設立年份</span><span class="spot-info-val">2012年（部分陸續增設）</span></div>
+          <div class="spot-info-row"><span class="spot-info-label">入場費</span><span class="spot-info-val">免費（戶外公共景點）</span></div>
+          <div class="spot-info-row"><span class="spot-info-label">開放時間</span><span class="spot-info-val">全日開放</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card">
+      <div class="spot-img" style="background:linear-gradient(135deg,#334400,#668800)">
+        <span>🏡</span>
+        <span class="spot-label">藤子・F・不二雄誕生地</span>
+      </div>
+      <div class="spot-body">
+        <h3>藤子・F・不二雄誕生地紀念碑</h3>
+        <p>高岡市內設有藤本弘（藤子・F・不二雄本名）的誕生地紀念碑，標示了這位偉大漫畫家成長的地方。附近也有與他童年相關的地景，是深度巡禮的必訪點。</p>
+        <div class="spot-info">
+          <div class="spot-info-row"><span class="spot-info-label">地點</span><span class="spot-info-val">高岡市伏木地區</span></div>
+          <div class="spot-info-row"><span class="spot-info-label">入場費</span><span class="spot-info-val">免費</span></div>
+          <div class="spot-info-row"><span class="spot-info-label">交通</span><span class="spot-info-val">搭万葉線至伏木站後步行</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card">
+      <div class="spot-img" style="background:linear-gradient(135deg,#553300,#aa6622)">
+        <span>🎨</span>
+        <span class="spot-label">冰見市 · 藤子Ⓐ紀念館</span>
+      </div>
+      <div class="spot-body">
+        <h3>藤子不二雄Ⓐ Art Museum（冰見市）</h3>
+        <p>位於冰見市的藤子不二雄Ⓐ紀念館，以其代表作「忍者哈特利」為主題，同時展示與哆啦A夢創作夥伴時期相關的資料。冰見市街道上也有大量角色彩繪壁畫。</p>
+        <div class="spot-info">
+          <div class="spot-info-row"><span class="spot-info-label">地點</span><span class="spot-info-val">富山縣冰見市（氷見市）</span></div>
+          <div class="spot-info-row"><span class="spot-info-label">交通</span><span class="spot-info-val">JR氷見線「氷見站」下車</span></div>
+          <div class="spot-info-row"><span class="spot-info-label">忍者列車</span><span class="spot-info-val">「忍者哈特利彩繪列車」行駛中</span></div>
+          <div class="spot-info-row"><span class="spot-info-label">特色</span><span class="spot-info-val">街道商店街有角色彩繪拉門</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card">
+      <div class="spot-img" style="background:linear-gradient(135deg,#004455,#006688)">
+        <span>🖼️</span>
+        <span class="spot-label">高岡市 · 故鄉藝廊</span>
+      </div>
+      <div class="spot-body">
+        <h3>藤子・F・不二雄ふるさとギャラリー</h3>
+        <p>位於高岡市內的故鄉藝廊，展示藤子・F・不二雄與高岡的深厚淵源，包括成長時期的創作資料與當地生活記錄，讓粉絲從另一個角度了解這位天才漫畫家。</p>
+        <div class="spot-info">
+          <div class="spot-info-row"><span class="spot-info-label">地點</span><span class="spot-info-val">高岡市（高岡站附近）</span></div>
+          <div class="spot-info-row"><span class="spot-info-label">特色</span><span class="spot-info-val">在地創作資料 · 年表展示</span></div>
+          <div class="spot-info-row"><span class="spot-info-label">入場費</span><span class="spot-info-val">依館別不同，部分免費</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- One-day route -->
+  <div class="route-box">
+    <h3>🗺️ 富山縣藤子聖地一日遊建議路線</h3>
+    <div class="route-steps">
+      <div class="route-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>上午：冰見市出發</h4>
+          <p>從富山或高岡搭JR氷見線前往冰見市，參觀藤子不二雄Ⓐ Art Museum及街道彩繪。冰見市還有新鮮海鮮可享用。</p>
+        </div>
+      </div>
+      <div class="route-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>中午：返回高岡，搭乘哆啦A夢電車</h4>
+          <p>返回高岡站，搭乘萬葉線哆啦A夢彩繪電車，體驗移動式哆啦A夢展覽，可沿途欣賞高岡市景。</p>
+        </div>
+      </div>
+      <div class="route-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>下午：高岡駅前銅像群＋故鄉藝廊</h4>
+          <p>在高岡駅前與6座銅像合影留念，再前往故鄉藝廊深入了解藤子・F・不二雄的成長歷程。</p>
+        </div>
+      </div>
+      <div class="route-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>傍晚：誕生地紀念碑＋周邊探索</h4>
+          <p>前往伏木地區參觀誕生地紀念碑，感受哆啦A夢父親成長的真實場所。可在高岡市內餐廳用晚餐結束一日行程。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#f5f5f5;border-radius:10px;padding:16px 20px;font-size:0.85rem;color:var(--text-light);line-height:1.8;">
+    📌 前往富山縣，建議從大阪搭乘JR特急（約2.5小時）或從名古屋搭JR特急（約2小時）至富山，再轉乘各地交通。購買「高岡市內1日乘車券」或「萬葉線1日券」可節省交通費。
+  </div>
+
+</div>
+
+<footer>
+  <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
+  <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan</p>
+</footer>
+</body>
+</html>

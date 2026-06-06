@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>藤子・F・不二雄ミュージアム · 哆啦A夢の秘密基地</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .museum-hero {
+    background: linear-gradient(135deg, #001133 0%, #003388 50%, #0055cc 100%);
+    color: white;
+    padding: 52px 24px 44px;
+    text-align: center;
+  }
+  .museum-hero h1 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .museum-hero .sub { font-size: 1rem; opacity: 0.85; margin-top: 6px; }
+
+  .breadcrumb {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 16px;
+  }
+  .breadcrumb a { color: rgba(255,255,255,0.8); text-decoration: none; }
+  .breadcrumb a:hover { color: white; }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .info-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 12px var(--shadow);
+  }
+  .info-panel h3 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--blue);
+  }
+  .info-row {
+    display: flex;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 0.87rem;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: flex-start;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { color: var(--text-light); font-weight: 700; min-width: 72px; flex-shrink: 0; }
+  .info-val { color: var(--text-mid); line-height: 1.5; }
+
+  .photo-mosaic {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 200px 160px;
+    gap: 8px;
+    margin-bottom: 32px;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .mosaic-main {
+    grid-row: 1 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mosaic-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .mosaic-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+    padding: 0 6px;
+  }
+  .m1 { background: linear-gradient(135deg, #002266 0%, #0044aa 100%); }
+  .m2 { background: linear-gradient(135deg, #003388 0%, #0066cc 100%); }
+  .m3 { background: linear-gradient(135deg, #0044aa 0%, #0077dd 100%); }
+
+  .highlight-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .highlight-item {
+    background: white;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 2px 8px var(--shadow);
+    border-top: 3px solid var(--blue);
+  }
+  .highlight-item .h-icon { font-size: 1.8rem; margin-bottom: 8px; }
+  .highlight-item h4 {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .highlight-item p { font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; margin: 0; }
+
+  .ticket-box {
+    background: linear-gradient(135deg, #e6f0ff, #d6e8ff);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+  .ticket-box h3 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+    margin-bottom: 14px;
+  }
+  .ticket-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+  }
+  .ticket-item {
+    background: white;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 2px 6px var(--shadow);
+  }
+  .ticket-type { font-size: 0.78rem; color: var(--text-light); font-weight: 700; margin-bottom: 4px; }
+  .ticket-price { font-size: 1.1rem; font-weight: 800; color: var(--blue-dark); }
+
+  .travel-tip {
+    background: linear-gradient(135deg, #fff8e6, #fff3d6);
+    border-left: 5px solid var(--yellow);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--blue-dark);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-bottom: 24px;
+  }
+  .back-link:hover { color: var(--blue); }
+
+  @media (max-width: 600px) {
+    .info-grid { grid-template-columns: 1fr; }
+    .photo-mosaic { grid-template-columns: 1fr; grid-template-rows: 180px 120px 120px; }
+    .mosaic-main { grid-row: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <div class="logo-icon">🔵</div>
+      <div class="logo-text">哆啦A夢の秘密基地<div class="logo-sub">小叮噹資訊館</div></div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">🏠 首頁</a>
+      <a href="chronicle.html">⏰ 編年史</a>
+      <a href="taiwan.html">🇹🇼 小叮噹</a>
+      <a href="museums.html" class="active">🏛️ 博物館</a>
+      <a href="characters.html">👥 人物</a>
+    </nav>
+  </div>
+</header>
+
+<div class="museum-hero">
+  <div class="breadcrumb"><a href="museums.html">← 博物館總覽</a> / 日本・川崎</div>
+  <div style="font-size:3rem; margin-bottom:14px">🏛️</div>
+  <h1>川崎市<br>藤子・F・不二雄ミュージアム</h1>
+  <p class="sub">全球唯一的哆啦A夢官方博物館 · 朝聖者必訪的聖地</p>
+</div>
+
+<div class="content-wrap">
+  <a href="museums.html" class="back-link">← 返回博物館總覽</a>
+
+  <!-- Photo mosaic -->
+  <div class="photo-mosaic">
+    <div class="mosaic-main m1">
+      <span>🏛️</span>
+      <span class="mosaic-label">博物館正館外觀</span>
+    </div>
+    <div class="mosaic-side m2">
+      <span>📜</span>
+      <span class="mosaic-label">原稿手稿展示室</span>
+    </div>
+    <div class="mosaic-side m3">
+      <span>☕</span>
+      <span class="mosaic-label">SNOWFLAKE 主題餐廳</span>
+    </div>
+  </div>
+
+  <!-- Info grid -->
+  <div class="info-grid">
+    <div class="info-panel">
+      <h3>📋 基本資訊</h3>
+      <div class="info-row"><span class="info-label">正式名稱</span><span class="info-val">川崎市 藤子・F・不二雄ミュージアム</span></div>
+      <div class="info-row"><span class="info-label">地址</span><span class="info-val">神奈川縣川崎市多摩區長尾2-8-1</span></div>
+      <div class="info-row"><span class="info-label">開幕日期</span><span class="info-val">2011年9月3日（藤子先生生日）</span></div>
+      <div class="info-row"><span class="info-label">開放時間</span><span class="info-val">10:00 – 18:00（最終入場16:30）</span></div>
+      <div class="info-row"><span class="info-label">休館日</span><span class="info-val">每週二（逢假日則翌日補休）</span></div>
+      <div class="info-row"><span class="info-label">入場方式</span><span class="info-val">完全預約制，需事先購票</span></div>
+      <div class="info-row"><span class="info-label">官方網站</span><span class="info-val"><a href="https://fujiko-museum.com/" target="_blank" rel="noopener">fujiko-museum.com</a></span></div>
+    </div>
+    <div class="info-panel">
+      <h3>📊 館藏規模</h3>
+      <div class="info-row"><span class="info-label">館藏數量</span><span class="info-val">逾 50,000 件原稿手稿</span></div>
+      <div class="info-row"><span class="info-label">館內面積</span><span class="info-val">約 2,100 m²</span></div>
+      <div class="info-row"><span class="info-label">樓層規模</span><span class="info-val">地上3層 ＋ 屋頂花園</span></div>
+      <div class="info-row"><span class="info-label">設施</span><span class="info-val">常設展、特別展、短片劇場、主題餐廳、博物館商店</span></div>
+      <div class="info-row"><span class="info-label">語音導覽</span><span class="info-val">日 · 英 · 中（繁体）· 韓語可選</span></div>
+      <div class="info-row"><span class="info-label">館長</span><span class="info-val">川崎市（市立博物館）</span></div>
+    </div>
+  </div>
+
+  <!-- Admission -->
+  <div class="ticket-box">
+    <h3>🎟️ 入場票價（參考，實際請查官網）</h3>
+    <div class="ticket-grid">
+      <div class="ticket-item">
+        <div class="ticket-type">大人（高中以上）</div>
+        <div class="ticket-price">¥1,000</div>
+      </div>
+      <div class="ticket-item">
+        <div class="ticket-type">國中・高中生</div>
+        <div class="ticket-price">¥700</div>
+      </div>
+      <div class="ticket-item">
+        <div class="ticket-type">小學生</div>
+        <div class="ticket-price">¥500</div>
+      </div>
+      <div class="ticket-item">
+        <div class="ticket-type">幼兒（4歲以上）</div>
+        <div class="ticket-price">¥300</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem;color:var(--text-light);margin-top:10px;">⚠️ 博物館採完全預約制，現場不售票。請至官方網站或日本 Lawson 便利商店系統預購。入場分時段：10:00・12:00・14:00・16:00。</p>
+  </div>
+
+  <!-- Highlights -->
+  <h2 class="section-title">✨ 館內主要亮點</h2>
+  <div class="highlight-list">
+    <div class="highlight-item">
+      <div class="h-icon">📜</div>
+      <h4>珍貴原稿手稿常設展</h4>
+      <p>館內收藏超過5萬件藤子・F・不二雄的親筆原稿，是全球唯一可以親眼看見原作筆觸的地方。展示內容定期輪換，常來常新。</p>
+    </div>
+    <div class="highlight-item">
+      <div class="h-icon">🗿</div>
+      <h4>真實比例角色雕像</h4>
+      <p>館內外設置多個真人比例的哆啦A夢及相關角色立體雕像，每個姿態都來自原作中的經典場景，是最受歡迎的拍照打卡點。</p>
+    </div>
+    <div class="highlight-item">
+      <div class="h-icon">🎬</div>
+      <h4>館內限定短片劇場</h4>
+      <p>設有小型劇場放映館內獨有的哆啦A夢短篇動畫，內容不對外公開發行，只有到訪的參觀者才能觀看，是最珍貴的限定體驗之一。</p>
+    </div>
+    <div class="highlight-item">
+      <div class="h-icon">🌿</div>
+      <h4>屋頂花園《光の谷》</h4>
+      <p>三樓屋頂設有「光の谷」故事花園，沿著步道可欣賞藤子・F・不二雄其他作品的場景，並眺望川崎市景，是夏秋兩季最美的角落。</p>
+    </div>
+    <div class="highlight-item">
+      <div class="h-icon">☕</div>
+      <h4>SNOWFLAKE 主題餐廳</h4>
+      <p>館內的專屬主題餐廳，提供以哆啦A夢及相關角色為靈感設計的季節性餐點與甜點。部分菜單隨特別展覽主題更換，是粉絲必排的用餐體驗。</p>
+    </div>
+    <div class="highlight-item">
+      <div class="h-icon">🛍️</div>
+      <h4>博物館限定商品</h4>
+      <p>博物館商品店販售大量館內限定商品（毛巾、文具、玩具、食品等），這些商品絕大多數不在博物館以外的任何地方販售，熱門商品開館後數小時即可售罄。</p>
+    </div>
+  </div>
+
+  <!-- Getting there -->
+  <h2 class="section-title" style="margin-top:36px">🚌 交通方式</h2>
+  <div class="info-panel" style="margin-bottom:20px;">
+    <div class="info-row"><span class="info-label">最近車站</span><span class="info-val">小田急線・JR南武線「登戸站」（のぼりと）</span></div>
+    <div class="info-row"><span class="info-label">接駁巴士</span><span class="info-val">從登戸站搭乘博物館指定接駁巴士，車程約10分鐘，班距密集，票價含博物館門票</span></div>
+    <div class="info-row"><span class="info-label">步行方案</span><span class="info-val">從向ヶ丘遊園站（小田急線）步行約17分鐘</span></div>
+    <div class="info-row"><span class="info-label">自駕</span><span class="info-val">不建議，館內無停車場，附近停車位極少</span></div>
+    <div class="info-row"><span class="info-label">從新宿出發</span><span class="info-val">小田急線急行約30分鐘至登戸，再搭接駁巴士</span></div>
+  </div>
+
+  <div class="travel-tip">
+    💡 <strong>達人建議：</strong>博物館商品店位於入口層，建議一入場先前往商店，避免熱門商品售完。主題餐廳需在館內現場排號，建議入場後立刻登記候位。語音導覽器（含繁體中文）在入場時借用，費用包含在票價內。
+  </div>
+
+  <div class="travel-tip" style="border-left-color:var(--red); background:linear-gradient(135deg,#fff0f0,#ffe6e6);">
+    ⚠️ <strong>注意事項：</strong>本館採完全預約制，到現場不接受臨時購票。旅遊旺季（春假、暑假、黃金週）建議提前一個月以上購票。館內禁止攝影的區域（原稿展區）請務必遵守規定。
+  </div>
+
+  <div style="text-align:center; margin-top:32px;">
+    <a href="https://fujiko-museum.com/" target="_blank" rel="noopener"
+       style="display:inline-block;background:var(--blue);color:white;padding:12px 28px;border-radius:25px;font-weight:800;font-size:0.95rem;text-decoration:none;">
+      前往官方網站購票 →
+    </a>
+    <div style="margin-top:10px; font-size:0.78rem; color:var(--text-light);">（外部連結：fujiko-museum.com）</div>
+  </div>
+
+</div>
+
+<footer>
+  <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
+  <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan</p>
+</footer>
+</body>
+</html>
