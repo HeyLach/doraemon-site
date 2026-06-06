@@ -21,9 +21,30 @@
   .spot-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 32px; }
   .spot-card { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 3px 14px var(--shadow); }
   .spot-img {
-    height: 160px; display: flex; align-items: center; justify-content: center;
+    height: 160px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
     font-size: 3.5rem; flex-direction: column; gap: 8px;
   }
+  .spot-img img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  }
+  .spot-img-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    font-size: 0.72rem; font-weight: 800; color: white;
+    background: rgba(0,0,0,0.5); padding: 4px 8px; text-align: center;
+  }
+  .tram-photos {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    margin-top: 18px; border-radius: 10px; overflow: hidden;
+  }
+  .tram-photo-cell { position: relative; height: 190px; overflow: hidden; border-radius: 8px; }
+  .tram-photo-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tram-photo-cell .tram-photo-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    font-size: 0.7rem; font-weight: 700; color: white;
+    background: rgba(0,0,0,0.5); padding: 4px 8px;
+  }
+  @media (max-width: 480px) { .tram-photos { grid-template-columns: 1fr; } }
   .spot-label { font-size: 0.75rem; font-weight: 800; color: rgba(255,255,255,0.9); }
   .spot-body { padding: 18px; }
   .spot-body h3 { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 1rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
@@ -108,10 +129,28 @@
     <h3>🚃 哆啦A夢彩繪電車（萬葉線）</h3>
     <p>行駛於高岡市內的萬葉線輕軌，推出以哆啦A夢和夥伴們為主題的彩繪電車。車廂外觀全面繪製哆啦A夢插畫，車廂內部也有角色裝飾，本身就是一個移動的哆啦A夢展覽。搭乘一次這輛電車，就是最道地的「故鄉體驗」。</p>
     <div class="tram-detail">
-      <div class="tram-detail-item"><strong>路線</strong>高岡駅前 ⇄ 越ノ潟（全線約20公里）</strong></div>
+      <div class="tram-detail-item"><strong>路線</strong>高岡駅前 ⇄ 越ノ潟（全線約20公里）</div>
       <div class="tram-detail-item"><strong>彩繪電車啟用</strong>2012年起（定期更新設計）</div>
       <div class="tram-detail-item"><strong>票價</strong>依乘車距離，起跳約 ¥210</div>
       <div class="tram-detail-item"><strong>乘車方式</strong>高岡駅（万葉線）出口搭乘</div>
+    </div>
+    <div class="tram-photos">
+      <div class="tram-photo-cell">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Manyo_MLRV-1003_DORAEMON-TRAM.jpg"
+             alt="萬葉線哆啦A夢電車（MLRV-1003）"
+             onerror="this.parentElement.style.background='#224422';this.style.display='none'">
+        <div class="tram-photo-label">哆啦A夢彩繪電車（2022年攝）</div>
+      </div>
+      <div class="tram-photo-cell">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Manyo-line_Takaoka-Eki-STA_Waiting-room.jpg"
+             alt="高岡站萬葉線站台候車室（哆啦A夢裝飾）"
+             onerror="this.parentElement.style.background='#224422';this.style.display='none'">
+        <div class="tram-photo-label">高岡站候車室 · 哆啦A夢主題裝飾</div>
+      </div>
+    </div>
+    <div style="font-size:0.72rem;opacity:0.75;margin-top:10px;line-height:1.8;">
+      📷 圖片來源：<a href="https://commons.wikimedia.org/wiki/File:Manyo_MLRV-1003_DORAEMON-TRAM.jpg" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85)">哆啦A夢電車</a> by MaedaAkihiko（CC BY-SA 4.0）；
+      <a href="https://commons.wikimedia.org/wiki/File:Manyo-line_Takaoka-Eki-STA_Waiting-room.jpg" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85)">高岡站候車室</a> by MaedaAkihiko（CC BY-SA 4.0）— Wikimedia Commons
     </div>
   </div>
 
