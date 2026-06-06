@@ -38,36 +38,63 @@ body { background: #162444; }
   position: relative;
 }
 .room-photo-img { width: 100%; display: block; }
+
+/* ── hotspot base ── */
 .room-hotspot {
   position: absolute;
   border: 2px solid transparent;
   border-radius: 8px;
   transition: all 0.25s;
   text-decoration: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 10px;
 }
 .room-hotspot:hover {
   background: rgba(0,153,204,0.18);
-  border-color: rgba(0,200,255,0.65);
-  box-shadow: 0 0 16px rgba(0,153,204,0.35);
+  border-color: rgba(0,200,255,0.7);
+  box-shadow: 0 0 20px rgba(0,153,204,0.4);
 }
-.room-hotspot-label {
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.82);
+
+/* ── always-visible badge ── */
+.room-hotspot-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0,0,0,0.68);
+  backdrop-filter: blur(4px);
   color: white;
-  padding: 5px 14px;
+  padding: 5px 12px 5px 8px;
   border-radius: 20px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 800;
   white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
   font-family: 'M PLUS Rounded 1c', sans-serif;
+  border: 1px solid rgba(255,255,255,0.18);
+  transition: transform 0.2s, background 0.2s;
+  pointer-events: none;
+  position: relative;
 }
-.room-hotspot:hover .room-hotspot-label { opacity: 1; }
+.room-hotspot:hover .room-hotspot-badge {
+  background: rgba(0,100,180,0.88);
+  transform: scale(1.06);
+  border-color: rgba(0,200,255,0.5);
+}
+
+/* ── pulse dot ── */
+.hotspot-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00ccff;
+  flex-shrink: 0;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.7); }
+}
 </style>
 </head>
 <body>
@@ -102,22 +129,22 @@ body { background: #162444; }
 
     <!-- Bookshelf → Museums -->
     <a href="museums.html" class="room-hotspot" style="left:23%;width:18%;top:15%;height:72%;" title="博物館">
-      <span class="room-hotspot-label">🏛️ 博物館</span>
+      <span class="room-hotspot-badge"><span class="hotspot-dot"></span>🏛️ 博物館</span>
     </a>
 
     <!-- Center window → Characters -->
     <a href="characters.html" class="room-hotspot" style="left:41%;width:20%;top:5%;height:80%;" title="人物介紹">
-      <span class="room-hotspot-label">👥 人物介紹</span>
+      <span class="room-hotspot-badge"><span class="hotspot-dot"></span>👥 人物介紹</span>
     </a>
 
     <!-- Desk → Chronicle (Time Machine) -->
     <a href="chronicle.html" class="room-hotspot" style="left:57%;width:19%;top:22%;height:60%;" title="哆啦A夢編年史">
-      <span class="room-hotspot-label">⏰ 哆啦A夢編年史</span>
+      <span class="room-hotspot-badge"><span class="hotspot-dot"></span>⏰ 編年史</span>
     </a>
 
     <!-- Blue door → Taiwan column -->
     <a href="taiwan.html" class="room-hotspot" style="left:76%;width:16%;top:5%;height:82%;" title="台灣小叮噹">
-      <span class="room-hotspot-label">📖 台灣小叮噹</span>
+      <span class="room-hotspot-badge"><span class="hotspot-dot"></span>📖 台灣小叮噹</span>
     </a>
   </div>
 

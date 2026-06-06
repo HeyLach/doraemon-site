@@ -7,7 +7,13 @@
 <title>人物介紹 · 哆啦A夢の秘密基地</title>
 <link rel="stylesheet" href="css/style.css">
 <style>
-  /* ── Character card with real image ─────── */
+  /* ── Card entrance animation ─────────────── */
+  @keyframes card-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Grid ─────────────────────────────────── */
   .char-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -15,75 +21,103 @@
     margin-bottom: 40px;
   }
 
+  /* ── Card ─────────────────────────────────── */
   .char-card {
     background: white;
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 4px 20px var(--shadow);
-    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 4px 24px var(--shadow);
+    transition: transform 0.28s cubic-bezier(.34,1.4,.64,1), box-shadow 0.28s;
     display: flex;
     flex-direction: column;
+    animation: card-in 0.5s ease both;
   }
+  .char-card:nth-child(2) { animation-delay: 0.05s; }
+  .char-card:nth-child(3) { animation-delay: 0.10s; }
+  .char-card:nth-child(4) { animation-delay: 0.15s; }
+  .char-card:nth-child(5) { animation-delay: 0.20s; }
+  .char-card:nth-child(6) { animation-delay: 0.25s; }
   .char-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 32px var(--shadow-deep);
+    transform: translateY(-8px) scale(1.015);
+    box-shadow: 0 18px 40px var(--shadow-deep);
   }
 
+  /* ── Image area ───────────────────────────── */
   .char-img-wrap {
-    height: 220px;
+    height: 240px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     position: relative;
     overflow: hidden;
+  }
+  /* gradient fade at bottom edge of image area */
+  .char-img-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.06));
+    pointer-events: none;
   }
   .char-img-wrap img {
     height: 100%;
     width: 100%;
     object-fit: contain;
     object-position: center bottom;
-    padding: 12px 12px 0;
+    padding: 8px 8px 0;
     display: block;
-    transition: transform 0.3s;
+    transition: transform 0.35s cubic-bezier(.34,1.3,.64,1);
   }
-  .char-card:hover .char-img-wrap img { transform: scale(1.04); }
+  .char-card:hover .char-img-wrap img { transform: scale(1.06); }
 
-  /* fallback bg color per character */
-  .bg-doraemon { background: linear-gradient(160deg, #d0eeff 0%, #aaddff 100%); }
-  .bg-nobita   { background: linear-gradient(160deg, #fff8d0 0%, #ffeea0 100%); }
-  .bg-shizuka  { background: linear-gradient(160deg, #ffd6e8 0%, #ffb3d1 100%); }
-  .bg-gian     { background: linear-gradient(160deg, #ffe0c0 0%, #ffcc90 100%); }
-  .bg-suneo    { background: linear-gradient(160deg, #d8ffcc 0%, #b8f0a0 100%); }
-  .bg-dorami   { background: linear-gradient(160deg, #fffcb0 0%, #fff080 100%); }
-  .bg-mom      { background: linear-gradient(160deg, #eed8ff 0%, #ddaaff 100%); }
-  .bg-dad      { background: linear-gradient(160deg, #cce0ff 0%, #aaccff 100%); }
-  .bg-creator  { background: linear-gradient(160deg, #e8e8e8 0%, #cccccc 100%); }
+  /* fallback bg gradients */
+  .bg-doraemon { background: linear-gradient(160deg, #b8e0ff 0%, #7fc8f8 100%); }
+  .bg-nobita   { background: linear-gradient(160deg, #fff5b8 0%, #ffe870 100%); }
+  .bg-shizuka  { background: linear-gradient(160deg, #ffc8e0 0%, #ff90c0 100%); }
+  .bg-gian     { background: linear-gradient(160deg, #ffd0a0 0%, #ffb060 100%); }
+  .bg-suneo    { background: linear-gradient(160deg, #c8f0b0 0%, #90dd70 100%); }
+  .bg-dorami   { background: linear-gradient(160deg, #fff880 0%, #ffe820 100%); }
+  .bg-mom      { background: linear-gradient(160deg, #e8c8ff 0%, #cc88ff 100%); }
+  .bg-dad      { background: linear-gradient(160deg, #bcd8ff 0%, #88b8ff 100%); }
+  .bg-creator  { background: linear-gradient(160deg, #e0e0e0 0%, #c0c0c0 100%); }
 
-  .char-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+  /* ── Card body ────────────────────────────── */
+  .char-body { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
 
-  .char-name-jp { font-size: 0.76rem; color: var(--text-light); margin-bottom: 2px; }
+  .char-name-jp {
+    font-size: 0.74rem;
+    color: var(--text-light);
+    margin-bottom: 2px;
+    letter-spacing: 0.02em;
+  }
   .char-card h3 {
     font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 800;
     color: var(--text);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .char-role {
-    display: inline-block;
-    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.76rem;
     font-weight: 700;
     color: white;
-    padding: 3px 12px;
+    padding: 4px 14px;
     border-radius: 20px;
     margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    letter-spacing: 0.03em;
   }
   .char-desc {
-    font-size: 0.87rem;
+    font-size: 0.875rem;
     color: var(--text-mid);
-    line-height: 1.7;
+    line-height: 1.75;
     flex: 1;
   }
+
+  /* ── Facts table ──────────────────────────── */
   .char-facts {
     margin-top: 14px;
     padding-top: 12px;
@@ -92,18 +126,34 @@
   .char-fact {
     display: flex;
     font-size: 0.8rem;
-    padding: 3px 0;
+    padding: 4px 6px;
     gap: 8px;
+    border-radius: 6px;
   }
+  .char-fact:nth-child(odd) { background: #f8f9fc; }
   .char-fact-label {
     color: var(--text-light);
-    min-width: 58px;
+    min-width: 60px;
     font-weight: 700;
     flex-shrink: 0;
   }
   .char-fact-val { color: var(--text-mid); }
 
-  /* ── Gadgets ─────────────────────────────── */
+  /* ── Section title ────────────────────────── */
+  .char-section-title {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: white;
+    margin: 44px 0 22px;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,100,180,0.25);
+    display: inline-block;
+  }
+
+  /* ── Gadgets ──────────────────────────────── */
   .gadget-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
@@ -112,46 +162,51 @@
   }
   .gadget-item {
     background: white;
-    border-radius: 10px;
-    padding: 10px 14px;
+    border-radius: 12px;
+    padding: 12px 14px;
     display: flex;
     align-items: center;
     gap: 12px;
     box-shadow: 0 2px 8px var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
   }
-  .gadget-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .gadget-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px var(--shadow);
+  }
+  .gadget-icon { font-size: 1.7rem; flex-shrink: 0; }
   .gadget-name { font-weight: 700; font-size: 0.88rem; color: var(--text); display: block; }
-  .gadget-desc { font-size: 0.76rem; color: var(--text-light); }
+  .gadget-desc { font-size: 0.75rem; color: var(--text-light); }
 
-  /* ── Creator card ────────────────────────── */
+  /* ── Creator card ─────────────────────────── */
   .creator-card {
     background: white;
-    border-radius: 16px;
-    padding: 28px;
+    border-radius: 20px;
+    padding: 28px 32px;
     display: flex;
-    gap: 24px;
+    gap: 28px;
     align-items: flex-start;
-    box-shadow: 0 4px 16px var(--shadow);
+    box-shadow: 0 4px 20px var(--shadow);
     margin-bottom: 20px;
+    border-left: 5px solid var(--blue);
+    transition: box-shadow 0.2s;
   }
+  .creator-card:hover { box-shadow: 0 8px 32px var(--shadow-deep); }
   .creator-img-wrap {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
-    background: #ddd;
+    background: linear-gradient(135deg, #d0eeff, #7fc8f8);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3.5rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 3.2rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    border: 3px solid var(--blue);
   }
-  .creator-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  .creator-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
   .creator-info h3 {
     font-family: 'M PLUS Rounded 1c', sans-serif;
     font-size: 1.3rem;
@@ -160,18 +215,18 @@
     margin-bottom: 3px;
   }
   .creator-info .sub-name { font-size: 0.85rem; color: var(--text-light); margin-bottom: 10px; }
-  .creator-info p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; }
-  .fact-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+  .creator-info p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.8; }
+  .fact-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
   .fact-chip {
-    background: var(--cream);
-    border: 1px solid #ddd;
+    background: #eef4ff;
+    border: 1px solid #c8d8f0;
     border-radius: 20px;
-    padding: 3px 12px;
+    padding: 4px 14px;
     font-size: 0.78rem;
     color: var(--text-mid);
   }
 
-  /* ── Image credit notice ─────────────────── */
+  /* ── Credit bar ───────────────────────────── */
   .img-credit-bar {
     background: #f8f8f8;
     border: 1px solid #e0e0e0;
@@ -184,20 +239,12 @@
   }
   .img-credit-bar a { color: var(--blue-dark); }
 
-  .char-section-title {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: var(--text);
-    margin: 40px 0 20px;
-    padding-left: 14px;
-    border-left: 5px solid var(--blue);
-  }
-
+  /* ── Responsive ───────────────────────────── */
   @media (max-width: 560px) {
-    .char-grid { grid-template-columns: repeat(2, 1fr); }
-    .char-img-wrap { height: 160px; }
-    .creator-card { flex-direction: column; align-items: center; text-align: center; }
+    .char-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .char-img-wrap { height: 170px; }
+    .char-section-title { font-size: 1rem; padding: 8px 14px; }
+    .creator-card { flex-direction: column; align-items: center; text-align: center; padding: 20px; }
     .fact-chips { justify-content: center; }
   }
   @media (max-width: 380px) {
@@ -351,7 +398,7 @@
     <!-- Dorami -->
     <div class="char-card">
       <div class="char-img-wrap bg-dorami" style="align-items:center;justify-content:center;">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d7/Dorami.png/250px-Dorami.png"
+        <img src="char-dorami.jpg"
              alt="哆啦美角色圖"
              onerror="this.style.display='none'">
       </div>
@@ -377,7 +424,7 @@
 
     <div class="char-card">
       <div class="char-img-wrap bg-mom" style="height:160px;">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/Tamako_Nobi.png/200px-Tamako_Nobi.png"
+        <img src="char-nobita-mom.jpg"
              alt="野比玉子（大雄的媽媽）"
              onerror="this.style.display='none'">
       </div>
@@ -395,7 +442,7 @@
 
     <div class="char-card">
       <div class="char-img-wrap bg-dad" style="height:160px;">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ab/Nobisuke_Nobi.png/200px-Nobisuke_Nobi.png"
+        <img src="char-nobita-dad.jpg"
              alt="野比則雄（大雄的爸爸）"
              onerror="this.style.display='none'">
       </div>
@@ -413,7 +460,7 @@
 
     <div class="char-card">
       <div class="char-img-wrap" style="height:160px; background:linear-gradient(160deg,#ffddaa 0%,#cc8844 100%); align-items:center; justify-content:center;">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Dekisugi.png/200px-Dekisugi.png"
+        <img src="char-dekisugi.jpg"
              alt="出木杉英才（王聰明）"
              onerror="this.style.display='none'">
       </div>
@@ -438,7 +485,7 @@
     <!-- Teacher -->
     <div class="char-card">
       <div class="char-img-wrap" style="height:160px; background:linear-gradient(160deg,#dde8ff 0%,#aabfe8 100%);">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Nobita%27s_teacher.png/200px-Nobita%27s_teacher.png"
+        <img src="char-teacher.jpg"
              alt="大雄的班導師"
              onerror="this.style.display='none'">
       </div>
@@ -457,7 +504,7 @@
     <!-- Kaminari-san -->
     <div class="char-card">
       <div class="char-img-wrap" style="height:160px; background:linear-gradient(160deg,#e8e0cc 0%,#c8b888 100%);">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/85/Kaminari-san.png/200px-Kaminari-san.png"
+        <img src="char-kaminari.jpg"
              alt="神成先生"
              onerror="this.style.display='none'">
       </div>
@@ -476,16 +523,17 @@
     <!-- Jaiko -->
     <div class="char-card">
       <div class="char-img-wrap" style="height:160px; background:linear-gradient(160deg,#ffd6f0 0%,#ffaad8 100%);">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Jaiko.png/200px-Jaiko.png"
-             alt="剛田吉子（胖虎的妹妹）"
+        <img src="char-jaiko.jpg"
+             alt="剛田小珠（胖虎的妹妹）"
              onerror="this.style.display='none'">
       </div>
       <div class="char-body">
-        <div class="char-name-jp">剛田吉子（ジャイ子）</div>
-        <h3>吉子（胖虎妹妹）</h3>
+        <div class="char-name-jp">剛田吉子（ジャイ子）／ 台灣版：小珠</div>
+        <h3>小珠（胖虎妹妹）</h3>
         <span class="char-role" style="background:#aa3377">夢想漫畫家</span>
-        <p class="char-desc">胖虎的妹妹，立志成為漫畫家，創作出各種情節怪異的作品。繼承了哥哥的外貌特徵，但個性善良純真。在某些故事版本中，大雄差點和她訂婚，是個令大雄既敬畏又同情的存在。</p>
+        <p class="char-desc">胖虎的妹妹，立志成為漫畫家，創作出各種情節怪異的作品。繼承了哥哥的外貌特徵，但個性善良純真。在某些故事版本中，大雄差點和她訂婚，是個令大雄既敬畏又同情的存在。台灣版名「小珠」。</p>
         <div class="char-facts">
+          <div class="char-fact"><span class="char-fact-label">台灣名</span><span class="char-fact-val">小珠</span></div>
           <div class="char-fact"><span class="char-fact-label">夢想</span><span class="char-fact-val">成為漫畫家</span></div>
           <div class="char-fact"><span class="char-fact-label">特點</span><span class="char-fact-val">漫畫題材天馬行空、劇情驚人</span></div>
         </div>
@@ -495,7 +543,7 @@
     <!-- Suneo's Mom -->
     <div class="char-card">
       <div class="char-img-wrap" style="height:160px; background:linear-gradient(160deg,#d0f0d8 0%,#a0d8b0 100%);">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Suneo%27s_mother.png/200px-Suneo%27s_mother.png"
+        <img src="char-suneo-mom.jpg"
              alt="小夫的媽媽"
              onerror="this.style.display='none'">
       </div>
@@ -514,7 +562,7 @@
     <!-- Gian's Mom -->
     <div class="char-card">
       <div class="char-img-wrap" style="height:160px; background:linear-gradient(160deg,#ffe0c0 0%,#ffb870 100%);">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Gian%27s_mother.png/200px-Gian%27s_mother.png"
+        <img src="char-gian-mom.webp"
              alt="胖虎的媽媽"
              onerror="this.style.display='none'">
       </div>
@@ -531,6 +579,136 @@
     </div>
 
   </div><!-- /鄰居與其他配角 grid -->
+
+  <!-- ── 人物關係圖 ── -->
+  <div class="char-section-title">🕸️ 人物關係圖</div>
+  <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 4px 20px var(--shadow);margin-bottom:40px;overflow-x:auto;">
+  <svg viewBox="0 0 940 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:600px;display:block;font-family:'M PLUS Rounded 1c',sans-serif;">
+    <defs>
+      <marker id="arr-blue"   markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#0088cc"/></marker>
+      <marker id="arr-pink"   markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#dd3377"/></marker>
+      <marker id="arr-orange" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#cc5500"/></marker>
+      <marker id="arr-green"  markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#337700"/></marker>
+      <marker id="arr-purple" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#7733aa"/></marker>
+      <marker id="arr-gray"   markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#556677"/></marker>
+      <marker id="arr-tan"    markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#886622"/></marker>
+    </defs>
+
+    <!-- bg -->
+    <rect width="940" height="480" rx="12" fill="#f4f8ff"/>
+
+    <!-- ══ EDGES (drawn first, under nodes) ══ -->
+
+    <!-- 哆啦美 ↔ 哆啦A夢 兄妹 -->
+    <line x1="185" y1="355" x2="185" y2="230" stroke="#cc6600" stroke-width="2.2" stroke-dasharray="6,3"/>
+    <text x="200" y="298" font-size="11" fill="#cc6600" font-weight="700">兄妹</text>
+
+    <!-- 哆啦A夢 → 大雄 守護夥伴 -->
+    <line x1="248" y1="203" x2="352" y2="203" stroke="#0088cc" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+    <text x="270" y="196" font-size="11" fill="#0088cc" font-weight="700">守護夥伴</text>
+
+    <!-- 老師 → 大雄 師生 -->
+    <line x1="130" y1="102" x2="362" y2="186" stroke="#556677" stroke-width="2" marker-end="url(#arr-gray)"/>
+    <text x="210" y="138" font-size="11" fill="#556677" font-weight="700">師生</text>
+
+    <!-- 大雄 → 靜香 暗戀 -->
+    <line x1="468" y1="188" x2="578" y2="138" stroke="#dd3377" stroke-width="2.2" marker-end="url(#arr-pink)"/>
+    <text x="498" y="158" font-size="11" fill="#dd3377" font-weight="700">暗戀</text>
+
+    <!-- 大雄 → 出木杉 同班同學 -->
+    <path d="M 470,192 Q 640,90 756,128" fill="none" stroke="#886622" stroke-width="1.8" marker-end="url(#arr-tan)"/>
+    <text x="600" y="107" font-size="11" fill="#886622" font-weight="700">同班同學</text>
+
+    <!-- 靜香 ↔ 出木杉 相互欣賞 -->
+    <line x1="682" y1="125" x2="752" y2="131" stroke="#dd3377" stroke-width="1.6" stroke-dasharray="5,3"/>
+    <text x="692" y="118" font-size="10" fill="#dd3377">相互欣賞</text>
+
+    <!-- 大雄 → 胖虎 被欺負 -->
+    <line x1="462" y1="220" x2="568" y2="278" stroke="#cc5500" stroke-width="2.2" marker-end="url(#arr-orange)"/>
+    <text x="488" y="265" font-size="11" fill="#cc5500" font-weight="700">被欺負</text>
+
+    <!-- 胖虎 → 小夫 跟班 -->
+    <line x1="668" y1="298" x2="762" y2="352" stroke="#337700" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="693" y="335" font-size="11" fill="#337700" font-weight="700">跟班</text>
+
+    <!-- 胖虎 → 小珠 兄妹 -->
+    <line x1="620" y1="318" x2="620" y2="398" stroke="#cc6600" stroke-width="2" stroke-dasharray="6,3"/>
+    <text x="632" y="363" font-size="11" fill="#cc6600" font-weight="700">兄妹</text>
+
+    <!-- 大雄 → 媽媽 母子 -->
+    <line x1="378" y1="220" x2="312" y2="372" stroke="#7733aa" stroke-width="2" marker-end="url(#arr-purple)"/>
+    <text x="324" y="302" font-size="11" fill="#7733aa" font-weight="700">母子</text>
+
+    <!-- 大雄 → 爸爸 父子 -->
+    <line x1="420" y1="220" x2="494" y2="372" stroke="#2255aa" stroke-width="2" marker-end="url(#arr-purple)"/>
+    <text x="444" y="302" font-size="11" fill="#2255aa" font-weight="700">父子</text>
+
+    <!-- ══ NODES ══ -->
+
+    <!-- 老師 -->
+    <rect x="30" y="74" width="110" height="38" rx="10" fill="#8899bb"/>
+    <text x="85" y="98" text-anchor="middle" font-size="13" font-weight="800" fill="white">大雄的老師</text>
+
+    <!-- 哆啦A夢 -->
+    <rect x="122" y="183" width="126" height="40" rx="12" fill="#0099cc"/>
+    <text x="185" y="208" text-anchor="middle" font-size="14" font-weight="800" fill="white">哆啦A夢</text>
+
+    <!-- 哆啦美 -->
+    <rect x="122" y="355" width="126" height="40" rx="12" fill="#ddaa00"/>
+    <text x="185" y="380" text-anchor="middle" font-size="14" font-weight="800" fill="white">哆啦美</text>
+
+    <!-- 大雄 -->
+    <rect x="352" y="183" width="116" height="40" rx="12" fill="#cc8800"/>
+    <text x="410" y="208" text-anchor="middle" font-size="14" font-weight="800" fill="white">野比大雄</text>
+
+    <!-- 靜香 -->
+    <rect x="568" y="105" width="104" height="38" rx="12" fill="#cc3366"/>
+    <text x="620" y="129" text-anchor="middle" font-size="14" font-weight="800" fill="white">靜香</text>
+
+    <!-- 出木杉 -->
+    <rect x="752" y="113" width="104" height="38" rx="12" fill="#885522"/>
+    <text x="804" y="137" text-anchor="middle" font-size="14" font-weight="800" fill="white">出木杉</text>
+
+    <!-- 胖虎 -->
+    <rect x="568" y="258" width="104" height="40" rx="12" fill="#cc5500"/>
+    <text x="620" y="283" text-anchor="middle" font-size="14" font-weight="800" fill="white">胖虎</text>
+
+    <!-- 小夫 -->
+    <rect x="762" y="332" width="104" height="40" rx="12" fill="#448822"/>
+    <text x="814" y="357" text-anchor="middle" font-size="14" font-weight="800" fill="white">小夫</text>
+
+    <!-- 小珠（胖虎妹） -->
+    <rect x="568" y="398" width="104" height="38" rx="12" fill="#cc4488"/>
+    <text x="620" y="422" text-anchor="middle" font-size="13" font-weight="800" fill="white">小珠（胖虎妹）</text>
+
+    <!-- 大雄媽媽 -->
+    <rect x="240" y="372" width="116" height="38" rx="12" fill="#7733aa"/>
+    <text x="298" y="396" text-anchor="middle" font-size="13" font-weight="800" fill="white">大雄媽媽</text>
+
+    <!-- 大雄爸爸 -->
+    <rect x="438" y="372" width="116" height="38" rx="12" fill="#336699"/>
+    <text x="496" y="396" text-anchor="middle" font-size="13" font-weight="800" fill="white">大雄爸爸</text>
+
+    <!-- ══ LEGEND ══ -->
+    <rect x="10" y="440" width="920" height="32" rx="8" fill="rgba(0,0,0,0.04)"/>
+    <line x1="28" y1="456" x2="58" y2="456" stroke="#0088cc" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+    <text x="64" y="460" font-size="11" fill="#444">守護</text>
+    <line x1="115" y1="456" x2="145" y2="456" stroke="#dd3377" stroke-width="2" marker-end="url(#arr-pink)"/>
+    <text x="151" y="460" font-size="11" fill="#444">戀愛/欣賞</text>
+    <line x1="228" y1="456" x2="258" y2="456" stroke="#cc5500" stroke-width="2.2" marker-end="url(#arr-orange)"/>
+    <text x="264" y="460" font-size="11" fill="#444">欺負</text>
+    <line x1="308" y1="456" x2="338" y2="456" stroke="#7733aa" stroke-width="2" marker-end="url(#arr-purple)"/>
+    <text x="344" y="460" font-size="11" fill="#444">家人</text>
+    <line x1="386" y1="456" x2="416" y2="456" stroke="#cc6600" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="422" y="460" font-size="11" fill="#444">兄妹</text>
+    <line x1="460" y1="456" x2="490" y2="456" stroke="#556677" stroke-width="2" marker-end="url(#arr-gray)"/>
+    <text x="496" y="460" font-size="11" fill="#444">師生</text>
+    <line x1="535" y1="456" x2="565" y2="456" stroke="#337700" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="571" y="460" font-size="11" fill="#444">跟班</text>
+    <line x1="612" y1="456" x2="642" y2="456" stroke="#886622" stroke-width="1.8" marker-end="url(#arr-tan)"/>
+    <text x="648" y="460" font-size="11" fill="#444">同班同學</text>
+  </svg>
+  </div>
 
   <!-- ── 著名道具 ── -->
   <div style="background:linear-gradient(135deg,#e6f0ff,#d6e8ff);border-radius:14px;padding:28px 24px;margin:40px 0;">
