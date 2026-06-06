@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全球哆啦A夢博物館 · 哆啦A夢の秘密基地</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .museum-img-fujiko {
+    background: linear-gradient(135deg, #0055aa 0%, #0099e6 60%, #66ccff 100%);
+  }
+  .museum-img-takaoka {
+    background: linear-gradient(135deg, #336633 0%, #55aa55 60%, #88cc88 100%);
+  }
+  .museum-img-taiwan {
+    background: linear-gradient(135deg, #cc0000 0%, #ee4444 60%, #ff8888 100%);
+  }
+  .museum-img-yokohama {
+    background: linear-gradient(135deg, #660099 0%, #9933cc 60%, #cc88ff 100%);
+  }
+  .museum-img-himi {
+    background: linear-gradient(135deg, #994400 0%, #cc7722 60%, #ffaa44 100%);
+  }
+  .museum-img-world {
+    background: linear-gradient(135deg, #003366 0%, #336699 60%, #6699cc 100%);
+  }
+
+  .museum-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    height: 180px;
+    overflow: hidden;
+  }
+  .museum-photo-grid > div {
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: rgba(255,255,255,0.9);
+    font-weight: 700;
+    font-size: 0.65rem;
+    text-align: center;
+    padding: 4px;
+  }
+
+  .museum-highlights {
+    margin-top: 12px;
+  }
+  .museum-highlights h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .museum-highlights ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .museum-highlights li {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    padding: 3px 0;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .museum-highlights li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--yellow);
+    color: var(--text);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    z-index: 2;
+  }
+
+  .museum-card { position: relative; }
+
+  .section-note {
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 28px;
+    border-left: 4px solid var(--blue);
+  }
+
+  .travel-tips {
+    background: linear-gradient(135deg, #e6f7ff 0%, #d6edff 100%);
+    border-radius: 14px;
+    padding: 28px 24px;
+    margin-top: 40px;
+  }
+  .travel-tips h2 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+    margin-bottom: 16px;
+  }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .tip-item {
+    background: white;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+  .tip-item strong {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <div class="logo-icon">🔵</div>
+      <div class="logo-text">哆啦A夢の秘密基地<div class="logo-sub">小叮噹資訊館</div></div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">🏠 首頁</a>
+      <a href="chronicle.html">⏰ 編年史</a>
+      <a href="taiwan.html">🇹🇼 小叮噹</a>
+      <a href="museums.html" class="active">🏛️ 博物館</a>
+      <a href="characters.html">👥 人物</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div style="font-size:3rem; margin-bottom:14px">🏛️</div>
+  <h1>全球哆啦A夢博物館</h1>
+  <p>世界各地的博物館、紀念館、收藏館——前往哆啦A夢聖地的朝聖指南</p>
+</div>
+
+<div class="content-wrap">
+
+  <div class="section-note">
+    📍 本頁收錄全球主要的哆啦A夢相關博物館與展館資訊，包括常設館與知名巡迴展。部分數據為官方公開資料，實際情況請以各館官網為準。
+  </div>
+
+  <h2 class="section-title">🇯🇵 日本・常設博物館與紀念地</h2>
+
+  <div class="museums-grid" style="margin-bottom:40px">
+
+    <!-- Museum 1: Fujiko Museum -->
+    <div class="museum-card">
+      <div class="featured-badge">⭐ 旗艦館</div>
+      <div class="museum-img museum-img-fujiko">
+        <div class="museum-photo-grid">
+          <div style="background:rgba(0,0,0,0.2)">原稿展示室</div>
+          <div style="background:rgba(0,0,0,0.15)">主題餐廳</div>
+          <div style="background:rgba(0,0,0,0.25)">屋頂花園</div>
+          <div style="background:rgba(0,0,0,0.2)">3D雕塑</div>
+          <div style="background:rgba(0,0,0,0.15)">圖書室</div>
+          <div style="background:rgba(0,0,0,0.25)">限定商品</div>
+        </div>
+      </div>
+      <div class="museum-body">
+        <div class="museum-badge">
+          <span class="badge badge-blue">神奈川縣</span>
+          <span class="badge badge-green">常設館</span>
+        </div>
+        <h3>川崎市 藤子・F・不二雄ミュージアム</h3>
+        <div class="museum-location">📍 神奈川縣川崎市多摩區長尾2-8-1</div>
+        <p class="museum-desc">全世界最重要的哆啦A夢聖地，由藤子・F・不二雄的遺孀及藤子プロ監修，川崎市共同管理。2011年9月3日（藤子先生生日）正式開幕。館內收藏超過5萬件珍貴手稿原作，是唯一能親眼看到藤子先生筆觸的地方。</p>
+        <div class="museum-stats">
+          <div class="stat-item">
+            <span class="stat-label">開幕時間</span>
+            <span class="stat-value">2011年9月3日</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">館藏數量</span>
+            <span class="stat-value">逾5萬件原稿</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">館內面積</span>
+            <span class="stat-value">約2,100 m²</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">樓層</span>
+            <span class="stat-value">3層＋屋頂花園</span>
+          </div>
+        </div>
+        <div class="museum-highlights">
+          <h4>主要亮點</h4>
+          <ul>
+            <li>珍貴手稿原稿常設展（全球唯一）</li>
+            <li>真人比例的角色立體雕像</li>
+            <li>屋頂花園設有《光の谷》連環圖</li>
+            <li>限定短片戲院（館內限定動畫）</li>
+            <li>SNOWFLAKE 主題餐廳（季節限定菜單）</li>
+            <li>博物館限定商品（不在外部販售）</li>
+            <li>入場需事先預購時段券，不接受現場購票</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Museum 2: Takaoka -->
+    <div class="museum-card">
+      <div class="museum-img museum-img-takaoka">
+        <div style="height:180px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+          <div style="font-size:3.5rem">🚃</div>
+          <div style="color:white; font-weight:800; font-size:1rem; text-shadow:0 2px 4px rgba(0,0,0,0.4)">哆啦A夢電車站</div>
+        </div>
+      </div>
+      <div class="museum-body">
+        <div class="museum-badge">
+          <span class="badge badge-blue">富山縣</span>
+          <span class="badge badge-yellow">故鄉聖地</span>
+        </div>
+        <h3>高岡市・藤子・F・不二雄ふるさとギャラリー</h3>
+        <div class="museum-location">📍 富山縣高岡市（高岡站前區域）</div>
+        <p class="museum-desc">高岡市是藤子・F・不二雄（藤本弘）的出生地，整個城市就是一個大型的哆啦A夢主題地。高岡車站設有哆啦A夢等6位主要角色的銅像，並有専屬的哆啦A夢彩繪電車（萬葉線輕軌）行駛其間。</p>
+        <div class="museum-stats">
+          <div class="stat-item">
+            <span class="stat-label">銅像設立</span>
+            <span class="stat-value">2012年起</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">哆啦A夢電車</span>
+            <span class="stat-value">2012年首發</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">角色銅像數</span>
+            <span class="stat-value">6座（主要角色）</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">入場</span>
+            <span class="stat-value">戶外景點免費</span>
+          </div>
+        </div>
+        <div class="museum-highlights">
+          <h4>主要亮點</h4>
+          <ul>
+            <li>高岡駅前：哆啦A夢、大雄、靜香、胖虎、小夫、哆啦美銅像各一</li>
+            <li>萬葉線「哆啦A夢電車」定期行駛，車廂內外全面彩繪</li>
+            <li>藤子・F・不二雄誕生地紀念碑</li>
+            <li>「藤子・F・不二雄ふるさとギャラリー」展示本地創作資料</li>
+            <li>市內餐廳、商店有哆啦A夢限定商品</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Museum 3: Himi -->
+    <div class="museum-card">
+      <div class="museum-img museum-img-himi">
+        <div style="height:180px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+          <div style="font-size:3.5rem">🏘️</div>
+          <div style="color:white; font-weight:800; font-size:1rem; text-shadow:0 2px 4px rgba(0,0,0,0.4)">冰見市・忍者哈特利の里</div>
+        </div>
+      </div>
+      <div class="museum-body">
+        <div class="museum-badge">
+          <span class="badge badge-blue">富山縣</span>
+          <span class="badge badge-grey">紀念地</span>
+        </div>
+        <h3>冰見市・藤子不二雄Ⓐ記念館周邊</h3>
+        <div class="museum-location">📍 富山縣冰見市（氷見市）</div>
+        <p class="museum-desc">冰見市是藤子・F・不二雄的創作搭檔「藤子不二雄Ⓐ」（安孫子素雄）的家鄉。雖然主要以「忍者哈特利」著名，但作為兩位「藤子不二雄」共同發源地，這裡也是哆啦A夢迷探索作者根源的重要地點。市內設有多處角色彩繪牆與紀念裝置。</p>
+        <div class="museum-stats">
+          <div class="stat-item">
+            <span class="stat-label">關聯性</span>
+            <span class="stat-value">創作夥伴故鄉</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">主題</span>
+            <span class="stat-value">藤子Ⓐ全作品</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">入場費</span>
+            <span class="stat-value">依各景點不同</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">交通</span>
+            <span class="stat-value">JR氷見線</span>
+          </div>
+        </div>
+        <div class="museum-highlights">
+          <h4>主要亮點</h4>
+          <ul>
+            <li>「藤子不二雄Ⓐ Art Museum ひみつドコカノ？」</li>
+            <li>氷見線「忍者哈特利彩繪列車」</li>
+            <li>市內商店街有角色彩繪拉門</li>
+            <li>與高岡共同構成「富山藤子聖地巡禮」路線</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="section-title">🌏 巡迴展與海外展覽</h2>
+  <div class="museums-grid" style="margin-bottom:40px">
+
+    <!-- Museum 4: 哆啦A夢 Secret Tools Museum -->
+    <div class="museum-card">
+      <div class="museum-img museum-img-yokohama">
+        <div style="height:180px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+          <div style="font-size:3.5rem">🔧</div>
+          <div style="color:white; font-weight:800; font-size:1rem; text-shadow:0 2px 4px rgba(0,0,0,0.4)">秘密道具博物館</div>
+        </div>
+      </div>
+      <div class="museum-body">
+        <div class="museum-badge">
+          <span class="badge badge-blue">巡迴展</span>
+          <span class="badge badge-red">限定活動</span>
+        </div>
+        <h3>哆啦A夢秘密道具博物館（巡迴展）</h3>
+        <div class="museum-location">📍 曾巡迴：橫濱、東京、大阪、台灣等地</div>
+        <p class="museum-desc">以「如果哆啦A夢的秘密道具真的存在」為概念的大型互動特展。讓觀眾能親身體驗如「任意門」「小光圈」「竹蜻蜓」等道具的虛擬實境版本，是迄今最受歡迎的哆啦A夢大型特展之一，曾在2013至2014年間於亞洲多個城市巡迴。</p>
+        <div class="museum-stats">
+          <div class="stat-item">
+            <span class="stat-label">首展地點</span>
+            <span class="stat-value">橫濱（2013）</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">參觀人次</span>
+            <span class="stat-value">逾百萬人次</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">展覽規模</span>
+            <span class="stat-value">超過100件展品</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">展期</span>
+            <span class="stat-value">依各地場次不同</span>
+          </div>
+        </div>
+        <div class="museum-highlights">
+          <h4>主要亮點</h4>
+          <ul>
+            <li>真實比例的「任意門」互動裝置</li>
+            <li>「四次元口袋」虛擬道具體驗</li>
+            <li>角色真人比例立牌與合照區</li>
+            <li>限定版展覽特製商品</li>
+            <li>台灣場次曾在新光三越等地舉行</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Museum 5: Taiwan Exhibitions -->
+    <div class="museum-card">
+      <div class="museum-img museum-img-taiwan">
+        <div style="height:180px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+          <div style="font-size:3.5rem">🇹🇼</div>
+          <div style="color:white; font-weight:800; font-size:1rem; text-shadow:0 2px 4px rgba(0,0,0,0.4)">台灣哆啦A夢特展</div>
+        </div>
+      </div>
+      <div class="museum-body">
+        <div class="museum-badge">
+          <span class="badge badge-red">台灣</span>
+          <span class="badge badge-blue">特展</span>
+        </div>
+        <h3>台灣哆啦A夢特展（歷年）</h3>
+        <div class="museum-location">📍 台北、台中、高雄等地百貨公司及展演場館</div>
+        <p class="museum-desc">台灣多次舉辦哆啦A夢大型特展，尤其逢重要週年（45週年、50週年等）必有大規模活動。台灣粉絲對哆啦A夢的熱情極高，展覽期間往往大排長龍，購買紀念品的人潮不斷。</p>
+        <div class="museum-stats">
+          <div class="stat-item">
+            <span class="stat-label">近年大展</span>
+            <span class="stat-value">2014、2019等</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">常見場地</span>
+            <span class="stat-value">松菸、新光三越</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">票價</span>
+            <span class="stat-value">約NT$200~400</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">類型</span>
+            <span class="stat-value">臨時特展</span>
+          </div>
+        </div>
+        <div class="museum-highlights">
+          <h4>主要亮點</h4>
+          <ul>
+            <li>台灣50週年限定「哆啦A夢50・STAND BY ME」展</li>
+            <li>各場展覽均設有台灣限定特製紀念品</li>
+            <li>互動裝置：任意門、竹蜻蜓等道具體驗</li>
+            <li>部分展覽呈現台灣小叮噹文化歷史回顧</li>
+            <li>期間限定餐廳合作推出主題餐點</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Museum 6: World & Future -->
+    <div class="museum-card">
+      <div class="museum-img museum-img-world">
+        <div style="height:180px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+          <div style="font-size:3.5rem">🌍</div>
+          <div style="color:white; font-weight:800; font-size:1rem; text-shadow:0 2px 4px rgba(0,0,0,0.4)">亞洲各地巡迴展</div>
+        </div>
+      </div>
+      <div class="museum-body">
+        <div class="museum-badge">
+          <span class="badge badge-blue">全球巡迴</span>
+          <span class="badge badge-grey">亞太地區</span>
+        </div>
+        <h3>哆啦A夢全球巡迴展</h3>
+        <div class="museum-location">📍 香港、新加坡、韓國、中國大陸等亞太城市</div>
+        <p class="museum-desc">隨著哆啦A夢的全球知名度提升，相關展覽也遍及亞太各大城市。香港的限時特展、新加坡的大型展覽、韓國首爾的哆啦A夢展均曾引發大規模排隊人潮，顯示這個藍色機器貓的跨文化魅力。</p>
+        <div class="museum-stats">
+          <div class="stat-item">
+            <span class="stat-label">涵蓋地區</span>
+            <span class="stat-value">東亞・東南亞</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">展覽頻率</span>
+            <span class="stat-value">逢週年必辦</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">規模</span>
+            <span class="stat-value">大型商業展覽</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">語言支援</span>
+            <span class="stat-value">各地語言版本</span>
+          </div>
+        </div>
+        <div class="museum-highlights">
+          <h4>主要亮點</h4>
+          <ul>
+            <li>香港：多次於大型商場舉辦主題展</li>
+            <li>新加坡：與環球影城合作限時體驗</li>
+            <li>韓國首爾：COEX Mall 大型常設展示</li>
+            <li>中國大陸：多個城市的巡迴限時特展</li>
+            <li>各地均有當地限定版紀念商品</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Travel Tips -->
+  <div class="travel-tips">
+    <h2>✈️ 前往日本博物館的旅遊小提醒</h2>
+    <div class="tips-grid">
+      <div class="tip-item">
+        <strong>🎟️ 川崎博物館訂票</strong>
+        藤子・F・不二雄ミュージアム採完全預約制，現場不售票。建議至少一個月前在官方網站或 Lawson 購票，分時段入場（10:00、12:00、14:00、16:00）。
+      </div>
+      <div class="tip-item">
+        <strong>🚌 交通方式</strong>
+        從JR登戸站（新宿線/千代田線）搭乘博物館接駁巴士，車程約10分鐘，班距密集。也可從向ヶ丘遊園站步行約20分鐘。
+      </div>
+      <div class="tip-item">
+        <strong>🛍️ 限定商品搶購</strong>
+        博物館商品店的限定商品（毛巾、文具、玩具等）僅在館內販售，不在網路或外部商店流通。熱門商品常在開館後數小時售罄，建議一入場先去商店。
+      </div>
+      <div class="tip-item">
+        <strong>🏘️ 高岡周遊建議</strong>
+        可規劃「富山縣藤子聖地一日遊」：早上到冰見市、下午到高岡市，搭乘萬葉線哆啦A夢電車，完整體驗兩位藤子不二雄的故鄉風情。
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
+  <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan</p>
+</footer>
+
+</body>
+</html>

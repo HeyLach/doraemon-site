@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>哆啦A夢の秘密基地 — 小叮噹資訊館</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* Index-only overrides */
+  body { background: var(--cream); }
+
+  .room-intro {
+    background: linear-gradient(180deg, #0088cc 0%, #0055aa 100%);
+    color: white;
+    text-align: center;
+    padding: 40px 24px 32px;
+  }
+  .room-intro h1 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .room-intro .sub {
+    font-size: 1rem;
+    opacity: 0.85;
+    letter-spacing: 0.04em;
+  }
+
+  .drawer-link { display: block; text-decoration: none; }
+  .drawer-link .drawer-magic { display: flex; align-items: center; justify-content: center; }
+
+  .room-hint {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  .doraemon-svg {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto 20px;
+  }
+
+  .character-row {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    padding: 20px 0 10px;
+  }
+  .char-mini {
+    text-align: center;
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+  .char-mini span {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--text-light);
+    font-weight: 700;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <div class="logo-icon">🔵</div>
+      <div class="logo-text">
+        哆啦A夢の秘密基地
+        <div class="logo-sub">小叮噹資訊館</div>
+      </div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html" class="active">🏠 首頁</a>
+      <a href="chronicle.html">⏰ 編年史</a>
+      <a href="taiwan.html">🇹🇼 小叮噹</a>
+      <a href="museums.html">🏛️ 博物館</a>
+      <a href="characters.html">👥 人物</a>
+    </nav>
+  </div>
+</header>
+
+<div class="room-intro">
+  <h1>哆啦A夢の秘密基地</h1>
+  <p class="sub">穿越時空的藍色小叮噹 · 台灣與世界的哆啦A夢故事</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- Room Scene -->
+  <div class="room-scene">
+    <!-- Wall -->
+    <div class="room-wall">
+      <div class="room-window">
+        <div class="window-cross"></div>
+        <div class="window-cloud"></div>
+      </div>
+
+      <!-- Bookshelf -->
+      <div class="room-shelf">
+        <div class="book book-1"></div>
+        <div class="book book-2"></div>
+        <div class="book book-3"></div>
+        <div class="book book-4"></div>
+        <div class="shelf-item">🌟</div>
+        <div class="book book-5"></div>
+        <div class="book book-6"></div>
+        <div class="book book-7"></div>
+        <div class="book book-1" style="height:46px"></div>
+        <div class="shelf-item">🔭</div>
+        <div class="book book-3" style="height:54px"></div>
+        <div class="book book-4" style="height:44px"></div>
+      </div>
+    </div>
+
+    <!-- Floor / Tatami -->
+    <div class="room-floor-area">
+      <!-- Desk -->
+      <div class="desk">
+        <div class="desk-top"></div>
+        <div class="desk-items">
+          <div class="pencil-cup">✏️</div>
+          <div class="desk-book">作業</div>
+        </div>
+        <div class="drawers">
+          <div class="drawer"></div>
+          <a href="chronicle.html" class="drawer-link" title="打開時光機抽屜 → 前往編年史">
+            <div class="drawer drawer-magic"></div>
+          </a>
+          <div class="drawer"></div>
+        </div>
+        <div class="desk-legs">
+          <div class="desk-leg"></div>
+          <div class="desk-leg"></div>
+        </div>
+      </div>
+
+      <!-- Floor items / quick nav -->
+      <div class="floor-items">
+        <a href="taiwan.html" class="floor-item">📖 台灣小叮噹專欄</a>
+        <a href="museums.html" class="floor-item">🏛️ 全球博物館</a>
+        <a href="characters.html" class="floor-item">👥 人物介紹</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="room-hint">✨ 點擊發光的抽屜可進入時光機 → 哆啦A夢編年史</p>
+
+  <!-- Intro -->
+  <div class="section-intro" style="margin-top:36px">
+    <h2>歡迎來到秘密基地</h2>
+    <p>這裡收錄了關於哆啦A夢（小叮噹）的各種珍貴資訊——從創作歷史、台灣的特殊出版文化，到全世界的博物館與紀念館，還有每一位深愛的角色介紹。</p>
+  </div>
+
+  <!-- Nav Cards -->
+  <div class="nav-cards">
+    <a href="chronicle.html" class="nav-card">
+      <span class="nav-card-icon">⏰</span>
+      <h3>哆啦A夢編年史</h3>
+      <p>從1969年誕生至今，記錄哆啦A夢跨越半世紀的大小時間點與重要里程碑。</p>
+    </a>
+    <a href="taiwan.html" class="nav-card">
+      <span class="nav-card-icon">📚</span>
+      <h3>台灣小叮噹專欄</h3>
+      <p>那些在麵店旁邊吵著要買的一本10元小叮噹——台灣獨特的非授權出版文化。</p>
+    </a>
+    <a href="museums.html" class="nav-card">
+      <span class="nav-card-icon">🏛️</span>
+      <h3>全球博物館</h3>
+      <p>哆啦A夢博物館、紀念館、收藏館——探訪世界各地的哆啦A夢聖地。</p>
+    </a>
+    <a href="characters.html" class="nav-card">
+      <span class="nav-card-icon">👥</span>
+      <h3>人物介紹</h3>
+      <p>認識哆啦A夢、大雄、靜香、胖虎、小夫⋯⋯以及背後的傳奇創作者。</p>
+    </a>
+  </div>
+
+  <!-- Character quick show -->
+  <div style="background:white; border-radius:14px; padding:28px 20px; box-shadow:0 4px 16px var(--shadow); text-align:center; margin-bottom:40px;">
+    <div style="font-family:'M PLUS Rounded 1c',sans-serif; font-size:1.1rem; font-weight:800; color:var(--blue-dark); margin-bottom:18px;">主要登場人物</div>
+    <div class="character-row">
+      <div class="char-mini">🔵<span>哆啦A夢</span></div>
+      <div class="char-mini">😴<span>大雄</span></div>
+      <div class="char-mini">🎻<span>靜香</span></div>
+      <div class="char-mini">💪<span>胖虎</span></div>
+      <div class="char-mini">🤑<span>小夫</span></div>
+      <div class="char-mini">💛<span>哆啦美</span></div>
+    </div>
+    <a href="characters.html" style="display:inline-block; margin-top:14px; padding:9px 20px; background:var(--blue); color:white; border-radius:20px; font-weight:700; font-size:0.9rem;">查看完整人物介紹 →</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
+  <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan</p>
+</footer>
+
+</body>
+</html>

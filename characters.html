@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人物介紹 · 哆啦A夢の秘密基地</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* Character avatar CSS art */
+  .avatar-doraemon {
+    background: linear-gradient(180deg, #66ccff 0%, #0099e6 100%);
+    position: relative;
+  }
+  .avatar-nobita {
+    background: linear-gradient(180deg, #ffe4a0 0%, #ffcc66 100%);
+  }
+  .avatar-shizuka {
+    background: linear-gradient(180deg, #ffccdd 0%, #ff99bb 100%);
+  }
+  .avatar-gian {
+    background: linear-gradient(180deg, #ffb366 0%, #ff8833 100%);
+  }
+  .avatar-suneo {
+    background: linear-gradient(180deg, #ccff99 0%, #88cc44 100%);
+  }
+  .avatar-dorami {
+    background: linear-gradient(180deg, #ffff88 0%, #ffcc00 100%);
+  }
+  .avatar-mom {
+    background: linear-gradient(180deg, #ddccff 0%, #aa88ee 100%);
+  }
+  .avatar-dad {
+    background: linear-gradient(180deg, #aaccff 0%, #6699cc 100%);
+  }
+  .avatar-creator {
+    background: linear-gradient(180deg, #cccccc 0%, #888888 100%);
+  }
+  .avatar-sensei {
+    background: linear-gradient(180deg, #ffddaa 0%, #cc8844 100%);
+  }
+
+  /* CSS character drawings */
+  .doraemon-face {
+    width: 90px;
+    height: 90px;
+    background: #0099e6;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .doraemon-face::before {
+    content: '';
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 46px;
+    background: white;
+    border-radius: 0 0 50px 50px;
+  }
+  .doraemon-face::after {
+    content: '👃';
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+  }
+  .doraemon-eyes {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 14px;
+  }
+  .doraemon-eye {
+    width: 18px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    position: relative;
+  }
+  .doraemon-eye::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    width: 8px;
+    height: 10px;
+    background: #111;
+    border-radius: 50%;
+  }
+
+  .char-section-title {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text);
+    margin: 40px 0 20px;
+    padding-left: 14px;
+    border-left: 5px solid var(--blue);
+  }
+
+  .char-card h3 { line-height: 1.3; }
+
+  .relation-chart {
+    background: white;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 4px 16px var(--shadow);
+    margin: 40px 0;
+    overflow-x: auto;
+  }
+  .relation-chart h2 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .relation-map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    min-width: 500px;
+    position: relative;
+    padding: 20px 0;
+  }
+  .rel-node {
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    min-width: 70px;
+  }
+  .rel-center {
+    background: var(--blue);
+    color: white;
+    font-size: 1rem;
+    padding: 14px 18px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px var(--blue-glow);
+  }
+  .rel-line {
+    height: 2px;
+    width: 30px;
+    background: #ccc;
+    flex-shrink: 0;
+  }
+  .rel-label {
+    font-size: 0.65rem;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+
+  .creator-card {
+    background: linear-gradient(135deg, #f8f8f8 0%, #eee 100%);
+    border-radius: 14px;
+    padding: 28px;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    box-shadow: 0 4px 16px var(--shadow);
+    margin-bottom: 20px;
+  }
+  .creator-avatar-wrap {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #888, #555);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .creator-info h3 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .creator-info .sub-name {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 10px;
+  }
+  .creator-info p {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+  .creator-info .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .creator-info .fact-chip {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 0.78rem;
+    color: var(--text-mid);
+  }
+
+  .image-credit {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  .gadget-box {
+    background: linear-gradient(135deg, #e6f0ff 0%, #d6e8ff 100%);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 32px 0;
+  }
+  .gadget-box h3 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+    margin-bottom: 14px;
+  }
+  .gadget-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .gadget-item {
+    background: white;
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    box-shadow: 0 2px 6px var(--shadow);
+  }
+  .gadget-item .gadget-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .gadget-name {
+    font-weight: 700;
+    color: var(--text);
+    font-size: 0.82rem;
+  }
+  .gadget-desc {
+    font-size: 0.75rem;
+    color: var(--text-light);
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <div class="logo-icon">🔵</div>
+      <div class="logo-text">哆啦A夢の秘密基地<div class="logo-sub">小叮噹資訊館</div></div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">🏠 首頁</a>
+      <a href="chronicle.html">⏰ 編年史</a>
+      <a href="taiwan.html">🇹🇼 小叮噹</a>
+      <a href="museums.html">🏛️ 博物館</a>
+      <a href="characters.html" class="active">👥 人物</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div style="font-size:3rem; margin-bottom:14px">👥</div>
+  <h1>人物介紹</h1>
+  <p>認識哆啦A夢世界裡每一位可愛又立體的角色——從機器貓到懶惰鬼，從活潑女孩到霸道大塊頭</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- Main Characters -->
+  <div class="char-section-title">🌟 主要角色</div>
+  <p style="color:var(--text-light); font-size:0.88rem; margin-bottom:20px;">以下人物圖以 CSS 插畫與符號呈現，無版權疑慮。如需參考原作角色形象，請至 <a href="https://www.tv-asahi.co.jp/doraemon/" target="_blank">朝日電視台官網</a> 或購買正版授權漫畫。</p>
+
+  <div class="characters-grid">
+
+    <!-- Doraemon -->
+    <div class="char-card">
+      <div class="char-avatar avatar-doraemon">
+        <div style="position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+          <div class="doraemon-face">
+            <div class="doraemon-eyes">
+              <div class="doraemon-eye"></div>
+              <div class="doraemon-eye"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="char-body">
+        <div class="char-name-jp">ドラえもん</div>
+        <h3>哆啦A夢</h3>
+        <span class="char-role" style="background:var(--blue)">主角・機器貓</span>
+        <p class="char-desc">來自22世紀的機器貓型機器人，由大雄的孫子的孫子（大大雄）派遣到過去，陪伴幼年大雄成長。雖然有許多高科技道具，卻異常怕老鼠，並因此失去耳朵。最愛吃銅鑼燒。</p>
+        <div class="char-facts">
+          <div class="char-fact"><span class="char-fact-label">全名</span><span class="char-fact-val">哆啦A夢（ドラえもん）</span></div>
+          <div class="char-fact"><span class="char-fact-label">誕生日</span><span class="char-fact-val">2112年9月3日（設定）</span></div>
+          <div class="char-fact"><span class="char-fact-label">身高</span><span class="char-fact-val">129.3 cm</span></div>
+          <div class="char-fact"><span class="char-fact-label">體重</span><span class="char-fact-val">129.3 kg</span></div>
+          <div class="char-fact"><span class="char-fact-label">弱點</span><span class="char-fact-val">老鼠（因此失去耳朵）</span></div>
+          <div class="char-fact"><span class="char-fact-label">最愛</span><span class="char-fact-val">銅鑼燒 🍡</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nobita -->
+    <div class="char-card">
+      <div class="char-avatar avatar-nobita">
+        <div style="position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;">
+          <div style="font-size:4rem; line-height:1">😴</div>
+          <div style="font-size:0.7rem; font-weight:800; color:var(--text-mid); background:rgba(255,255,255,0.7); padding:2px 10px; border-radius:10px;">眼鏡男孩</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <div class="char-name-jp">野比のび太 / 台灣版：葉大雄</div>
+        <h3>野比大雄</h3>
+        <span class="char-role" style="background:#cc7722">主角・小學生</span>
+        <p class="char-desc">哆啦A夢的主人，讀小學四年級。成績差、運動差、什麼都差，唯一強項是「睡覺的速度」（0.93秒入眠）和射擊（彈弓）。雖然懦弱依賴，但內心善良，常展現意外的堅強。台灣版改名「葉大雄」。</p>
+        <div class="char-facts">
+          <div class="char-fact"><span class="char-fact-label">全名</span><span class="char-fact-val">野比大雄（野比のび太）</span></div>
+          <div class="char-fact"><span class="char-fact-label">台灣名</span><span class="char-fact-val">葉大雄</span></div>
+          <div class="char-fact"><span class="char-fact-label">年齡</span><span class="char-fact-val">10歲（小四）</span></div>
+          <div class="char-fact"><span class="char-fact-label">成績</span><span class="char-fact-val">幾乎次次零分</span></div>
+          <div class="char-fact"><span class="char-fact-label">特技</span><span class="char-fact-val">0.93秒入眠、翻繩、射擊</span></div>
+          <div class="char-fact"><span class="char-fact-label">夢想</span><span class="char-fact-val">長大後娶靜香</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shizuka -->
+    <div class="char-card">
+      <div class="char-avatar avatar-shizuka">
+        <div style="position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;">
+          <div style="font-size:4rem; line-height:1">🎻</div>
+          <div style="font-size:0.7rem; font-weight:800; color:var(--text-mid); background:rgba(255,255,255,0.7); padding:2px 10px; border-radius:10px;">乖巧少女</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <div class="char-name-jp">源静香</div>
+        <h3>靜香</h3>
+        <span class="char-role" style="background:#cc3366">女主角</span>
+        <p class="char-desc">大雄的鄰居兼暗戀對象，學業優秀、個性溫柔，是朋友群中的知性代表。最大的興趣是拉小提琴（但琴技奇差，每次演奏都讓鄰居受苦）。最喜歡泡澡，是劇中最常洗澡的角色。</p>
+        <div class="char-facts">
+          <div class="char-fact"><span class="char-fact-label">全名</span><span class="char-fact-val">源靜香</span></div>
+          <div class="char-fact"><span class="char-fact-label">興趣</span><span class="char-fact-val">拉小提琴、泡澡</span></div>
+          <div class="char-fact"><span class="char-fact-label">特點</span><span class="char-fact-val">學業好，琴技反差爆表</span></div>
+          <div class="char-fact"><span class="char-fact-label">結局</span><span class="char-fact-val">長大後嫁給大雄</span></div>
+          <div class="char-fact"><span class="char-fact-label">最愛食物</span><span class="char-fact-val">果醬麵包</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gian -->
+    <div class="char-card">
+      <div class="char-avatar avatar-gian">
+        <div style="position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;">
+          <div style="font-size:4rem; line-height:1">💪</div>
+          <div style="font-size:0.7rem; font-weight:800; color:var(--text-mid); background:rgba(255,255,255,0.7); padding:2px 10px; border-radius:10px;">霸道・熱情</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <div class="char-name-jp">剛田武 / ジャイアン</div>
+        <h3>胖虎</h3>
+        <span class="char-role" style="background:#cc5500">霸主・天王</span>
+        <p class="char-desc">本名剛田武（中文譯「胖虎」），自稱「天下第一好漢」，慣常霸道、欺負大雄。但在電影版中往往展現俠義的一面，是最勇敢的那個。最大的熱情是舉辦「演唱會」——儘管歌聲讓人痛不欲生。</p>
+        <div class="char-facts">
+          <div class="char-fact"><span class="char-fact-label">全名</span><span class="char-fact-val">剛田武（ジャイアン）</span></div>
+          <div class="char-fact"><span class="char-fact-label">口頭禪</span><span class="char-fact-val">「你的東西就是我的！」</span></div>
+          <div class="char-fact"><span class="char-fact-label">興趣</span><span class="char-fact-val">辦演唱會、棒球</span></div>
+          <div class="char-fact"><span class="char-fact-label">特技</span><span class="char-fact-val">怪異歌聲・蠻力</span></div>
+          <div class="char-fact"><span class="char-fact-label">家業</span><span class="char-fact-val">文具雜貨店（繼承自媽媽）</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Suneo -->
+    <div class="char-card">
+      <div class="char-avatar avatar-suneo">
+        <div style="position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;">
+          <div style="font-size:4rem; line-height:1">🤑</div>
+          <div style="font-size:0.7rem; font-weight:800; color:var(--text-mid); background:rgba(255,255,255,0.7); padding:2px 10px; border-radius:10px;">富二代・愛炫</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <div class="char-name-jp">骨川スネ夫</div>
+        <h3>小夫</h3>
+        <span class="char-role" style="background:#559900">富家子・馬屁精</span>
+        <p class="char-desc">本名骨川小夫，家境富裕，喜歡炫耀新玩具、去過的旅遊地點、媽媽的廚藝。是胖虎的跟班兼馬屁精，常一起欺負大雄。實際上能力出眾，擅長模型、繪畫，電影版中是重要的智囊。</p>
+        <div class="char-facts">
+          <div class="char-fact"><span class="char-fact-label">全名</span><span class="char-fact-val">骨川小夫</span></div>
+          <div class="char-fact"><span class="char-fact-label">家境</span><span class="char-fact-val">富裕，父親是大企業董事</span></div>
+          <div class="char-fact"><span class="char-fact-label">興趣</span><span class="char-fact-val">炫耀、製作模型</span></div>
+          <div class="char-fact"><span class="char-fact-label">特技</span><span class="char-fact-val">繪畫、縫紉（意外）</span></div>
+          <div class="char-fact"><span class="char-fact-label">弱點</span><span class="char-fact-val">膽小、依賴媽媽</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dorami -->
+    <div class="char-card">
+      <div class="char-avatar avatar-dorami">
+        <div style="position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;">
+          <div style="font-size:4rem; line-height:1">💛</div>
+          <div style="font-size:0.7rem; font-weight:800; color:var(--text-mid); background:rgba(255,255,255,0.7); padding:2px 10px; border-radius:10px;">哆啦A夢的妹妹</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <div class="char-name-jp">ドラミ</div>
+        <h3>哆啦美</h3>
+        <span class="char-role" style="background:#cc9900">配角・哆啦A夢之妹</span>
+        <p class="char-desc">哆啦A夢的妹妹，黃色機器貓，製造序號比哥哥晚，但因為喝了更高品質的機器油，能力反而更強、更聰明。不怕老鼠（因為哆啦A夢被老鼠咬掉耳朵後，妹妹就怕蟑螂了）。最愛吃哈密瓜麵包。</p>
+        <div class="char-facts">
+          <div class="char-fact"><span class="char-fact-label">全名</span><span class="char-fact-val">哆啦美（ドラミちゃん）</span></div>
+          <div class="char-fact"><span class="char-fact-label">顏色</span><span class="char-fact-val">黃色</span></div>
+          <div class="char-fact"><span class="char-fact-label">能力</span><span class="char-fact-val">優於哆啦A夢</span></div>
+          <div class="char-fact"><span class="char-fact-label">弱點</span><span class="char-fact-val">蟑螂</span></div>
+          <div class="char-fact"><span class="char-fact-label">最愛</span><span class="char-fact-val">哈密瓜麵包</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Supporting Characters -->
+  <div class="char-section-title" style="margin-top:48px">👨‍👩‍👦 大雄的家人</div>
+  <div class="characters-grid">
+
+    <!-- Nobita's mom -->
+    <div class="char-card">
+      <div class="char-avatar avatar-mom">
+        <div style="display:flex; align-items:center; justify-content:center; height:100%; flex-direction:column; gap:6px;">
+          <div style="font-size:3.5rem">👩</div>
+          <div style="font-size:0.7rem; font-weight:800; color:var(--text-mid); background:rgba(255,255,255,0.7); padding:2px 10px; border-radius:10px;">嚴厲媽媽</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <div class="char-name-jp">野比玉子（のび太のママ）</div>
+        <h3>大雄的媽媽</h3>
+        <span class="char-role" style="background:#884499">家庭主婦</span>
+        <p class="char-desc">全名野比玉子，是個嚴厲但深愛大雄的母親。每次大雄考試不及格或惹麻煩，必然大聲斥責，常在大雄身後追打。但在故事中偶爾也展現溫柔的一面。</p>
+        <div class="char-facts">
+          <div class="char-fact"><span class="char-fact-label">口頭禪</span><span class="char-fact-val">「你又怎麼了！」</span></div>
+          <div class="char-fact"><span class="char-fact-label">特點</span><span class="char-fact-val">廚藝出色，管教嚴格</span></div>
+          <div class="char-fact"><span class="char-fact-label">象徵物</span><span class="char-fact-val">擀麵棍（追打工具）</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nobita's dad -->
+    <div class="char-card">
+      <div class="char-avatar avatar-dad">
+        <div style="display:flex; align-items:center; justify-content:center; height:100%; flex-direction:column; gap:6px;">
+          <div style="font-size:3.5rem">👨</div>
+          <div style="font-size:0.7rem; font-weight:800; color:var(--text-mid); background:rgba(255,255,255,0.7); padding:2px 10px; border-radius:10px;">溫柔爸爸</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <div class="char-name-jp">野比則雄（のび太のパパ）</div>
+        <h3>大雄的爸爸</h3>
+        <span class="char-role" style="background:#336699">上班族</span>
+        <p class="char-desc">全名野比則雄，在公司上班的平凡父親，個性溫和，對大雄較為寬容。年輕時也曾有過冒險夢想，某些電影版中出現他與大雄之間的溫情故事，是一位被低估的好爸爸。</p>
+        <div class="char-facts">
+          <div class="char-fact"><span class="char-fact-label">職業</span><span class="char-fact-val">上班族</span></div>
+          <div class="char-fact"><span class="char-fact-label">興趣</span><span class="char-fact-val">攝影、下圍棋</span></div>
+          <div class="char-fact"><span class="char-fact-label">特點</span><span class="char-fact-val">溫和，常為大雄說情</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sensei -->
+    <div class="char-card">
+      <div class="char-avatar avatar-sensei">
+        <div style="display:flex; align-items:center; justify-content:center; height:100%; flex-direction:column; gap:6px;">
+          <div style="font-size:3.5rem">🧑‍🏫</div>
+          <div style="font-size:0.7rem; font-weight:800; color:var(--text-mid); background:rgba(255,255,255,0.7); padding:2px 10px; border-radius:10px;">班導師</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <div class="char-name-jp">先生（担任の先生）</div>
+        <h3>班導師</h3>
+        <span class="char-role" style="background:#996633">教師</span>
+        <p class="char-desc">大雄班上的班導師，名字在各版本略有不同。最常做的事就是怒罵大雄考試零分，或是把大雄趕出教室罰站。但偶爾也有理解學生的溫情一面，是個負責任的教育者。</p>
+        <div class="char-facts">
+          <div class="char-fact"><span class="char-fact-label">口頭禪</span><span class="char-fact-val">「野比！你又零分！」</span></div>
+          <div class="char-fact"><span class="char-fact-label">特點</span><span class="char-fact-val">嚴厲，對大雄特別頭痛</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Famous Gadgets -->
+  <div class="gadget-box" style="margin-top:48px">
+    <h3>🎒 哆啦A夢的代表性道具</h3>
+    <div class="gadget-grid">
+      <div class="gadget-item">
+        <div class="gadget-icon">🚪</div>
+        <div>
+          <div class="gadget-name">任意門</div>
+          <div class="gadget-desc">可通往任意地點的門</div>
+        </div>
+      </div>
+      <div class="gadget-item">
+        <div class="gadget-icon">🚁</div>
+        <div>
+          <div class="gadget-name">竹蜻蜓</div>
+          <div class="gadget-desc">夾在頭上可自由飛翔</div>
+        </div>
+      </div>
+      <div class="gadget-item">
+        <div class="gadget-icon">💡</div>
+        <div>
+          <div class="gadget-name">小光圈</div>
+          <div class="gadget-desc">縮小或放大任何物體</div>
+        </div>
+      </div>
+      <div class="gadget-item">
+        <div class="gadget-icon">⏰</div>
+        <div>
+          <div class="gadget-name">時光機</div>
+          <div class="gadget-desc">穿越過去與未來</div>
+        </div>
+      </div>
+      <div class="gadget-item">
+        <div class="gadget-icon">🗺️</div>
+        <div>
+          <div class="gadget-name">翻譯蒟蒻</div>
+          <div class="gadget-desc">吃下可通曉任何語言</div>
+        </div>
+      </div>
+      <div class="gadget-item">
+        <div class="gadget-icon">🎁</div>
+        <div>
+          <div class="gadget-name">記憶麵包</div>
+          <div class="gadget-desc">貼上書頁即可記憶內容</div>
+        </div>
+      </div>
+      <div class="gadget-item">
+        <div class="gadget-icon">🌬️</div>
+        <div>
+          <div class="gadget-name">空氣砲</div>
+          <div class="gadget-desc">發射壓縮空氣的武器</div>
+        </div>
+      </div>
+      <div class="gadget-item">
+        <div class="gadget-icon">🪄</div>
+        <div>
+          <div class="gadget-name">石頭帽</div>
+          <div class="gadget-desc">讓他人無法察覺自己</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Creator Section -->
+  <div class="char-section-title" style="margin-top:48px">✒️ 創作者</div>
+
+  <div class="creator-card">
+    <div class="creator-avatar-wrap">✒️</div>
+    <div class="creator-info">
+      <h3>藤子・F・不二雄</h3>
+      <div class="sub-name">本名：藤本弘（ふじもと ひろし）</div>
+      <p>哆啦A夢的父親。1933年12月1日生於富山縣高岡市，1996年9月23日因慢性腎衰竭辭世，享年62歲。與安孫子素雄共組「藤子不二雄」搭檔出道，1992年各自獨立後，以「藤子・F・不二雄」名義持續創作直至辭世。哆啦A夢、小超人帕門（パーマン）、怪物小王子（オバケのQ太郎）等皆為其代表作。他以溫柔而不說教的方式，將科幻與日常生活融合，創造出跨越世代的不朽故事。</p>
+      <div class="facts">
+        <span class="fact-chip">📅 1933年12月1日生</span>
+        <span class="fact-chip">📍 富山縣高岡市</span>
+        <span class="fact-chip">🎌 1996年9月23日辭世</span>
+        <span class="fact-chip">📖 哆啦A夢共45卷</span>
+        <span class="fact-chip">🏅 小學館漫畫賞</span>
+        <span class="fact-chip">🌐 全球銷量2.5億冊以上</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="creator-card">
+    <div class="creator-avatar-wrap">🖊️</div>
+    <div class="creator-info">
+      <h3>藤子不二雄Ⓐ</h3>
+      <div class="sub-name">本名：安孫子素雄（あびこ もとお）</div>
+      <p>藤子・F・不二雄的長年創作夥伴，以「忍者哈特利」（忍者ハットリくん）、「笑うせぇるすまん」（笑面男）等作聞名，故鄉為富山縣冰見市。兩人在富山讀書時相識，共同以「藤子不二雄」的名義創作。雖然哆啦A夢主要由藤本弘創作，但兩人的搭檔時期奠定了作品的基礎風格。</p>
+      <div class="facts">
+        <span class="fact-chip">📅 1934年3月10日生</span>
+        <span class="fact-chip">📍 富山縣冰見市</span>
+        <span class="fact-chip">📖 忍者哈特利、笑面男</span>
+        <span class="fact-chip">🤝 與藤子・F搭檔至1992年</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:32px; padding:18px 20px; background:var(--cream); border-radius:10px; font-size:0.85rem; color:var(--text-light); border:1px solid #ddd; line-height:1.8;">
+    <strong>📌 圖像說明：</strong>本頁人物圖以 CSS 插畫、emoji 及符號方式呈現，不使用任何受版權保護的官方角色圖像。哆啦A夢及所有相關角色版權歸藤子・F・不二雄 © Fujiko Pro / Shogakukan 所有。若需觀看官方角色設計，請參考正版授權媒體。
+  </div>
+
+</div><!-- /content-wrap -->
+
+<footer>
+  <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
+  <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan</p>
+</footer>
+
+</body>
+</html>

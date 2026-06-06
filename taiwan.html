@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台灣小叮噹專欄 · 哆啦A夢の秘密基地</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .taiwan-hero {
+    background: linear-gradient(135deg, #cc0000 0%, #880000 100%);
+    color: white;
+    padding: 54px 24px 44px;
+    text-align: center;
+  }
+  .taiwan-hero h1 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  .taiwan-hero p { opacity: 0.9; max-width: 580px; margin: 0 auto; line-height: 1.7; }
+
+  .price-badge {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--text);
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    padding: 6px 22px;
+    border-radius: 50px;
+    margin: 16px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  /* Photo gallery grid */
+  .photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .photo-gallery.two-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .photo-gallery.three-col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gallery-item {
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px var(--shadow);
+    position: relative;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .gallery-item:hover img {
+    transform: scale(1.04);
+  }
+  .gallery-item.tall img { height: 260px; }
+  .gallery-item.short img { height: 150px; }
+
+  .gallery-caption {
+    padding: 8px 10px;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    line-height: 1.4;
+    background: white;
+  }
+
+  .gallery-placeholder {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #ddd 0%, #eee 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    color: #999;
+    font-size: 0.8rem;
+  }
+
+  /* Photo card (single big) */
+  .photo-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px var(--shadow);
+    margin: 20px 0;
+  }
+  .photo-card img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    background: #f0f0f0;
+    display: block;
+  }
+  .photo-card-caption {
+    padding: 14px 18px;
+    font-size: 0.84rem;
+    color: var(--text-light);
+    border-top: 1px solid #eee;
+    line-height: 1.6;
+  }
+  .photo-card-caption a { color: var(--blue-dark); }
+
+  /* Inline credit */
+  .photo-credit {
+    font-size: 0.72rem;
+    color: #aaa;
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* Tables */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.9rem;
+  }
+  .data-table th {
+    background: var(--blue);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+  }
+  .data-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid #eee;
+    color: var(--text-mid);
+    vertical-align: top;
+  }
+  .data-table tr:nth-child(even) td { background: #fafafa; }
+  .data-table tr:hover td { background: #f0f7ff; }
+
+  /* Name comparison */
+  .name-comparison {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+  }
+  .name-card {
+    flex: 1;
+    min-width: 130px;
+    background: white;
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: 0 2px 8px var(--shadow);
+    text-align: center;
+  }
+  .name-card .label { font-size: 0.75rem; color: var(--text-light); font-weight: 700; margin-bottom: 4px; }
+  .name-card .name { font-size: 1.1rem; font-weight: 800; color: var(--text); }
+  .name-card .sub { font-size: 0.78rem; color: var(--text-light); margin-top: 4px; }
+
+  /* Highlight boxes */
+  .highlight-box {
+    background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+    border-left: 5px solid var(--blue);
+    border-radius: 0 10px 10px 0;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+  .highlight-box.red {
+    background: linear-gradient(135deg, #fff0f0 0%, #ffe6e6 100%);
+    border-left-color: var(--red);
+  }
+  .highlight-box.yellow {
+    background: linear-gradient(135deg, #fffbe6 0%, #fff5cc 100%);
+    border-left-color: var(--yellow);
+  }
+  .highlight-box p { margin: 0; line-height: 1.75; color: var(--text); }
+
+  /* Nostalgia quote */
+  .nostalgia-quote {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--text);
+    text-align: center;
+    padding: 28px 20px;
+    border-top: 3px solid var(--blue);
+    border-bottom: 3px solid var(--blue);
+    margin: 28px 0;
+    background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+    border-radius: 6px;
+    line-height: 1.8;
+  }
+
+  /* Stat row */
+  .stat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .stat-box {
+    flex: 1;
+    min-width: 120px;
+    background: white;
+    border-radius: 10px;
+    padding: 16px 14px;
+    text-align: center;
+    box-shadow: 0 2px 8px var(--shadow);
+    border-top: 4px solid var(--blue);
+  }
+  .stat-box.red-top { border-top-color: var(--red); }
+  .stat-box.yellow-top { border-top-color: var(--yellow); }
+  .stat-num {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+    display: block;
+    line-height: 1.1;
+  }
+  .stat-box.red-top .stat-num { color: var(--red); }
+  .stat-box.yellow-top .stat-num { color: #aa8800; }
+  .stat-label-sm { font-size: 0.78rem; color: var(--text-light); margin-top: 4px; display: block; }
+
+  /* Story cards */
+  .story-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .story-card {
+    background: white;
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 2px 10px var(--shadow);
+    border-top: 4px solid var(--blue);
+  }
+  .story-card h4 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .story-card p {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .collect-value {
+    background: linear-gradient(135deg, #fff8e6 0%, #fff3d6 100%);
+    border: 2px solid var(--yellow);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .collect-value h3 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    color: #996600;
+    margin-bottom: 10px;
+  }
+
+  .person-card {
+    display: flex;
+    gap: 14px;
+    background: white;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 2px 8px var(--shadow);
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .person-icon {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .person-info h4 {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .person-info p {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* source attr */
+  .source-attr {
+    font-size: 0.75rem;
+    color: #aaa;
+    text-align: right;
+    margin-top: 6px;
+    font-style: italic;
+  }
+  .source-attr a { color: #aaa; text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .photo-gallery.three-col { grid-template-columns: repeat(2, 1fr); }
+    .photo-gallery.two-col { grid-template-columns: 1fr; }
+    .stat-box { min-width: 100px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <div class="logo-icon">🔵</div>
+      <div class="logo-text">哆啦A夢の秘密基地<div class="logo-sub">小叮噹資訊館</div></div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">🏠 首頁</a>
+      <a href="chronicle.html">⏰ 編年史</a>
+      <a href="taiwan.html" class="active">🇹🇼 小叮噹</a>
+      <a href="museums.html">🏛️ 博物館</a>
+      <a href="characters.html">👥 人物</a>
+    </nav>
+  </div>
+</header>
+
+<div class="taiwan-hero">
+  <div style="font-size:3rem; margin-bottom:14px">📖</div>
+  <h1>台灣小叮噹專欄</h1>
+  <p>在麵店旁邊吵著要買的那本小小漫畫，是無數台灣人共同的童年記憶。這裡記錄一段屬於台灣的、獨特的小叮噹故事。</p>
+  <div class="price-badge">每本 NT$10</div>
+</div>
+
+<div class="content-wrap">
+<div class="article-body">
+
+  <!-- ── 壹：書報攤的記憶 ── -->
+  <h2>🏪 書報攤上的藍色機器貓</h2>
+  <p>在1970至1990年代的台灣，還沒有網路，也沒有大型連鎖書店。書報攤、柑仔店、鄉間的麵店門口，一疊疊薄薄的小本漫畫整齊擺在架上——封面印著那個圓滾滾的藍色機器貓，賣的就是「機器貓小叮噹」。</p>
+
+  <p>這些小冊子通常只有A6大小，黑白印刷，一本定價新台幣10元。對一個小學生來說，這個價格剛好可以從媽媽那裡討來，或是省下一次的冰棒錢。每次路過，孩子們幾乎都忍不住停下來，吵著要買。租書店甚至更便宜：<strong>3元台幣一本，兩本只要5元</strong>。</p>
+
+  <div class="nostalgia-quote">
+    「媽媽，我要買小叮噹！就這一本！<br>
+    好啦好啦，就最後這一本……」
+  </div>
+
+  <!-- 主圖：使用者提供的照片 -->
+  <div class="photo-card">
+    <img
+      src="https://lh3.googleusercontent.com/share/6FqKx18MZF6DB768d"
+      alt="台灣早期小叮噹（機器貓）非授權漫畫，每本10元，圖中可見多冊陳列，編號327-3、327-7等"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+    <div style="display:none; height:220px; background:#f5f5f5; align-items:center; justify-content:center; flex-direction:column; color:#bbb; font-size:0.9rem; gap:10px;">
+      <div style="font-size:3rem">📚</div>
+      <div>台灣早期小叮噹漫畫展示（圖片無法載入）</div>
+    </div>
+    <div class="photo-card-caption">
+      ▲ 台灣早期流通的小叮噹（機器貓小叮噹）漫畫陳列，可見定價標示與各種版本及編號（如327-3、327-7）。圖片來源：
+      <a href="https://share.google/6FqKx18MZF6DB768d" target="_blank" rel="noopener">Google 相冊</a>（原始圖片提供者所有，本站僅供教育文化記錄用途）
+    </div>
+  </div>
+
+  <!-- ── 貳：青文出版社 ── -->
+  <h2>🏢 青文出版社：台灣小叮噹的推手</h2>
+  <p>台灣小叮噹故事，必須從一個人說起——<strong>黃樹滋</strong>。</p>
+
+  <div class="person-card">
+    <div class="person-icon">👴</div>
+    <div class="person-info">
+      <h4>黃樹滋｜青文出版社創辦人</h4>
+      <p>在舊書攤上看到香港「兒童樂園」雜誌中連載的「叮噹」，深受吸引，於是引進台灣，命名為「小叮噹」，以「機器貓小叮噹」為名，在1976年11月出版第一集。他將香港「叮噹」的名字加上「小」字，創造了「小叮噹」這個台灣專屬的名稱。</p>
+    </div>
+  </div>
+
+  <div class="person-card">
+    <div class="person-icon">👨‍💼</div>
+    <div class="person-info">
+      <h4>黃寄萍｜接班人兼編劇</h4>
+      <p>黃樹滋之子，土木工程博士，卻也是早期台灣製小叮噹的重要編劇。1988年9月28日（第157集發行後）父親去世後正式接手出版社，延續《機器貓小叮噹》直至1993年第236集結束。他從百科全書與環境科學教科書中汲取靈感，為台灣版小叮噹自創故事。</p>
+    </div>
+  </div>
+
+  <!-- 數據卡 -->
+  <div class="stat-row">
+    <div class="stat-box">
+      <span class="stat-num">1976</span>
+      <span class="stat-label-sm">首集出版年份（11月）</span>
+    </div>
+    <div class="stat-box red-top">
+      <span class="stat-num">236</span>
+      <span class="stat-label-sm">青文版總集數</span>
+    </div>
+    <div class="stat-box yellow-top">
+      <span class="stat-num">150+</span>
+      <span class="stat-label-sm">台灣漫畫家自創集數</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">4萬</span>
+      <span class="stat-label-sm">巔峰期每集銷量（本）</span>
+    </div>
+    <div class="stat-box red-top">
+      <span class="stat-num">17年</span>
+      <span class="stat-label-sm">連續出版時長</span>
+    </div>
+  </div>
+
+  <p>青文出版社大約每半個月出一本，速度遠超日本原作的供應量。日本原版漫畫單行本全套共45卷，內容很快就不夠用，於是青文除了翻譯日本雜誌上尚未收錄進單行本的連載故事，後來更乾脆組織台灣本土漫畫家<strong>自行創作</strong>。最終236集中，估計有<strong>超過150集是台灣漫畫家自創</strong>的故事——許多讀者看了多年，從未察覺。</p>
+
+  <!-- 青文封面照片 gallery -->
+  <div class="photo-gallery three-col" style="margin:24px 0;">
+    <div class="gallery-item tall">
+      <img src="https://chinesedora.com/news/wp-content/uploads/2022/05/x9hXRhe.jpg"
+           alt="青文版機器貓小叮噹封面"
+           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'><div style=\'font-size:2rem\'>📕</div><div>青文版封面</div></div>'">
+      <div class="gallery-caption">青文版《機器貓小叮噹》封面</div>
+    </div>
+    <div class="gallery-item tall">
+      <img src="https://chinesedora.com/news/wp-content/uploads/2022/05/Rgrtagf.jpg"
+           alt="機器貓小叮噹台灣版單行本"
+           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'><div style=\'font-size:2rem\'>📗</div><div>台灣版單行本</div></div>'">
+      <div class="gallery-caption">青文版單行本實物</div>
+    </div>
+    <div class="gallery-item tall">
+      <img src="https://chinesedora.com/news/wp-content/uploads/2022/05/71DG8np.jpg"
+           alt="機器貓小叮噹台灣版漫畫集"
+           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'><div style=\'font-size:2rem\'>📘</div><div>台灣版漫畫集</div></div>'">
+      <div class="gallery-caption">青文版漫畫集樣本</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://chinesedora.com/news/wp-content/uploads/2022/05/f_6325190_1.jpg"
+           alt="小叮噹台灣版角色介紹頁"
+           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'><div style=\'font-size:2rem\'>📄</div><div>角色介紹頁</div></div>'">
+      <div class="gallery-caption">台灣版人物介紹頁面</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://chinesedora.com/news/wp-content/uploads/2022/05/bnWwlKN.jpg"
+           alt="小叮噹系列出版物"
+           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'><div style=\'font-size:2rem\'>📚</div><div>系列出版物</div></div>'">
+      <div class="gallery-caption">系列出版物展示</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://chinesedora.com/news/wp-content/uploads/2022/05/LCSjH9b.jpg"
+           alt="機器貓小叮噹漫畫內頁"
+           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'><div style=\'font-size:2rem\'>📰</div><div>漫畫內頁</div></div>'">
+      <div class="gallery-caption">漫畫內頁樣本</div>
+    </div>
+  </div>
+  <div class="source-attr">▲ 以上圖片來源：<a href="https://chinesedora.com/news/4489.htm" target="_blank" rel="noopener">哆啦A夢中文網</a>，本站轉載僅供教育文化記錄用途</div>
+
+  <!-- ── 參：台灣版的本土化 ── -->
+  <h2>🗺️ 把哆啦A夢搬來台灣：全面本土化</h2>
+  <p>青文版不只翻譯，更把整個故事的世界觀搬進台灣。背景從東京改到<strong>台北中和市</strong>（今新北市中和區），街道、學校、鄰里都換成台灣的樣子；陽明山取代了日本山景，語言換成台式口吻，文化梗也改成台灣人看得懂的笑點。</p>
+
+  <h3>角色名稱全面改造</h3>
+  <p>所有角色都獲得了新的中文名字，其中最著名的就是「<strong>葉大雄</strong>」——用台灣常見姓氏「葉」取代日本姓氏「野比」：</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>角色（日文原名）</th>
+        <th>日文姓名</th>
+        <th>台灣青文版</th>
+        <th>說明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>哆啦A夢</td>
+        <td>ドラえもん</td>
+        <td><strong>小叮噹</strong></td>
+        <td>取自香港「叮噹」，加「小」字成台灣獨有名稱</td>
+      </tr>
+      <tr>
+        <td>野比大雄</td>
+        <td>野比のび太</td>
+        <td><strong>葉大雄</strong></td>
+        <td>以台灣姓氏「葉」替換日本姓氏「野比」</td>
+      </tr>
+      <tr>
+        <td>源靜香</td>
+        <td>源しずか</td>
+        <td><strong>陳怡靜 / 宜靜</strong></td>
+        <td>台灣常見姓氏「陳」</td>
+      </tr>
+      <tr>
+        <td>剛田武（胖虎）</td>
+        <td>剛田武</td>
+        <td><strong>吳健安 / 武技安</strong></td>
+        <td>依版本不同而異</td>
+      </tr>
+      <tr>
+        <td>骨川小夫</td>
+        <td>骨川スネ夫</td>
+        <td><strong>王阿福</strong></td>
+        <td>台灣庶民感十足的名字</td>
+      </tr>
+      <tr>
+        <td>出木杉英才</td>
+        <td>出木杉英才</td>
+        <td><strong>王聰明</strong></td>
+        <td>直白反映角色特質</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 更多圖片 -->
+  <div class="photo-gallery two-col" style="margin:20px 0">
+    <div class="gallery-item tall">
+      <img src="https://chinesedora.com/news/wp-content/uploads/2022/05/UzkHx2i.jpg"
+           alt="小叮噹台灣版歷史出版圖"
+           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'><div style=\'font-size:2rem\'>📖</div><div>歷史出版圖</div></div>'">
+      <div class="gallery-caption">台灣版歷史出版資料</div>
+    </div>
+    <div class="gallery-item tall">
+      <img src="https://chinesedora.com/news/wp-content/uploads/2022/05/XNaNbE7.jpg"
+           alt="機器貓小叮噹台灣版出版品"
+           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'><div style=\'font-size:2rem\'>📕</div><div>台灣版出版品</div></div>'">
+      <div class="gallery-caption">台灣版出版品樣本</div>
+    </div>
+  </div>
+  <div class="source-attr">▲ 圖片來源：<a href="https://chinesedora.com/news/4489.htm" target="_blank" rel="noopener">哆啦A夢中文網</a></div>
+
+  <!-- ── 肆：台灣漫畫家自創 ── -->
+  <h2>🎨 台灣漫畫家自繪的小叮噹</h2>
+  <p>236集中，超過150集出自台灣本土漫畫家之手。這些作品並非翻譯，而是真正的台灣原創——以小叮噹為主角，融入台灣的地景、文化、時事，創造出截然不同的故事。讀者從未察覺，因為這些畫家的畫風刻意模仿原著，高度相似。</p>
+
+  <h3>已知參與的台灣漫畫家</h3>
+  <div class="person-card">
+    <div class="person-icon">✏️</div>
+    <div class="person-info">
+      <h4>劉明昆</h4>
+      <p>台灣漫畫家，青文版主要執筆者之一。以接近藤子・F・不二雄的筆觸繪製大量台灣自創故事。</p>
+    </div>
+  </div>
+  <div class="person-card">
+    <div class="person-icon">✏️</div>
+    <div class="person-info">
+      <h4>許立昇</h4>
+      <p>台灣漫畫家，參與青文版的自創劇情繪製。</p>
+    </div>
+  </div>
+  <div class="person-card">
+    <div class="person-icon">✏️</div>
+    <div class="person-info">
+      <h4>黃彬彬</h4>
+      <p>台灣漫畫家，參與青文版的自創劇情繪製，風格模仿原著。</p>
+    </div>
+  </div>
+
+  <div class="highlight-box red">
+    <p>這些台灣漫畫家在沒有原著版權的情況下，以自己對藤子・F・不二雄風格的理解，為台灣讀者繪製了大量專屬故事。他們的工作是默默無聞的，許多人的名字在當時根本不對外公開，只有業界人士知道。直到近年的文化研究，才逐漸被挖掘出來。</p>
+  </div>
+
+  <!-- 台灣自創版圖片 -->
+  <div class="photo-gallery two-col" style="margin:20px 0">
+    <div class="gallery-item tall">
+      <img src="https://chinesedora.com/news/wp-content/uploads/2022/05/x5aHWZ3.png"
+           alt="台灣自創版小叮噹《大雄精靈世界》封面"
+           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'><div style=\'font-size:2rem\'>🌏</div><div>大雄精靈世界</div></div>'">
+      <div class="gallery-caption">台灣自創版《大雄精靈世界》封面</div>
+    </div>
+    <div class="gallery-item tall">
+      <img src="https://chinesedora.com/news/wp-content/uploads/2022/05/lakMAWL.jpg"
+           alt="台灣自創版小叮噹《大雄光之旅》封面"
+           onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'><div style=\'font-size:2rem\'>✨</div><div>大雄光之旅</div></div>'">
+      <div class="gallery-caption">台灣自創版《大雄光之旅》封面</div>
+    </div>
+  </div>
+  <div class="gallery-item" style="margin:0 0 6px; border-radius:10px; overflow:hidden; box-shadow:0 3px 10px var(--shadow);">
+    <img src="https://chinesedora.com/news/wp-content/uploads/2022/05/psPkOis.jpg"
+         alt="台灣自創版小叮噹《大雄光之旅》內頁"
+         style="width:100%; max-height:280px; object-fit:cover; display:block;"
+         onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\' style=\'height:200px\'><div style=\'font-size:2rem\'>📖</div><div>光之旅內頁</div></div>'">
+    <div class="gallery-caption">《大雄光之旅》內頁樣本，可見台灣自創的劇情與場景</div>
+  </div>
+  <div class="source-attr">▲ 圖片來源：<a href="https://chinesedora.com/news/4489.htm" target="_blank" rel="noopener">哆啦A夢中文網</a></div>
+
+  <!-- ── 伍：台灣獨家故事 ── -->
+  <h2>📝 台灣才看得到的專屬故事</h2>
+  <p>台灣自創版小叮噹的故事，往往融入了台灣的日常生活細節，是在日本完全看不到的劇情。以下是幾個留存下來的台灣原創故事範例：</p>
+
+  <div class="story-cards">
+    <div class="story-card">
+      <h4>〈小叮噹的身份證〉</h4>
+      <p>小叮噹去台灣戶政事務所辦理身份證，卻被歸類為「車輛」，並以葉大雄為車主。融入了台灣特有的行政制度，是完全無法在日本版中出現的劇情。</p>
+    </div>
+    <div class="story-card">
+      <h4>〈未來警探〉</h4>
+      <p>長大後的胖虎成為警察。年幼的胖虎和小夫被高科技犯罪集團以意識控制技術操控，小叮噹必須拯救他們。</p>
+    </div>
+    <div class="story-card">
+      <h4>〈零歲學習機〉</h4>
+      <p>小叮噹帶著道具回到葉大雄出生的那一天，試圖讓大雄從嬰兒時期就開始學習，沒想到最後的受益者卻是天才兒童王聰明（出木杉）。</p>
+    </div>
+    <div class="story-card">
+      <h4>〈大雄精靈世界〉</h4>
+      <p>台灣自創的長篇冒險，主角前往精靈世界探險，場景設計融入台灣的山林與民俗元素，別具特色。</p>
+    </div>
+    <div class="story-card">
+      <h4>〈大雄光之旅〉</h4>
+      <p>台灣原創科幻長篇，以光速旅行為主題，混合了當時台灣流行的科學教育題材，有別於日本原作的家庭輕鬆路線。</p>
+    </div>
+    <div class="story-card">
+      <h4>讀者投稿與競賽</h4>
+      <p>部分集數中收錄了讀者投稿的故事創意與繪圖，讓台灣小讀者也成為小叮噹世界的共同創作者，這在日本原版中也是沒有的。</p>
+    </div>
+  </div>
+
+  <div class="highlight-box yellow">
+    <p>⭐ 黃寄萍（接班人）本人是土木工程博士，為了創作故事，他從百科全書、環境科學教科書中汲取素材，讓台灣版小叮噹帶有一種自學式的「知識感」。這也是台灣版和日本原著風格最大的差異之一。</p>
+  </div>
+
+  <!-- ── 陸：UDN報時光圖 ── -->
+  <h2>🗞️ 歷史影像：老一輩的見證</h2>
+  <div class="photo-card">
+    <img
+      src="https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2025/05/30/105/32153915.jpg"
+      alt="青文出版社相關人員展示早期機器貓小叮噹與現代哆啦A夢漫畫對比（2004年）"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+    <div style="display:none; height:180px; background:#f5f5f5; align-items:center; justify-content:center; flex-direction:column; color:#bbb; gap:8px;">
+      <div style="font-size:2.5rem">🗞️</div>
+      <div style="font-size:0.85rem">歷史影像（圖片無法載入）</div>
+    </div>
+    <div class="photo-card-caption">
+      ▲ 青文出版相關人員手持早期《機器貓小叮噹》與現代版《哆啦A夢》漫畫合影，清楚對比兩個時代的版本差異（2004年攝）。圖片來源：
+      <a href="https://time.udn.com/udntime/story/122833/8774590" target="_blank" rel="noopener">報時光 UDN</a>（聯合報系，本站轉載僅供教育文化記錄用途）
+    </div>
+  </div>
+
+  <!-- ── 柒：競爭者陽銘 ── -->
+  <h2>⚔️ 不只青文：其他出版社的競爭</h2>
+  <p>青文並非唯一的小叮噹出版商。隨著市場的火熱，<strong>陽銘出版社</strong>也跟進出版「豪華版」小叮噹，以更精美的印刷與原著翻譯對抗青文。市面上同時存在多個版本，讀者往往只根據封面外觀來選擇，不會去看版本差異。</p>
+
+  <div class="highlight-box">
+    <p>從現存實物來看，這些不同版本的小叮噹封面設計各異、印刷品質參差，但每一本的內容幾乎都讓當時的小讀者看得津津有味。對孩子來說，管他哪個版本，重要的是小叮噹出場了。</p>
+  </div>
+
+  <!-- ── 捌：收藏價值 ── -->
+  <h2>💎 現在的收藏價值</h2>
+  <div class="collect-value">
+    <h3>🏷️ 為什麼值得收藏？</h3>
+    <p>這些早年的台灣版小叮噹，當時是「閱後即棄」的消耗品——讀完就放、弄髒就丟、甚至在1992年著作權法修正後，出版社被要求銷毀庫存。正因如此，保存狀況良好的完整冊數如今極為罕見。</p>
+  </div>
+
+  <ol>
+    <li style="margin-bottom:8px;"><strong>版本稀有性：</strong>許多版本印量極少，現存量稀。1992年版權法修正後大量庫存被迫銷毀，讓存世量更加稀少。</li>
+    <li style="margin-bottom:8px;"><strong>台灣本土繪製的唯一性：</strong>台灣漫畫家自行創作的版本，是只存在於台灣的獨特文化產物，在日本或其他地區完全不存在。</li>
+    <li style="margin-bottom:8px;"><strong>時代記憶的載體：</strong>對1960至1980年代出生的台灣人，這些小冊子是鮮明的童年記憶，具有強烈情感與文化意義。</li>
+    <li style="margin-bottom:8px;"><strong>台灣漫畫史研究材料：</strong>從學術角度，這批出版品是研究台灣戒嚴後漫畫產業史、著作權意識演變的第一手資料。</li>
+    <li style="margin-bottom:8px;"><strong>版本辨識的樂趣：</strong>區分哪些集數為日本原作翻譯、哪些為台灣自創，本身就是一門考據的學問，吸引許多收藏家研究。</li>
+  </ol>
+
+  <!-- ── 玖：版本終結 ── -->
+  <h2>🔄 從「小叮噹」到「哆啦A夢」：時代的終結</h2>
+  <p>1992年，台灣著作權法大修，加入對外國著作的保護條款。青文版《機器貓小叮噹》在第236集（1993年2月1日）正式畫下句點，第237集起改名《開心漫畫》，不再以小叮噹為主角。</p>
+
+  <p>此後，市場逐漸由正版取代。青文出版社最終在2003年取得日方正式授權，以「哆啦A夢」之名重新出版正版漫畫。</p>
+
+  <p>對新一代的台灣孩子來說，這隻藍色機器貓叫做「哆啦A夢」；但對那個曾在麵店門口吵著買書的世代，他永遠都是「<strong>小叮噹</strong>」——那個薄薄的、黑白的、10元一本的小叮噹。</p>
+
+  <div class="highlight-box">
+    <p>「小叮噹」與「哆啦A夢」，不只是名字的差異，更是兩個世代、兩種成長記憶的分野。台灣版小叮噹存在的那17年，是日本漫畫文化與台灣本土創作力量最奇特也最珍貴的一次交融。</p>
+  </div>
+
+  <!-- 版權聲明 -->
+  <div style="margin-top:36px; padding:18px 20px; background:var(--cream); border-radius:10px; font-size:0.85rem; color:var(--text-light); border:1px solid #ddd; line-height:1.8;">
+    <strong>📌 版權與來源聲明：</strong>本頁所記錄的台灣版小叮噹相關內容，為歷史文化記錄與教育用途。哆啦A夢原作版權歸屬藤子・F・不二雄 © Fujiko Pro / Shogakukan。漫畫圖片來源：
+    <a href="https://chinesedora.com/news/4489.htm" target="_blank" rel="noopener">哆啦A夢中文網</a>（chinesedora.com）、
+    <a href="https://time.udn.com/udntime/story/122833/8774590" target="_blank" rel="noopener">報時光 UDN</a>，
+    僅供非商業教育展示。非授權版小叮噹的流通已隨台灣著作權法完善而終止。延伸閱讀：
+    <a href="https://ekinchiu.wixsite.com/rochistory/post/doraemon-in-taiwan" target="_blank" rel="noopener">《哆啦A夢》台灣盜版時期本土化模擬地圖</a>、
+    <a href="https://medium.com/wenli-moe/%E7%9B%9C%E7%89%88-%E5%B0%8F%E5%8F%AE%E5%99%B9-%E7%9A%84%E5%BF%AB%E6%A8%82%E5%9B%9E%E6%86%B6%E8%88%87%E5%BF%83%E9%9D%88%E5%89%B5%E5%82%B7-3ce4f558ffba" target="_blank" rel="noopener">盜版小叮噹的快樂回憶（Medium）</a>。
+  </div>
+
+</div><!-- /article-body -->
+</div><!-- /content-wrap -->
+
+<footer>
+  <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
+  <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan</p>
+</footer>
+
+</body>
+</html>

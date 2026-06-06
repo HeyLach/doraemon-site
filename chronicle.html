@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>哆啦A夢編年史 · 哆啦A夢の秘密基地</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .chronicle-header {
+    background: linear-gradient(135deg, #001133 0%, #003388 50%, #0055cc 100%);
+    color: white;
+    text-align: center;
+    padding: 54px 24px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .chronicle-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0,100,255,0.3) 0%, transparent 70%);
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+  @keyframes glow-pulse {
+    0%,100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  .chronicle-header h1 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .chronicle-header p {
+    opacity: 0.85;
+    max-width: 560px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .time-machine-visual {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .era-filter {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    justify-content: center;
+  }
+  .era-btn {
+    padding: 7px 18px;
+    border-radius: 20px;
+    border: 2px solid var(--blue);
+    background: white;
+    color: var(--blue-dark);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.85rem;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .era-btn:hover, .era-btn.active {
+    background: var(--blue);
+    color: white;
+  }
+
+  .timeline-note {
+    background: linear-gradient(135deg, #e6f0ff 0%, #f0f6ff 100%);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    border-left: 4px solid var(--blue);
+  }
+
+  .future-section {
+    background: linear-gradient(135deg, #001133 0%, #002255 100%);
+    border-radius: 14px;
+    padding: 28px 24px;
+    margin-top: 40px;
+    color: white;
+    text-align: center;
+  }
+  .future-section h2 {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .future-section p {
+    opacity: 0.85;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <div class="logo-icon">🔵</div>
+      <div class="logo-text">哆啦A夢の秘密基地<div class="logo-sub">小叮噹資訊館</div></div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">🏠 首頁</a>
+      <a href="chronicle.html" class="active">⏰ 編年史</a>
+      <a href="taiwan.html">🇹🇼 小叮噹</a>
+      <a href="museums.html">🏛️ 博物館</a>
+      <a href="characters.html">👥 人物</a>
+    </nav>
+  </div>
+</header>
+
+<div class="chronicle-header">
+  <span class="time-machine-visual">⏰</span>
+  <h1>哆啦A夢編年史</h1>
+  <p>從抽屜裡的時光機啟程，踏上跨越半世紀的藍色時光之旅</p>
+</div>
+
+<div class="content-wrap">
+
+  <div class="timeline-note">
+    📌 本頁記錄哆啦A夢（小叮噹）從1969年誕生以來，在漫畫、動畫、電影、文化各領域的重要時間點，以及台灣與全球的相關里程碑。
+  </div>
+
+  <!-- Era Filter -->
+  <div class="era-filter">
+    <button class="era-btn active" onclick="filterEra('all')">全部</button>
+    <button class="era-btn" onclick="filterEra('1960')">1960年代</button>
+    <button class="era-btn" onclick="filterEra('1970')">1970年代</button>
+    <button class="era-btn" onclick="filterEra('1980')">1980年代</button>
+    <button class="era-btn" onclick="filterEra('1990')">1990年代</button>
+    <button class="era-btn" onclick="filterEra('2000')">2000年代</button>
+    <button class="era-btn" onclick="filterEra('2010')">2010年代</button>
+    <button class="era-btn" onclick="filterEra('2020')">2020年代</button>
+  </div>
+
+  <div class="timeline-wrap" id="timeline">
+
+    <!-- 1960s -->
+    <div class="timeline-era">1960年代：誕生</div>
+
+    <div class="timeline-item major" data-era="1969">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">1969年12月</div>
+      <div class="timeline-content">
+        <h3>🌟 哆啦A夢正式誕生</h3>
+        <p>藤子・F・不二雄（本名：藤本弘）的漫畫《哆啦A夢》首次在《小學館》旗下的六本學習雜誌（《小學一年生》至《小學四年生》等）同步連載。這個藍色機器貓的故事，就此展開。</p>
+      </div>
+    </div>
+
+    <!-- 1970s -->
+    <div class="timeline-era" style="margin-top:32px">1970年代：動畫起步</div>
+
+    <div class="timeline-item" data-era="1970">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">1973年4月</div>
+      <div class="timeline-content">
+        <h3>📺 史上第一部哆啦A夢動畫</h3>
+        <p>由日本電視台（日テレ）與東京電影新社（東京ムービー）合作製作的首部動畫版開播。由富田耕生配音哆啦A夢。然而因收視率不佳，同年9月即宣告停播，僅播出26集，成為珍稀的歷史片段。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-era="1974">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">1974年</div>
+      <div class="timeline-content">
+        <h3>📖 單行本漫畫開始發行</h3>
+        <p>小學館開始發行哆啦A夢漫畫單行本，最終出版共45卷，成為史上最暢銷的漫畫系列之一，全球累計銷售逾2.5億冊。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item major" data-era="1979">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">1979年4月</div>
+      <div class="timeline-content">
+        <h3>🌟 朝日電視台新版動畫開播</h3>
+        <p>由朝日電視台（テレビ朝日）與新芸映画（後為辛艾Animation）製作的全新動畫版正式開播。由大山のぶ代配音哆啦A夢。這個版本持續播出長達26年（至2005年），成為台灣與全球觀眾最熟悉的哆啦A夢。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-era="1980">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">1980年3月</div>
+      <div class="timeline-content">
+        <h3>🎬 首部劇場版電影上映</h3>
+        <p>《哆啦A夢：大雄的恐龍》（のび太の恐竜）在日本院線公映，創下佳績，開啟了每年一部劇場版的傳統，延續至今超過40部作品。</p>
+      </div>
+    </div>
+
+    <!-- 1980s -->
+    <div class="timeline-era" style="margin-top:32px">1980年代：台灣熱潮</div>
+
+    <div class="timeline-item major" data-era="1980">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">1980年代初</div>
+      <div class="timeline-content">
+        <h3>🇹🇼 小叮噹登陸台灣</h3>
+        <p>哆啦A夢以「小叮噹」之名進入台灣，在尚未有正式授權的情況下，大量本土出版社紛紛出版相關漫畫，包含官方引進版本與本土繪製版本。各種版本在書報攤、柑仔店、麵店旁大量流通，一本10元的小叮噹成為許多台灣孩子的童年記憶。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-era="1983">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">1983年</div>
+      <div class="timeline-content">
+        <h3>📺 台視《科學小飛俠》時段播映</h3>
+        <p>台灣電視台開始播映哆啦A夢動畫，使「小叮噹」的名字與形象更加深入台灣民間，帶動小叮噹周邊商品的盛行。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-era="1986">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">1986年</div>
+      <div class="timeline-content">
+        <h3>🎌 電影《大雄與鐵人兵團》上映</h3>
+        <p>《哆啦A夢：大雄與鐵人兵團》（鉄人兵団）在日本上映，被許多影評人認為是劇場版中最具感動力的作品之一，刻畫了友情、捨棄與重生的主題。</p>
+      </div>
+    </div>
+
+    <!-- 1990s -->
+    <div class="timeline-era" style="margin-top:32px">1990年代：轉型期</div>
+
+    <div class="timeline-item major" data-era="1991">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">1992年</div>
+      <div class="timeline-content">
+        <h3>🌟 藤子不二雄拆夥，哆啦A夢歸藤子・F</h3>
+        <p>原為搭檔的藤子不二雄（藤本弘 × 安孫子素雄）正式拆夥，各自獨立創作。哆啦A夢的版權與創作歸藤子・F・不二雄（藤本弘）所有。此後哆啦A夢的簽名方式也正式定為「藤子・F・不二雄」。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item major" data-era="1996">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">1996年9月23日</div>
+      <div class="timeline-content">
+        <h3>😢 藤子・F・不二雄辭世</h3>
+        <p>哆啦A夢的父親、藤子・F・不二雄（本名：藤本弘）因慢性腎衰竭在神奈川縣川崎市逝世，享年62歲。他在生前留下了45卷主要漫畫，以及無數的短篇故事，永遠改變了日本漫畫文化。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-era="1998">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">1998年</div>
+      <div class="timeline-content">
+        <h3>🇹🇼 台灣正式授權出版開始</h3>
+        <p>青文出版社取得正式授權，在台灣出版哆啦A夢漫畫，名稱也逐漸從「小叮噹」轉換為「哆啦A夢」，與日本原作接軌。非授權版本開始逐步退出市場。</p>
+      </div>
+    </div>
+
+    <!-- 2000s -->
+    <div class="timeline-era" style="margin-top:32px">2000年代：新世代</div>
+
+    <div class="timeline-item major" data-era="2005">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2005年4月</div>
+      <div class="timeline-content">
+        <h3>🌟 新版動畫啟用全新聲優陣容</h3>
+        <p>朝日電視台推出全新製作的動畫版，以水田わさび取代大山のぶ代擔任哆啦A夢聲優，其他主要角色也全面換新。新版動畫延續至今，已播出超過900集，並持續製作全新劇場版電影。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-era="2008">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2008年</div>
+      <div class="timeline-content">
+        <h3>🌏 哆啦A夢成為日本觀光大使</h3>
+        <p>日本外務省宣布哆啦A夢擔任「日本動畫大使」，這是日本政府首次以動漫角色作為正式外交文化推廣使者，象徵哆啦A夢的全球文化地位。</p>
+      </div>
+    </div>
+
+    <!-- 2010s -->
+    <div class="timeline-era" style="margin-top:32px">2010年代：博物館時代</div>
+
+    <div class="timeline-item major" data-era="2011">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2011年9月3日</div>
+      <div class="timeline-content">
+        <h3>🏛️ 藤子・F・不二雄博物館正式開幕</h3>
+        <p>位於神奈川縣川崎市多摩區的「川崎市 藤子・F・不二雄ミュージアム」在藤子・F・不二雄的生日（9月1日）前後正式開幕，館內收藏超過5萬件原稿手稿，設有常設展、特別展、主題餐廳及專賣店，是全球哆啦A夢迷的朝聖地。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-era="2012">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2012年</div>
+      <div class="timeline-content">
+        <h3>🚃 高岡「哆啦A夢電車」開始運行</h3>
+        <p>藤子・F・不二雄故鄉——富山縣高岡市的萬葉線輕軌，推出以哆啦A夢和夥伴們為主題的彩繪電車，成為當地重要觀光亮點，吸引各地粉絲專程造訪。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item major" data-era="2014">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2014年</div>
+      <div class="timeline-content">
+        <h3>🌟 誕生45週年系列活動</h3>
+        <p>哆啦A夢迎來45週年紀念，全球各地舉辦大規模慶典。台灣也舉辦特展，「哆啦A夢秘密道具博物館」巡迴展在亞洲多個城市掀起旋風，並推出限定紀念商品。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-era="2016">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2016年</div>
+      <div class="timeline-content">
+        <h3>🎬《新・哆啦A夢：大雄的日本誕生》上映</h3>
+        <p>1989年劇場版《大雄的日本誕生》的完整翻拍版上映，加入3D動畫技術與全新配音，讓新世代觀眾也能欣賞這部經典故事，並引發一波懷舊熱潮。</p>
+      </div>
+    </div>
+
+    <!-- 2020s -->
+    <div class="timeline-era" style="margin-top:32px">2020年代：跨世代傳承</div>
+
+    <div class="timeline-item major" data-era="2019">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2019年</div>
+      <div class="timeline-content">
+        <h3>🌟 誕生50週年！半世紀的藍色奇蹟</h3>
+        <p>哆啦A夢迎來誕生50週年。全球舉辦系列紀念活動，包含大型特展、限定商品、50週年紀念版漫畫重新發行，以及多國郵票、硬幣等官方紀念品發行。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-era="2020">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2020年</div>
+      <div class="timeline-content">
+        <h3>🌐 疫情期間的線上陪伴</h3>
+        <p>COVID-19疫情期間，哆啦A夢官方在YouTube上免費公開大量動畫集數，讓世界各地的孩子與大人在居家防疫期間重溫藍色機器貓的溫暖故事。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-era="2023">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2023年</div>
+      <div class="timeline-content">
+        <h3>🎬 劇場版《大雄與天空的理想鄉》</h3>
+        <p>第43部劇場版電影上映，探討「理想社會」的烏托邦主題，以深刻的哲學內涵獲得觀眾好評，顯示哆啦A夢系列在新世代持續深化故事層次。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item" data-era="2024">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2024年</div>
+      <div class="timeline-content">
+        <h3>🎬 劇場版《大雄的地球交響樂》</h3>
+        <p>以音樂為主題的最新劇場版，由哆啦A夢和朋友們踏上奇幻音樂旅程。同年，哆啦A夢誕生55週年的系列活動在全球持續展開。</p>
+      </div>
+    </div>
+
+  </div><!-- /timeline-wrap -->
+
+  <!-- Future section -->
+  <div class="future-section">
+    <div style="font-size:3rem; margin-bottom:16px">🤖</div>
+    <h2>2112年9月3日</h2>
+    <p>根據故事設定，哆啦A夢將在2112年9月3日誕生於日本松下工廠的機器人生產線。大雄的孫子——大雄的孫子（大雄之孫）將會把他送回過去，陪伴幼年的大雄。這個日子，已成為哆啦A夢宇宙中最重要的未來日期。</p>
+    <div style="margin-top:16px; opacity:0.7; font-size:0.85rem">距離2112年，哆啦A夢的世界仍在等待那一天的到來。</div>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<footer>
+  <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
+  <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan</p>
+</footer>
+
+<script>
+function filterEra(era) {
+  const items = document.querySelectorAll('.timeline-item');
+  const btns = document.querySelectorAll('.era-btn');
+  btns.forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  items.forEach(item => {
+    if (era === 'all') {
+      item.style.display = '';
+      return;
+    }
+    const itemEra = parseInt(item.dataset.era || '0');
+    const eraNum = parseInt(era);
+    if (itemEra >= eraNum && itemEra < eraNum + 10) {
+      item.style.display = '';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+
+  // Show/hide era headers
+  const eraHeaders = document.querySelectorAll('.timeline-era');
+  eraHeaders.forEach(h => {
+    h.style.display = era === 'all' ? '' : 'none';
+  });
+}
+</script>
+
+</body>
+</html>
