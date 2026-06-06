@@ -67,7 +67,10 @@ a:hover { color: var(--blue); }
 .logo-icon {
   width: 48px;
   height: 60px;
-  background: url("../logo-doraemon.jpg") center/contain no-repeat;
+  background-image: url("../logo-doraemon.jpg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
