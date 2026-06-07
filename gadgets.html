@@ -7,7 +7,6 @@
 <title>四次元道具百科 · 哆啦A夢の秘密基地</title>
 <link rel="stylesheet" href="css/style.css">
 <style>
-  /* ── category section title ── */
   .cat-title {
     font-family: 'M PLUS Rounded 1c', sans-serif;
     font-size: 1.15rem;
@@ -19,16 +18,12 @@
     margin: 44px 0 20px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.18);
   }
-
-  /* ── gadget grid ── */
   .gadget-grid-full {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 20px;
     margin-bottom: 12px;
   }
-
-  /* ── gadget card ── */
   .gcard {
     background: white;
     border-radius: 18px;
@@ -45,103 +40,68 @@
 
   /* ── icon area ── */
   .gcard-icon-wrap {
-    height: 110px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
   }
-  .icon-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    position: relative;
-    z-index: 1;
-  }
-  .icon-emoji { font-size: 3.2rem; line-height: 1; }
-  .icon-jp {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-size: 0.6rem;
-    font-weight: 800;
-    color: rgba(0,0,0,0.32);
-    text-align: center;
-    letter-spacing: 0.03em;
-  }
-
-  /* ── real-photo icon variant ── */
-  .gcard-icon-wrap.has-img { height: 164px; }
   .gcard-img {
-    position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
+    padding: 14px;
+    position: relative;
     z-index: 1;
-  }
-  .gcard-img-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,0.28));
-    z-index: 2;
-  }
-  .gcard-img-caption {
-    position: absolute;
-    bottom: 7px;
-    right: 10px;
-    z-index: 3;
-    font-size: 0.58rem;
-    color: rgba(255,255,255,0.7);
-    font-style: italic;
+    display: block;
   }
 
   /* ── card body ── */
-  .gcard-body { padding: 16px 18px 20px; flex: 1; display: flex; flex-direction: column; }
-
+  .gcard-body { padding: 14px 16px 18px; flex: 1; display: flex; flex-direction: column; }
   .gcard-jp {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--text-light);
     margin-bottom: 2px;
     letter-spacing: 0.04em;
   }
   .gcard-name {
     font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-size: 1.22rem;
+    font-size: 1.18rem;
     font-weight: 800;
     color: var(--text);
     margin-bottom: 8px;
   }
   .gcard-cat {
     display: inline-block;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
     color: white;
-    padding: 3px 12px;
+    padding: 3px 11px;
     border-radius: 20px;
     margin-bottom: 10px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   }
   .gcard-desc {
-    font-size: 0.875rem;
+    font-size: 0.865rem;
     color: var(--text-mid);
     line-height: 1.75;
     flex: 1;
   }
   .gcard-ep {
-    margin-top: 12px;
-    padding: 10px 12px;
+    margin-top: 10px;
+    padding: 8px 12px;
     background: #f4f8ff;
     border-left: 3px solid var(--blue);
     border-radius: 0 8px 8px 0;
-    font-size: 0.78rem;
+    font-size: 0.77rem;
     color: var(--text-light);
     line-height: 1.65;
   }
   .gcard-ep b { color: var(--blue-dark); }
 
-  /* ── category color themes ── */
+  /* ── category colors ── */
   .cat-travel    { background: linear-gradient(135deg,#0077cc,#00aaff); }
   .cat-knowledge { background: linear-gradient(135deg,#227700,#44bb00); }
   .cat-stealth   { background: linear-gradient(135deg,#660099,#9933cc); }
@@ -165,12 +125,7 @@
     box-shadow: 0 6px 24px rgba(0,100,200,0.3);
   }
   .pocket-icon { font-size: 4rem; flex-shrink: 0; }
-  .pocket-title {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 800;
-    margin-bottom: 6px;
-  }
+  .pocket-title { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
   .pocket-desc { font-size: 0.92rem; opacity: 0.9; line-height: 1.7; }
 
   /* ── stats ── */
@@ -189,9 +144,12 @@
   .gstat-label { font-size: 0.72rem; color: var(--text-light); margin-top: 3px; }
 
   @media (max-width: 560px) {
-    .gadget-grid-full { grid-template-columns: 1fr; }
+    .gadget-grid-full { grid-template-columns: 1fr 1fr; }
     .pocket-banner { flex-direction: column; text-align: center; }
     .gadget-stats { justify-content: center; }
+  }
+  @media (max-width: 380px) {
+    .gadget-grid-full { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -223,7 +181,6 @@
 
 <div class="content-wrap">
 
-  <!-- Stats -->
   <div class="gadget-stats">
     <div class="gstat"><div class="gstat-num">1,700+</div><div class="gstat-label">道具總數（推估）</div></div>
     <div class="gstat"><div class="gstat-num">24</div><div class="gstat-label">本頁收錄件數</div></div>
@@ -231,7 +188,6 @@
     <div class="gstat"><div class="gstat-num">22世紀</div><div class="gstat-label">道具來源時代</div></div>
   </div>
 
-  <!-- 四次元口袋 intro banner -->
   <div class="pocket-banner">
     <div class="pocket-icon">👝</div>
     <div>
@@ -245,11 +201,8 @@
   <div class="gadget-grid-full">
 
     <div class="gcard">
-      <div class="gcard-icon-wrap gcard-icon-travel has-img">
-        <div class="icon-inner"><span class="icon-emoji">🚪</span></div>
-        <img class="gcard-img" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/%E4%BB%BB%E6%84%8F%E9%96%80_%2829052459944%29.jpg" alt="藤子・F・不二雄博物館的任意門展示">
-        <div class="gcard-img-overlay"></div>
-        <div class="gcard-img-caption">藤子・F・不二雄ミュージアム © Chi-Hung Lin / CC BY-SA 2.0</div>
+      <div class="gcard-icon-wrap gcard-icon-travel">
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/e/ee/Doko-Demo-Doa.png/revision/latest?cb=20241102191702&path-prefix=en" alt="任意門">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">どこでもドア</div>
@@ -261,11 +214,8 @@
     </div>
 
     <div class="gcard">
-      <div class="gcard-icon-wrap gcard-icon-travel has-img">
-        <div class="icon-inner"><span class="icon-emoji">🚁</span></div>
-        <img class="gcard-img" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/%E3%82%BF%E3%82%B1%E3%82%B3%E3%83%97%E3%82%BF%E3%83%BC.jpg" alt="竹蜻蜓道具">
-        <div class="gcard-img-overlay"></div>
-        <div class="gcard-img-caption">タケコプター © AT To / CC BY-SA 2.0</div>
+      <div class="gcard-icon-wrap gcard-icon-travel">
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/e/e8/Bambo.jpeg/revision/latest?cb=20130708031038&path-prefix=en" alt="竹蜻蜓">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">タケコプター</div>
@@ -278,10 +228,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-travel">
-        <div class="icon-inner">
-          <span class="icon-emoji">⏰</span>
-          <div class="icon-jp">タイムマシン</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/5/5f/TimeMachine.png/revision/latest?cb=20251024063141&path-prefix=en" alt="時光機">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">タイムマシン</div>
@@ -294,10 +241,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-travel">
-        <div class="icon-inner">
-          <span class="icon-emoji">🔦</span>
-          <div class="icon-jp">スモールライト／ビッグライト</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/e/e5/Small_Light.jpg/revision/latest?cb=20190630111918&path-prefix=en" alt="縮小燈">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">スモールライト ／ ビッグライト</div>
@@ -310,10 +254,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-travel">
-        <div class="icon-inner">
-          <span class="icon-emoji">🪄</span>
-          <div class="icon-jp">通り抜けフープ</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/e/e2/Pass_Through_Loop.jpg/revision/latest?cb=20190630142242&path-prefix=en" alt="穿牆環">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">通り抜けフープ</div>
@@ -326,10 +267,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-travel">
-        <div class="icon-inner">
-          <span class="icon-emoji">🛸</span>
-          <div class="icon-jp">空飛ぶじゅうたん</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/8/8f/FlyingCarpet%281979%29gadget.png/revision/latest?cb=20220728040707&path-prefix=en" alt="空中飛毯">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">空飛ぶじゅうたん</div>
@@ -348,10 +286,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-knowledge">
-        <div class="icon-inner">
-          <span class="icon-emoji">🍞</span>
-          <div class="icon-jp">暗記パン</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/a/aa/Copying_Toast2005.png/revision/latest?cb=20140916135317&path-prefix=en" alt="記憶麵包">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">暗記パン</div>
@@ -364,26 +299,20 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-knowledge">
-        <div class="icon-inner">
-          <span class="icon-emoji">🍡</span>
-          <div class="icon-jp">ほんやくコンニャク</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/7/7e/Konyaku.jpg/revision/latest?cb=20190625234011&path-prefix=en" alt="翻譯蒟蒻">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">ほんやくコンニャク</div>
         <div class="gcard-name">翻譯蒟蒻</div>
         <span class="gcard-cat cat-knowledge">知識輔助</span>
-        <p class="gcard-desc">吃一口蒟蒻，就能聽懂並說出世界上任何語言，包括動物語言和外星語。效果在一段時間內持續，吃多了可能導致所說的話也自動被翻譯成其他語言，造成溝通混亂。現代語言學家也讚嘆這個概念的設計巧思。</p>
+        <p class="gcard-desc">吃一口蒟蒻，就能聽懂並說出世界上任何語言，包括動物語言和外星語。效果在一段時間內持續，吃多了可能導致所說的話也自動被翻譯成其他語言，造成溝通混亂。</p>
         <div class="gcard-ep"><b>代表劇情：</b>電影《大雄的宇宙英雄記》中，哆啦A夢和大雄靠翻譯蒟蒻與外星英雄溝通；短篇中大雄用它和街上的狗說話，才發現狗對大雄的「真實評價」。</div>
       </div>
     </div>
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-knowledge">
-        <div class="icon-inner">
-          <span class="icon-emoji">🎨</span>
-          <div class="icon-jp">魔法のクレヨン</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/5/5b/Justlikethiscrayon.png/revision/latest?cb=20170618165421&path-prefix=en" alt="如意彩色筆">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">魔法のクレヨン</div>
@@ -395,11 +324,8 @@
     </div>
 
     <div class="gcard">
-      <div class="gcard-icon-wrap gcard-icon-knowledge has-img">
-        <div class="icon-inner"><span class="icon-emoji">📞</span></div>
-        <img class="gcard-img" src="https://upload.wikimedia.org/wikipedia/commons/e/ec/SAKURAKO_makes_a_call_to_DORAEMON._%286778972123%29.jpg" alt="哆啦A夢電話道具互動裝置">
-        <div class="gcard-img-overlay"></div>
-        <div class="gcard-img-caption">新千歲機場わくわくスカイパーク © MIKI Yoshihito / CC BY 2.0</div>
+      <div class="gcard-icon-wrap gcard-icon-knowledge">
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/0/06/What-If_Phone_Booth.jpg/revision/latest?cb=20190701021906&path-prefix=en" alt="假如電話亭">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">もしもボックス</div>
@@ -412,10 +338,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-knowledge">
-        <div class="icon-inner">
-          <span class="icon-emoji">📰</span>
-          <div class="icon-jp">未来新聞</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/8/82/Time_newspaper.png/revision/latest?cb=20250129144542&path-prefix=en" alt="未來報紙">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">未来新聞</div>
@@ -434,10 +357,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-stealth">
-        <div class="icon-inner">
-          <span class="icon-emoji">🪨</span>
-          <div class="icon-jp">石ころぼうし</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/8/81/Pebble_Hat3.PNG/revision/latest?cb=20151016092622&path-prefix=en" alt="石頭帽">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">石ころぼうし</div>
@@ -450,10 +370,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-stealth">
-        <div class="icon-inner">
-          <span class="icon-emoji">👻</span>
-          <div class="icon-jp">透明マント</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/6/6b/Invisible_Cape.png/revision/latest?cb=20140905122821&path-prefix=en" alt="透明斗篷">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">透明マント</div>
@@ -466,10 +383,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-stealth">
-        <div class="icon-inner">
-          <span class="icon-emoji">⚗️</span>
-          <div class="icon-jp">バイバイン</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/6/69/Multiplication_Liquid.jpg/revision/latest?cb=20210819191756&path-prefix=en" alt="倍增液">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">バイバイン</div>
@@ -482,10 +396,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-stealth">
-        <div class="icon-inner">
-          <span class="icon-emoji">🎭</span>
-          <div class="icon-jp">変身ビーム</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/0/03/Henshinbimu.jpeg/revision/latest?cb=20250405202811&path-prefix=en" alt="變身光線">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">変身ビーム</div>
@@ -504,10 +415,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-special">
-        <div class="icon-inner">
-          <span class="icon-emoji">🌬️</span>
-          <div class="icon-jp">空気砲</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/f/f7/Cammo.jpg/revision/latest?cb=20140430061655&path-prefix=en" alt="空氣砲">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">空気砲</div>
@@ -520,10 +428,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-special">
-        <div class="icon-inner">
-          <span class="icon-emoji">⏱️</span>
-          <div class="icon-jp">時間停止時計</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/1/1e/Ultra_stopwatch.png/revision/latest?cb=20241231232347&path-prefix=en" alt="時間停止鐘">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">時間停止時計</div>
@@ -536,10 +441,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-special">
-        <div class="icon-inner">
-          <span class="icon-emoji">🏠</span>
-          <div class="icon-jp">コンパクトハウス</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/7/70/Ch387_PleasureinaSmallHouse-1979.png/revision/latest?cb=20260425111525&path-prefix=en" alt="迷你膠囊屋">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">コンパクトハウス</div>
@@ -552,10 +454,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-special">
-        <div class="icon-inner">
-          <span class="icon-emoji">🪞</span>
-          <div class="icon-jp">もどり光線</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/e/e4/RL.jpg/revision/latest?cb=20150330101653&path-prefix=en" alt="復原光線">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">もどり光線</div>
@@ -568,10 +467,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-special">
-        <div class="icon-inner">
-          <span class="icon-emoji">🤖</span>
-          <div class="icon-jp">ほんものそっくりロボット</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/6/6f/Instant_Robot.png/revision/latest?cb=20140905094732&path-prefix=en" alt="替身機器人">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">ほんものそっくりロボット</div>
@@ -584,10 +480,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-special">
-        <div class="icon-inner">
-          <span class="icon-emoji">🫥</span>
-          <div class="icon-jp">コピーロボット</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/9/93/Copiroboto.png/revision/latest?cb=20190811070904&path-prefix=en" alt="複製機器人">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">コピーロボット</div>
@@ -600,10 +493,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-special">
-        <div class="icon-inner">
-          <span class="icon-emoji">🎁</span>
-          <div class="icon-jp">タイムふろしき</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/1/12/Time_Cloth.jpg/revision/latest?cb=20190630110321&path-prefix=en" alt="時光包袱布">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">タイムふろしき</div>
@@ -616,10 +506,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-special">
-        <div class="icon-inner">
-          <span class="icon-emoji">🔘</span>
-          <div class="icon-jp">どくさいスイッチ</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/2/24/Vlcsnap-2026-02-27-15h38m16s498.png/revision/latest?cb=20260227225631&path-prefix=en" alt="獨裁者開關">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">どくさいスイッチ</div>
@@ -632,10 +519,7 @@
 
     <div class="gcard">
       <div class="gcard-icon-wrap gcard-icon-special">
-        <div class="icon-inner">
-          <span class="icon-emoji">🍽️</span>
-          <div class="icon-jp">グルメテーブルかけ</div>
-        </div>
+        <img class="gcard-img" src="https://static.wikia.nocookie.net/doraemon/images/1/13/Gourmet_Table_Cloth.PNG/revision/latest?cb=20150831102237&path-prefix=en" alt="美食桌巾">
       </div>
       <div class="gcard-body">
         <div class="gcard-jp">グルメテーブルかけ</div>
@@ -649,7 +533,7 @@
   </div><!-- /特殊功能 -->
 
   <div style="background:#f8f8f8;border:1px solid #e0e0e0;border-radius:10px;padding:14px 18px;font-size:0.82rem;color:var(--text-light);line-height:1.8;margin-top:12px;">
-    📌 哆啦A夢的道具數量龐大，據估計整個系列超過 1,700 種。本頁收錄24件最具代表性的道具；任意門與竹蜻蜓圖片來自 Wikimedia Commons（CC BY-SA 2.0），其餘道具無公開授權圖片，以示意圖呈現。更多道具詳情可參考《哆啦A夢大百科》。
+    📌 哆啦A夢的道具數量龐大，據估計整個系列超過 1,700 種。本頁收錄 24 件最具代表性的道具；道具圖片來自 Doraemon Wiki（Fandom），版權歸 Fujiko Pro / Shogakukan 所有，僅供資訊參考。更多道具詳情可參考《哆啦A夢大百科》。
   </div>
 
 </div>
