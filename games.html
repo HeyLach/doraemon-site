@@ -182,6 +182,35 @@
   .stat-num { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--blue-dark); line-height: 1; }
   .stat-label { font-size: 0.72rem; color: var(--text-light); margin-top: 3px; }
 
+  /* ── cover image ── */
+  .game-cover.has-img { height: 180px; }
+  .cover-fallback {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+  .cover-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+    z-index: 1;
+  }
+
+  /* ── styled text cover ── */
+  .cover-text-wrap {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 4px; position: relative; z-index: 1;
+    width: 100%; padding: 0 12px;
+  }
+  .cover-icon { font-size: 2.6rem; line-height: 1; }
+  .cover-label {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 0.66rem; font-weight: 800;
+    color: rgba(0,0,0,0.42);
+    text-align: center; line-height: 1.35;
+  }
+
   @media (max-width: 560px) {
     .game-grid { grid-template-columns: 1fr; }
     .featured-banner { flex-direction: column; text-align: center; }
@@ -246,7 +275,11 @@
   <div class="game-grid">
 
     <div class="game-card">
-      <div class="game-cover cover-fc"><span>🤖</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-fc has-img">
+        <div class="cover-fallback">🤖</div>
+        <img class="cover-img" src="https://upload.wikimedia.org/wikipedia/en/6/6b/Doraemon_Famicomboxart.png" alt="哆啦A夢 Famicom 版封面">
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもん（1986 / Hudson Soft）</div>
         <div class="game-title">哆啦A夢 FC 版</div>
@@ -261,7 +294,10 @@
     </div>
 
     <div class="game-card">
-      <div class="game-cover cover-fc"><span>⚔️</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-fc">
+        <div class="cover-text-wrap"><span class="cover-icon">⚔️</span><div class="cover-label">ギガゾンビの逆襲</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもん ギガゾンビの逆襲（1990 / Epoch）</div>
         <div class="game-title">哆啦A夢 ─ 吉加殭屍的逆襲</div>
@@ -288,7 +324,10 @@
   <div class="game-grid">
 
     <div class="game-card">
-      <div class="game-cover cover-gb"><span>🎮</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-gb">
+        <div class="cover-text-wrap"><span class="cover-icon">🎮</span><div class="cover-label">ドラえもん GB</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもん（1990 / Hudson Soft）</div>
         <div class="game-title">哆啦A夢 GB 版</div>
@@ -303,7 +342,10 @@
     </div>
 
     <div class="game-card">
-      <div class="game-cover cover-gb"><span>🏛️</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-gb">
+        <div class="cover-text-wrap"><span class="cover-icon">🏛️</span><div class="cover-label">のびたと光の神殿</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもん２ のび太と光の神殿（1993 / Hudson Soft）</div>
         <div class="game-title">哆啦A夢2 ─ 大雄與光之神殿</div>
@@ -330,7 +372,10 @@
   <div class="game-grid">
 
     <div class="game-card">
-      <div class="game-cover cover-sfc"><span>🐘</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-sfc">
+        <div class="cover-text-wrap"><span class="cover-icon">🐘</span><div class="cover-label">アニマル惑星</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもん のびたとアニマル惑星（1993 / Epoch）</div>
         <div class="game-title">哆啦A夢 ─ 大雄的動物惑星</div>
@@ -345,7 +390,10 @@
     </div>
 
     <div class="game-card">
-      <div class="game-cover cover-sfc"><span>🗡️</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-sfc">
+        <div class="cover-text-wrap"><span class="cover-icon">🗡️</span><div class="cover-label">夢幻三剣士</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもん のびたと夢幻三剣士（1994 / Epoch）</div>
         <div class="game-title">哆啦A夢 ─ 大雄的夢幻三劍士</div>
@@ -372,7 +420,10 @@
   <div class="game-grid">
 
     <div class="game-card">
-      <div class="game-cover cover-ds"><span>🦕</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-ds">
+        <div class="cover-text-wrap"><span class="cover-icon">🦕</span><div class="cover-label">のびたの恐竜 2006</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもん のびたの恐竜2006 DS（2006 / Bandai Namco）</div>
         <div class="game-title">哆啦A夢 ─ 大雄的恐龍 2006 DS</div>
@@ -387,7 +438,10 @@
     </div>
 
     <div class="game-card">
-      <div class="game-cover cover-ds"><span>🤖</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-ds">
+        <div class="cover-text-wrap"><span class="cover-icon">🤖</span><div class="cover-label">のびたと鉄人兵団</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもん のびたと鉄人兵団 DS（2011 / Bandai Namco）</div>
         <div class="game-title">哆啦A夢 ─ 大雄與鐵人兵團 DS</div>
@@ -402,7 +456,10 @@
     </div>
 
     <div class="game-card">
-      <div class="game-cover cover-ds"><span>🌿</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-ds">
+        <div class="cover-text-wrap"><span class="cover-icon">🌿</span><div class="cover-label">緑の巨人伝</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもん のびたと緑の巨人伝 DS（2008 / Bandai Namco）</div>
         <div class="game-title">哆啦A夢 ─ 大雄的綠之巨人傳 DS</div>
@@ -429,7 +486,11 @@
   <div class="game-grid">
 
     <div class="game-card">
-      <div class="game-cover cover-switch"><span>🌾</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-switch has-img">
+        <div class="cover-fallback">🌾</div>
+        <img class="cover-img" src="https://upload.wikimedia.org/wikipedia/en/d/d3/Doraemon_Story_of_Seasons_game_cover.jpg" alt="哆啦A夢牧場物語封面">
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもん のび太の牧場物語（2019 / Bandai Namco）</div>
         <div class="game-title">哆啦A夢牧場物語</div>
@@ -445,7 +506,10 @@
     </div>
 
     <div class="game-card">
-      <div class="game-cover cover-switch"><span>🏰</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-switch">
+        <div class="cover-text-wrap"><span class="cover-icon">🏰</span><div class="cover-label">大自然の王国と<br>みんなの家</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもん のび太の牧場物語 大自然の王国とみんなの家（2022）</div>
         <div class="game-title">哆啦A夢牧場物語：大自然王國與大家的家</div>
@@ -473,7 +537,10 @@
   <div class="game-grid">
 
     <div class="game-card">
-      <div class="game-cover cover-mobile"><span>🏃</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-mobile">
+        <div class="cover-text-wrap"><span class="cover-icon">🏃</span><div class="cover-label">どこでもウォーカー</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもんのどこでもウォーカー（LINE Games）</div>
         <div class="game-title">哆啦A夢任意走</div>
@@ -486,7 +553,10 @@
     </div>
 
     <div class="game-card">
-      <div class="game-cover cover-mobile"><span>🏘️</span><div class="game-cover-overlay"></div></div>
+      <div class="game-cover cover-mobile">
+        <div class="cover-text-wrap"><span class="cover-icon">🏘️</span><div class="cover-label">ドラえもんのまち</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
       <div class="game-body">
         <div class="game-title-jp">ドラえもんのまち（Bandai Namco）</div>
         <div class="game-title">哆啦A夢小鎮</div>
