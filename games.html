@@ -122,6 +122,9 @@
   .era-sfc   { background: linear-gradient(135deg,#1a1a8b,#4444cc); }
   .era-ps    { background: linear-gradient(135deg,#222244,#4455aa); }
   .era-ds    { background: linear-gradient(135deg,#5a2a00,#aa6600); }
+  .era-n64   { background: linear-gradient(135deg,#1a5c8b,#2288cc); }
+  .era-gba   { background: linear-gradient(135deg,#7a1a8b,#aa44cc); }
+  .era-3ds   { background: linear-gradient(135deg,#8b4400,#cc7700); }
   .era-switch{ background: linear-gradient(135deg,#cc0044,#ff3366); }
   .era-mobile{ background: linear-gradient(135deg,#006633,#009944); }
 
@@ -129,6 +132,9 @@
   .cover-gb    { background: linear-gradient(160deg,#d0ffd0,#88ee88); }
   .cover-sfc   { background: linear-gradient(160deg,#d0d0ff,#9999ff); }
   .cover-ps    { background: linear-gradient(160deg,#d0d8ff,#8899ff); }
+  .cover-n64   { background: linear-gradient(160deg,#c8e8ff,#66bbff); }
+  .cover-gba   { background: linear-gradient(160deg,#e8ccff,#cc88ff); }
+  .cover-3ds   { background: linear-gradient(160deg,#ffe8cc,#ffcc66); }
   .cover-ds    { background: linear-gradient(160deg,#ffd8aa,#ffaa44); }
   .cover-switch{ background: linear-gradient(160deg,#ffd0dd,#ff88aa); }
   .cover-mobile{ background: linear-gradient(160deg,#c0ffd0,#44dd88); }
@@ -136,15 +142,16 @@
   .plat-fc    { background:#cc3333; }
   .plat-gb    { background:#448844; }
   .plat-sfc   { background:#4444cc; }
+  .plat-n64   { background:#2288cc; }
+  .plat-gba   { background:#663388; }
   .plat-ps1   { background:#444488; }
   .plat-ps2   { background:#334488; }
   .plat-nds   { background:#aa6600; }
-  .plat-3ds   { background:#cc5500; }
+  .plat-3ds   { background:#cc7700; }
   .plat-wii   { background:#0088cc; }
   .plat-switch{ background:#cc0044; }
   .plat-pc    { background:#336699; }
   .plat-mobile{ background:#009944; }
-  .plat-gba   { background:#663388; }
 
   /* ── featured banner ── */
   .featured-banner {
@@ -250,7 +257,7 @@
   <div class="stats-bar">
     <div class="stat-item"><div class="stat-num">40+</div><div class="stat-label">年遊戲歷史</div></div>
     <div class="stat-item"><div class="stat-num">30+</div><div class="stat-label">主機遊戲作品</div></div>
-    <div class="stat-item"><div class="stat-num">8+</div><div class="stat-label">涉及平台</div></div>
+    <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">涉及平台</div></div>
     <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Story of Seasons 作品</div></div>
     <div class="stat-item"><div class="stat-num">1986</div><div class="stat-label">首款遊戲年份</div></div>
   </div>
@@ -294,8 +301,9 @@
     </div>
 
     <div class="game-card">
-      <div class="game-cover cover-fc">
-        <div class="cover-text-wrap"><span class="cover-icon">⚔️</span><div class="cover-label">ギガゾンビの逆襲</div></div>
+      <div class="game-cover cover-fc has-img">
+        <div class="cover-fallback">⚔️</div>
+        <img class="cover-img" src="images/games/fc-giga-zombie.png" alt="ギガゾンビの逆襲">
         <div class="game-cover-overlay"></div>
       </div>
       <div class="game-body">
@@ -372,42 +380,113 @@
   <div class="game-grid">
 
     <div class="game-card">
-      <div class="game-cover cover-sfc">
-        <div class="cover-text-wrap"><span class="cover-icon">🐘</span><div class="cover-label">アニマル惑星</div></div>
+      <div class="game-cover cover-sfc has-img">
+        <div class="cover-fallback">🧚</div>
+        <img class="cover-img" src="images/games/sfc-yousei-kuni.png" alt="のびたとようせいの国">
         <div class="game-cover-overlay"></div>
       </div>
       <div class="game-body">
-        <div class="game-title-jp">ドラえもん のびたとアニマル惑星（1993 / Epoch）</div>
-        <div class="game-title">哆啦A夢 ─ 大雄的動物惑星</div>
+        <div class="game-title-jp">ドラえもん のびたとようせいの国（1993 / Epoch）</div>
+        <div class="game-title">哆啦A夢 ─ 大雄與精靈之國</div>
         <div class="game-meta">
           <span class="game-badge badge-year">1993</span>
           <span class="game-badge badge-plat plat-sfc">Super Famicom</span>
-          <span class="game-badge badge-genre">動作</span>
+          <span class="game-badge badge-genre">動作冒險</span>
         </div>
-        <p class="game-desc">Super Famicom 首款哆啦A夢遊戲，改編自同名電影。玩家在充滿動物的外星球探險，豐富的色彩與流暢的動畫充分展現了 SFC 比 FC 更強大的圖形表現力。</p>
-        <div class="game-note"><b>視覺升級：</b>從 8-bit 跨入 16-bit，哆啦A夢首次在家機上呈現出接近動畫的角色造型。</div>
+        <p class="game-desc">Super Famicom 首款哆啦A夢遊戲，玩家跟隨哆啦A夢與大雄進入精靈居住的神秘國度冒險。豐富的色彩與流暢動畫充分展現 SFC 的 16-bit 圖形表現力，從紅白機的 8-bit 風格大幅躍進。</p>
+        <div class="game-note"><b>視覺升級：</b>哆啦A夢首次在家機上呈現接近動畫的角色造型，地圖探索結合動作關卡，是當時品質最高的兒童向 SFC 遊戲之一。</div>
       </div>
     </div>
 
     <div class="game-card">
-      <div class="game-cover cover-sfc">
-        <div class="cover-text-wrap"><span class="cover-icon">🗡️</span><div class="cover-label">夢幻三剣士</div></div>
+      <div class="game-cover cover-sfc has-img">
+        <div class="cover-fallback">💎</div>
+        <img class="cover-img" src="images/games/sfc-toki-hougyoku.jpg" alt="のびたとときのほうぎょく">
         <div class="game-cover-overlay"></div>
       </div>
       <div class="game-body">
-        <div class="game-title-jp">ドラえもん のびたと夢幻三剣士（1994 / Epoch）</div>
-        <div class="game-title">哆啦A夢 ─ 大雄的夢幻三劍士</div>
+        <div class="game-title-jp">ドラえもん３ のびたとときのほうぎょく（1994 / Epoch）</div>
+        <div class="game-title">哆啦A夢3 ─ 大雄與時之寶珠</div>
         <div class="game-meta">
           <span class="game-badge badge-year">1994</span>
           <span class="game-badge badge-plat plat-sfc">Super Famicom</span>
-          <span class="game-badge badge-genre">動作 RPG</span>
+          <span class="game-badge badge-genre">動作冒險</span>
         </div>
-        <p class="game-desc">改編自 1994 年同名電影，以奇幻夢境世界為舞台。遊戲加入更多 RPG 成分，角色有等級與成長系統，哆啦A夢、大雄、靜香、胖虎、小夫分別擔任不同戰鬥角色，是 SFC 系列中故事性最強的一作。</p>
-        <div class="game-note"><b>特色：</b>五人組分工作戰的設計在當時頗為新穎，被認為是 Super Famicom 哆啦A夢遊戲的最高峰。</div>
+        <p class="game-desc">SFC 系列第三作，以傳說中能操控時間的寶珠為核心，哆啦A夢一行人穿越各時代阻止反派奪取時之寶珠。關卡設計更加豐富，在 SFC 系列中以劇情完整性著稱，是公認的 SFC 哆啦A夢系列巔峰之作。</p>
+        <div class="game-note"><b>時代意義：</b>SFC 系列共四作（1993–1995），以時之寶珠為主題的第三作被認為是機制與故事最均衡的一作，收藏價值也最高。</div>
       </div>
     </div>
 
   </div><!-- /SFC -->
+
+  <!-- ── N64 時代 ── -->
+  <div class="era-header era-n64">
+    <div class="era-icon">🟦</div>
+    <div>
+      <div class="era-title">Nintendo 64 時代</div>
+      <div class="era-years">1997 – 2000 ｜ 3D 立體冒險三部曲</div>
+    </div>
+  </div>
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-cover cover-n64 has-img">
+        <div class="cover-fallback">🔮</div>
+        <img class="cover-img" src="images/games/n64-seireiseki.jpg" alt="のびたとみっつのせいれいせき">
+        <div class="game-cover-overlay"></div>
+      </div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん のびたとみっつのせいれいせき（1997 / Epoch）</div>
+        <div class="game-title">哆啦A夢 ─ 大雄與三塊精靈石</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">1997</span>
+          <span class="game-badge badge-plat plat-n64">Nintendo 64</span>
+          <span class="game-badge badge-genre">3D 動作冒險</span>
+        </div>
+        <p class="game-desc">哆啦A夢首款 3D 遊戲，也是系列踏入多邊形時代的重要里程碑。玩家在立體空間中操控哆啦A夢，收集散落各處的三塊神秘精靈石阻止惡魔復活。自由視角的 3D 關卡設計在當時是全新體驗，畫面品質也讓玩家驚艷。</p>
+        <div class="game-note"><b>3D 初登場：</b>同年《超級馬利歐 64》確立了 3D 平台遊戲標準，哆啦A夢同樣以 N64 跨入立體世界，是系列技術躍進的象徵。</div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-cover cover-n64 has-img">
+        <div class="cover-fallback">✨</div>
+        <img class="cover-img" src="images/games/n64-hikari-shinden.jpg" alt="のびたとひかりのしんでん">
+        <div class="game-cover-overlay"></div>
+      </div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん２ のびたとひかりのしんでん（1998 / Epoch）</div>
+        <div class="game-title">哆啦A夢2 ─ 大雄與光之神殿</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">1998</span>
+          <span class="game-badge badge-plat plat-n64">Nintendo 64</span>
+          <span class="game-badge badge-genre">3D 動作冒險</span>
+        </div>
+        <p class="game-desc">N64 系列第二作，以神秘光之神殿為舞台，哆啦A夢與大雄深入神殿探索古文明遺跡。在前作 3D 基礎上進化，新增更多道具互動機制與謎題設計，畫面細節也有明顯提升，是 N64 三部曲中最受好評的一作。</p>
+        <div class="game-note"><b>系列評價：</b>光之神殿的異世界氛圍搭配精緻的 3D 關卡設計，被許多老玩家視為 N64 哆啦A夢遊戲的最佳之作，二手價格至今仍居三部曲之冠。</div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-cover cover-n64 has-img">
+        <div class="cover-fallback">🏙️</div>
+        <img class="cover-img" src="images/games/n64-machi-sos.png" alt="のびたのまちSOS!">
+        <div class="game-cover-overlay"></div>
+      </div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん３ のびたのまちSOS!（2000 / Epoch）</div>
+        <div class="game-title">哆啦A夢3 ─ 大雄之城市 SOS!</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">2000</span>
+          <span class="game-badge badge-plat plat-n64">Nintendo 64</span>
+          <span class="game-badge badge-genre">3D 動作冒險</span>
+        </div>
+        <p class="game-desc">N64 系列完結篇，故事將冒險場景帶回現代城市，大雄所在的小鎮遭受神秘力量威脅，哆啦A夢必須拯救城市居民。以熟悉的街道為 3D 關卡背景，城市探索與道具解謎融合，是對 N64 三部曲的完整總結。</p>
+        <div class="game-note"><b>N64 三部曲終章：</b>1997–2000 年三款 N64 遊戲構成完整的「精靈石三部曲」，共同記錄了哆啦A夢跨入 3D 時代的完整軌跡。</div>
+      </div>
+    </div>
+
+  </div><!-- /N64 -->
 
   <!-- ── DS / Wii 時代 ── -->
   <div class="era-header era-ds">
@@ -473,7 +552,125 @@
       </div>
     </div>
 
-  </div><!-- /DS -->
+    <div class="game-card">
+      <div class="game-cover cover-ds has-img">
+        <div class="cover-fallback">🎉</div>
+        <img class="cover-img" src="images/games/wii-doraemon.jpg" alt="Doraemon Wii">
+        <div class="game-cover-overlay"></div>
+      </div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん Wii ひみつ道具王決定戦（2007 / Sega）</div>
+        <div class="game-title">哆啦A夢 Wii ─ 秘密道具王決定賽</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">2007</span>
+          <span class="game-badge badge-plat plat-wii">Wii</span>
+          <span class="game-badge badge-genre">派對小遊戲</span>
+        </div>
+        <p class="game-desc">Sega 發行的 Wii 體感派對遊戲，內含 36 款以哆啦A夢道具為主題的小遊戲，最多支援四人同樂。利用 Wii Remote 的體感功能模擬使用道具的動作，例如揮動遙控器射出空氣砲、搖晃模擬竹蜻蜓飛行。</p>
+        <div class="game-note"><b>聚會神器：</b>Wii 體感操作與哆啦A夢道具完美結合，是少數讓多名玩家同時享受的哆啦A夢家用機遊戲，在當時受到家庭玩家好評。</div>
+      </div>
+    </div>
+
+  </div><!-- /DS-Wii -->
+
+  <!-- ── GBA 時代 ── -->
+  <div class="era-header era-gba">
+    <div class="era-icon">🟪</div>
+    <div>
+      <div class="era-title">Game Boy Advance 時代</div>
+      <div class="era-years">2002 – 2004 ｜ 彩色掌機升級</div>
+    </div>
+  </div>
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-cover cover-gba has-img">
+        <div class="cover-fallback">🌿</div>
+        <img class="cover-img" src="images/games/gba-midori-wakusei.jpg" alt="みどりのわくせいドキドキ大救出！">
+        <div class="game-cover-overlay"></div>
+      </div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん みどりのわくせいドキドキ大救出！（2003 / Epoch）</div>
+        <div class="game-title">哆啦A夢 ─ 綠色星球緊張大救援！</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">2003</span>
+          <span class="game-badge badge-plat plat-gba">GBA</span>
+          <span class="game-badge badge-genre">動作冒險</span>
+        </div>
+        <p class="game-desc">GBA 掌機上的哆啦A夢動作冒險遊戲，故事圍繞一顆被污染的綠色星球展開。玩家操控哆啦A夢及夥伴，使用各種秘密道具清除星球上的威脅，搭救被困的居民。彩色 GBA 畫面讓哆啦A夢的世界比 GB 時代更為鮮豔生動。</p>
+        <div class="game-note"><b>掌機進化：</b>從 Game Boy 的黑白螢幕升級到 GBA 彩色顯示，哆啦A夢的角色造型首次在掌機上以接近 SFC 的色彩呈現，是系列掌機版本的重要一步。</div>
+      </div>
+    </div>
+
+  </div><!-- /GBA -->
+
+  <!-- ── 3DS 時代 ── -->
+  <div class="era-header era-3ds">
+    <div class="era-icon">🎯</div>
+    <div>
+      <div class="era-title">Nintendo 3DS 時代</div>
+      <div class="era-years">2013 – 2018 ｜ 立體裸視掌機</div>
+    </div>
+  </div>
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-cover cover-3ds">
+        <div class="cover-text-wrap"><span class="cover-icon">🗾</span><div class="cover-label">新のびたの日本誕生</div></div>
+        <div class="game-cover-overlay"></div>
+      </div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん 新のびたの日本誕生 ～鑑定団を救え！（2013 / Bandai Namco）</div>
+        <div class="game-title">哆啦A夢 ─ 新・大雄的日本誕生</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">2013</span>
+          <span class="game-badge badge-plat plat-3ds">3DS</span>
+          <span class="game-badge badge-genre">動作冒險</span>
+        </div>
+        <p class="game-desc">改編自 2016 年電影前置作品，3DS 的第一款哆啦A夢遊戲。玩家穿越到史前時代的日本，在原始大地上與史前生物及反派對戰，並使用道具拯救被困的時代鑑定師。立體裸視功能讓遊戲景深更加豐富。</p>
+        <div class="game-note"><b>3DS 初登場：</b>哆啦A夢第一次出現在 3DS 的裸視 3D 立體螢幕上，道具的使用場景在立體效果下更有臨場感。</div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-cover cover-3ds has-img">
+        <div class="cover-fallback">🌸</div>
+        <img class="cover-img" src="images/games/3ds-nippon-tanjou.jpg" alt="新のびたの日本誕生 3DS 2016">
+        <div class="game-cover-overlay"></div>
+      </div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん 新のびたの日本誕生（2016 / FuRyu）</div>
+        <div class="game-title">哆啦A夢 ─ 新・大雄的日本誕生（2016）</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">2016</span>
+          <span class="game-badge badge-plat plat-3ds">3DS</span>
+          <span class="game-badge badge-genre">動作冒險</span>
+        </div>
+        <p class="game-desc">FuRyu 製作，配合 2016 年上映的同名電影推出。玩家與原始時代的孩子們共同保衛部落，利用哆啦A夢的道具建造設施、對抗猛獸。遊戲加入了建設要素，玩家可以為原始部落升級防禦工事，是 3DS 系列中玩法最多元的一作。</p>
+        <div class="game-note"><b>建設融合：</b>在傳統動作玩法中加入輕量建設元素，讓玩家以「建造」的方式幫助部落成長，為哆啦A夢遊戲帶來新鮮感。</div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-cover cover-3ds has-img">
+        <div class="cover-fallback">🏴‍☠️</div>
+        <img class="cover-img" src="images/games/3ds-takarajima.jpg" alt="のびたの宝島 3DS">
+        <div class="game-cover-overlay"></div>
+      </div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん のびたの宝島（2018 / FuRyu）</div>
+        <div class="game-title">哆啦A夢 ─ 大雄的寶島</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">2018</span>
+          <span class="game-badge badge-plat plat-3ds">3DS</span>
+          <span class="game-badge badge-genre">動作冒險</span>
+        </div>
+        <p class="game-desc">3DS 最後一款哆啦A夢遊戲，改編自 2018 年電影《大雄的寶島》。以加勒比海風格的神秘島嶼為舞台，哆啦A夢與夥伴們乘風破浪尋找傳說中的寶藏。FuRyu 三部 3DS 作品中視覺效果最精緻，劇情也最完整。</p>
+        <div class="game-note"><b>3DS 告別作：</b>2018 年 Switch 已成為主流，這款遊戲是 3DS 上的哆啦A夢最終章；同年電影在日本票房超過 84 億日圓，是系列電影史上最高票房之一。</div>
+      </div>
+    </div>
+
+  </div><!-- /3DS -->
 
   <!-- ── Switch / PC 時代 ── -->
   <div class="era-header era-switch">
@@ -506,8 +703,9 @@
     </div>
 
     <div class="game-card">
-      <div class="game-cover cover-switch">
-        <div class="cover-text-wrap"><span class="cover-icon">🏰</span><div class="cover-label">大自然の王国と<br>みんなの家</div></div>
+      <div class="game-cover cover-switch has-img">
+        <div class="cover-fallback">🏰</div>
+        <img class="cover-img" src="images/games/switch-fotgk.jpg" alt="大自然の王国とみんなの家">
         <div class="game-cover-overlay"></div>
       </div>
       <div class="game-body">
