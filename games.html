@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電玩專區 · 哆啦A夢の秘密基地</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ── era section ── */
+  .era-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 22px;
+    border-radius: 14px;
+    color: white;
+    margin: 44px 0 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .era-icon { font-size: 2rem; flex-shrink: 0; }
+  .era-title {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+  .era-years { font-size: 0.82rem; opacity: 0.85; margin-top: 2px; }
+
+  /* ── game grid ── */
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 8px;
+  }
+
+  /* ── game card ── */
+  .game-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(44,24,16,0.12);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s cubic-bezier(.34,1.4,.64,1), box-shadow 0.25s;
+  }
+  .game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(44,24,16,0.2);
+  }
+
+  .game-cover {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .game-cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.25));
+  }
+
+  .game-body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; }
+
+  .game-title-jp {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-bottom: 3px;
+    letter-spacing: 0.03em;
+  }
+  .game-title {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .game-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .game-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1.5px solid;
+  }
+  .badge-year   { color: #555; border-color: #ccc; background: #f5f5f5; }
+  .badge-plat   { color: white; border-color: transparent; }
+  .badge-genre  { color: #336; border-color: #aac; background: #eef; }
+
+  .game-desc {
+    font-size: 0.865rem;
+    color: var(--text-mid);
+    line-height: 1.72;
+    flex: 1;
+  }
+  .game-note {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #f4f8ff;
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.77rem;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+  .game-note b { color: var(--blue-dark); }
+
+  /* ── era colors ── */
+  .era-fc    { background: linear-gradient(135deg,#8b1a1a,#cc3333); }
+  .era-gb    { background: linear-gradient(135deg,#2a4a2a,#448844); }
+  .era-sfc   { background: linear-gradient(135deg,#1a1a8b,#4444cc); }
+  .era-ps    { background: linear-gradient(135deg,#222244,#4455aa); }
+  .era-ds    { background: linear-gradient(135deg,#5a2a00,#aa6600); }
+  .era-switch{ background: linear-gradient(135deg,#cc0044,#ff3366); }
+  .era-mobile{ background: linear-gradient(135deg,#006633,#009944); }
+
+  .cover-fc    { background: linear-gradient(160deg,#ffd0d0,#ff9999); }
+  .cover-gb    { background: linear-gradient(160deg,#d0ffd0,#88ee88); }
+  .cover-sfc   { background: linear-gradient(160deg,#d0d0ff,#9999ff); }
+  .cover-ps    { background: linear-gradient(160deg,#d0d8ff,#8899ff); }
+  .cover-ds    { background: linear-gradient(160deg,#ffd8aa,#ffaa44); }
+  .cover-switch{ background: linear-gradient(160deg,#ffd0dd,#ff88aa); }
+  .cover-mobile{ background: linear-gradient(160deg,#c0ffd0,#44dd88); }
+
+  .plat-fc    { background:#cc3333; }
+  .plat-gb    { background:#448844; }
+  .plat-sfc   { background:#4444cc; }
+  .plat-ps1   { background:#444488; }
+  .plat-ps2   { background:#334488; }
+  .plat-nds   { background:#aa6600; }
+  .plat-3ds   { background:#cc5500; }
+  .plat-wii   { background:#0088cc; }
+  .plat-switch{ background:#cc0044; }
+  .plat-pc    { background:#336699; }
+  .plat-mobile{ background:#009944; }
+  .plat-gba   { background:#663388; }
+
+  /* ── featured banner ── */
+  .featured-banner {
+    background: linear-gradient(135deg,#cc0044,#ff3366);
+    border-radius: 16px;
+    padding: 28px 32px;
+    color: white;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    box-shadow: 0 6px 24px rgba(200,0,50,0.3);
+    margin-bottom: 8px;
+  }
+  .featured-icon { font-size: 4rem; flex-shrink: 0; }
+  .featured-title {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .featured-desc { font-size: 0.92rem; opacity: 0.92; line-height: 1.7; }
+
+  /* ── stats bar ── */
+  .stats-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: white;
+    border-radius: 14px;
+    padding: 18px 24px;
+    box-shadow: 0 3px 14px rgba(44,24,16,0.1);
+    margin-bottom: 8px;
+  }
+  .stat-item { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
+  .stat-num { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--blue-dark); line-height: 1; }
+  .stat-label { font-size: 0.72rem; color: var(--text-light); margin-top: 3px; }
+
+  @media (max-width: 560px) {
+    .game-grid { grid-template-columns: 1fr; }
+    .featured-banner { flex-direction: column; text-align: center; }
+    .stats-bar { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <div class="logo-icon">🔵</div>
+      <div class="logo-text">哆啦A夢の秘密基地<div class="logo-sub">小叮噹資訊館</div></div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">🏠 首頁</a>
+      <a href="chronicle.html">⏰ 編年史</a>
+      <a href="taiwan.html">🇹🇼 小叮噹</a>
+      <a href="museums.html">🏛️ 博物館</a>
+      <a href="characters.html">👥 人物</a>
+      <a href="gadgets.html">🎒 道具</a>
+      <a href="games.html" class="active">🎮 電玩</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:14px">🎮</div>
+  <h1>哆啦A夢電玩專區</h1>
+  <p>從 1986 年 Famicom 到 2022 年 Nintendo Switch，橫跨四十年的哆啦A夢遊戲世界</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">40+</div><div class="stat-label">年遊戲歷史</div></div>
+    <div class="stat-item"><div class="stat-num">30+</div><div class="stat-label">主機遊戲作品</div></div>
+    <div class="stat-item"><div class="stat-num">8+</div><div class="stat-label">涉及平台</div></div>
+    <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Story of Seasons 作品</div></div>
+    <div class="stat-item"><div class="stat-num">1986</div><div class="stat-label">首款遊戲年份</div></div>
+  </div>
+
+  <!-- Featured -->
+  <div class="featured-banner" style="margin-top:32px;">
+    <div class="featured-icon">🌾</div>
+    <div>
+      <div class="featured-title">Doraemon Story of Seasons（哆啦A夢牧場物語）</div>
+      <div class="featured-desc">哆啦A夢近年最受矚目的遊戲系列，與知名農場模擬遊戲《牧場物語》聯名合作。玩家扮演大雄，在一個魔法小鎮裡種田、養動物、交朋友，並使用哆啦A夢的秘密道具協助農場生活。遊戲保留了原作溫馨的人情味，是系列中第一款真正在全球廣受歡迎的主機作品。</div>
+    </div>
+  </div>
+
+  <!-- ── FC / Famicom 時代 ── -->
+  <div class="era-header era-fc">
+    <div class="era-icon">👾</div>
+    <div>
+      <div class="era-title">FC／Famicom 時代</div>
+      <div class="era-years">1986 – 1993 ｜ 任天堂紅白機</div>
+    </div>
+  </div>
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-cover cover-fc"><span>🤖</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん（1986 / Hudson Soft）</div>
+        <div class="game-title">哆啦A夢 FC 版</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">1986</span>
+          <span class="game-badge badge-plat plat-fc">Famicom</span>
+          <span class="game-badge badge-genre">動作</span>
+        </div>
+        <p class="game-desc">Hudson Soft 發行的橫向卷軸動作遊戲，也是哆啦A夢系列的第一款主機遊戲。玩家操控哆啦A夢，以道具（任意門、竹蜻蜓）對抗各種敵人，最終目標是拯救被抓走的夥伴們。</p>
+        <div class="game-note"><b>歷史意義：</b>哆啦A夢電玩史的起點，確立了「使用道具」為核心遊戲機制的設計方向。</div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-cover cover-fc"><span>⚔️</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん ギガゾンビの逆襲（1990 / Epoch）</div>
+        <div class="game-title">哆啦A夢 ─ 吉加殭屍的逆襲</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">1990</span>
+          <span class="game-badge badge-plat plat-fc">Famicom</span>
+          <span class="game-badge badge-genre">RPG</span>
+        </div>
+        <p class="game-desc">Epoch 發行的 RPG，哆啦A夢系列首度採用回合制戰鬥。玩家操控哆啦A夢和夥伴們，以使用道具代替魔法攻擊，穿越各時代對抗終極反派「吉加殭屍」。劇情有相當完整的世界觀，在當時評價極高。</p>
+        <div class="game-note"><b>特色：</b>以 RPG 形式融入哆啦A夢道具，任意門被設計為傳送魔法，是系列中深度最高的 FC 作品。</div>
+      </div>
+    </div>
+
+  </div><!-- /FC -->
+
+  <!-- ── Game Boy 時代 ── -->
+  <div class="era-header era-gb">
+    <div class="era-icon">🟩</div>
+    <div>
+      <div class="era-title">Game Boy 時代</div>
+      <div class="era-years">1990 – 1997 ｜ 任天堂掌機</div>
+    </div>
+  </div>
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-cover cover-gb"><span>🎮</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん（1990 / Hudson Soft）</div>
+        <div class="game-title">哆啦A夢 GB 版</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">1990</span>
+          <span class="game-badge badge-plat plat-gb">Game Boy</span>
+          <span class="game-badge badge-genre">動作解謎</span>
+        </div>
+        <p class="game-desc">Game Boy 首款哆啦A夢遊戲，在黑白掌機上重現了哆啦A夢的冒險。關卡設計融合動作與解謎要素，使用不同道具可以解開路上的障礙，是當時掌機遊戲中品質相當出色的作品。</p>
+        <div class="game-note"><b>時代背景：</b>Game Boy 上市一年後推出，充分利用了掌機隨行特性，成為兒童外出必帶的遊戲之一。</div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-cover cover-gb"><span>🏛️</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん２ のび太と光の神殿（1993 / Hudson Soft）</div>
+        <div class="game-title">哆啦A夢2 ─ 大雄與光之神殿</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">1993</span>
+          <span class="game-badge badge-plat plat-gb">Game Boy</span>
+          <span class="game-badge badge-genre">動作冒險</span>
+        </div>
+        <p class="game-desc">GB 系列第二作，故事背景圍繞一座神秘神殿展開。玩家需收集道具解開謎題，並利用道具特性探索神殿的各個區域。劇情更完整，關卡數量也較首作增加。</p>
+        <div class="game-note"><b>特色：</b>首次在掌機上實現多層次的解謎設計，被部分玩家視為 GB 哆啦A夢系列中最完整的一作。</div>
+      </div>
+    </div>
+
+  </div><!-- /GB -->
+
+  <!-- ── SFC 時代 ── -->
+  <div class="era-header era-sfc">
+    <div class="era-icon">🕹️</div>
+    <div>
+      <div class="era-title">Super Famicom 時代</div>
+      <div class="era-years">1993 – 1997 ｜ 超任 / SNES</div>
+    </div>
+  </div>
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-cover cover-sfc"><span>🐘</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん のびたとアニマル惑星（1993 / Epoch）</div>
+        <div class="game-title">哆啦A夢 ─ 大雄的動物惑星</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">1993</span>
+          <span class="game-badge badge-plat plat-sfc">Super Famicom</span>
+          <span class="game-badge badge-genre">動作</span>
+        </div>
+        <p class="game-desc">Super Famicom 首款哆啦A夢遊戲，改編自同名電影。玩家在充滿動物的外星球探險，豐富的色彩與流暢的動畫充分展現了 SFC 比 FC 更強大的圖形表現力。</p>
+        <div class="game-note"><b>視覺升級：</b>從 8-bit 跨入 16-bit，哆啦A夢首次在家機上呈現出接近動畫的角色造型。</div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-cover cover-sfc"><span>🗡️</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん のびたと夢幻三剣士（1994 / Epoch）</div>
+        <div class="game-title">哆啦A夢 ─ 大雄的夢幻三劍士</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">1994</span>
+          <span class="game-badge badge-plat plat-sfc">Super Famicom</span>
+          <span class="game-badge badge-genre">動作 RPG</span>
+        </div>
+        <p class="game-desc">改編自 1994 年同名電影，以奇幻夢境世界為舞台。遊戲加入更多 RPG 成分，角色有等級與成長系統，哆啦A夢、大雄、靜香、胖虎、小夫分別擔任不同戰鬥角色，是 SFC 系列中故事性最強的一作。</p>
+        <div class="game-note"><b>特色：</b>五人組分工作戰的設計在當時頗為新穎，被認為是 Super Famicom 哆啦A夢遊戲的最高峰。</div>
+      </div>
+    </div>
+
+  </div><!-- /SFC -->
+
+  <!-- ── DS / Wii 時代 ── -->
+  <div class="era-header era-ds">
+    <div class="era-icon">📺</div>
+    <div>
+      <div class="era-title">NDS ／ Wii 時代</div>
+      <div class="era-years">2005 – 2012 ｜ 電影聯動作品群</div>
+    </div>
+  </div>
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-cover cover-ds"><span>🦕</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん のびたの恐竜2006 DS（2006 / Bandai Namco）</div>
+        <div class="game-title">哆啦A夢 ─ 大雄的恐龍 2006 DS</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">2006</span>
+          <span class="game-badge badge-plat plat-nds">NDS</span>
+          <span class="game-badge badge-genre">動作冒險</span>
+        </div>
+        <p class="game-desc">改編自 2006 年重製版電影《大雄的恐龍》，利用 NDS 雙螢幕特性呈現上下場景切換。觸控筆設計讓玩家能直接在下螢幕選擇道具或與場景互動，是哆啦A夢遊戲中最早充分活用 NDS 特殊功能的一作。</p>
+        <div class="game-note"><b>NDS 特色：</b>觸控選道具、麥克風呼叫哆啦A夢等互動元素，帶來全新遊玩體驗。</div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-cover cover-ds"><span>🤖</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん のびたと鉄人兵団 DS（2011 / Bandai Namco）</div>
+        <div class="game-title">哆啦A夢 ─ 大雄與鐵人兵團 DS</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">2011</span>
+          <span class="game-badge badge-plat plat-nds">NDS</span>
+          <span class="game-badge badge-genre">動作</span>
+        </div>
+        <p class="game-desc">改編自 2011 年電影，故事以哆啦A夢系列最具代表性的「鏡面世界」設定為主軸。遊戲特色是可以在「現實世界」與「鏡面世界」兩個平行空間中穿梭解謎，雙螢幕設計完美呼應了電影的雙世界主題。</p>
+        <div class="game-note"><b>劇情改編：</b>鐵人兵團故事是哆啦A夢史上最受好評的電影之一，遊戲版完整重現了關鍵劇情，適合作為電影延伸體驗。</div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-cover cover-ds"><span>🌿</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん のびたと緑の巨人伝 DS（2008 / Bandai Namco）</div>
+        <div class="game-title">哆啦A夢 ─ 大雄的綠之巨人傳 DS</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">2008</span>
+          <span class="game-badge badge-plat plat-nds">NDS</span>
+          <span class="game-badge badge-genre">動作冒險</span>
+        </div>
+        <p class="game-desc">改編自環保主題的 2008 年電影，大雄與一群植物人在神秘星球上冒險。遊戲中加入了環境解謎元素，玩家需要利用植物生長特性解開關卡，是系列中主題最具特色的作品之一。</p>
+        <div class="game-note"><b>主題特色：</b>整體設計以「植物與環境」為核心，關卡中的植物道具是攻略重點，呼應電影環保訊息。</div>
+      </div>
+    </div>
+
+  </div><!-- /DS -->
+
+  <!-- ── Switch / PC 時代 ── -->
+  <div class="era-header era-switch">
+    <div class="era-icon">🌟</div>
+    <div>
+      <div class="era-title">Nintendo Switch ／ PC 時代</div>
+      <div class="era-years">2019 – 現在 ｜ 全球市場</div>
+    </div>
+  </div>
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-cover cover-switch"><span>🌾</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん のび太の牧場物語（2019 / Bandai Namco）</div>
+        <div class="game-title">哆啦A夢牧場物語</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">2019</span>
+          <span class="game-badge badge-plat plat-switch">Switch</span>
+          <span class="game-badge badge-plat plat-pc">PC</span>
+          <span class="game-badge badge-genre">農場模擬</span>
+        </div>
+        <p class="game-desc">與《牧場物語》系列正式聯名，大雄與哆啦A夢降落在一個充滿魔法的小鎮，開始農場生活。玩家種植作物、飼養動物、與鎮民交友，並使用哆啦A夢的秘密道具簡化農場作業。故事中有完整的四季循環，節奏溫馨療癒。</p>
+        <div class="game-note"><b>里程碑：</b>哆啦A夢系列首款登上 Nintendo Switch 的大型遊戲，也是首款真正打入全球英語市場的作品，在日本、台灣、歐美均有發售。</div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-cover cover-switch"><span>🏰</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもん のび太の牧場物語 大自然の王国とみんなの家（2022）</div>
+        <div class="game-title">哆啦A夢牧場物語：大自然王國與大家的家</div>
+        <div class="game-meta">
+          <span class="game-badge badge-year">2022</span>
+          <span class="game-badge badge-plat plat-switch">Switch</span>
+          <span class="game-badge badge-plat plat-pc">PC</span>
+          <span class="game-badge badge-genre">農場模擬</span>
+        </div>
+        <p class="game-desc">第二款牧場物語聯名作品，在前作成功後全面升級。地圖更廣大，新增更多秘密道具、寵物種類，以及多達數十位來自哆啦A夢世界的角色。「大家的家」功能讓多位角色能加入玩家的農場生活。</p>
+        <div class="game-note"><b>改進重點：</b>根據玩家回饋大幅增加內容量，遊戲時數比首作多出約三倍，被認為是系列至今最完整的農場冒險體驗。</div>
+      </div>
+    </div>
+
+  </div><!-- /Switch -->
+
+  <!-- ── Mobile ── -->
+  <div class="era-header era-mobile">
+    <div class="era-icon">📱</div>
+    <div>
+      <div class="era-title">手機遊戲</div>
+      <div class="era-years">2010s – 現在 ｜ iOS ／ Android</div>
+    </div>
+  </div>
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-cover cover-mobile"><span>🏃</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもんのどこでもウォーカー（LINE Games）</div>
+        <div class="game-title">哆啦A夢任意走</div>
+        <div class="game-meta">
+          <span class="game-badge badge-plat plat-mobile">Mobile</span>
+          <span class="game-badge badge-genre">休閒跑酷</span>
+        </div>
+        <p class="game-desc">LINE Games 推出的輕鬆跑酷手機遊戲，玩家操控哆啦A夢奔跑躲避障礙並收集道具。操作簡單，畫面風格完整還原動畫造型，是在亞洲受歡迎的免費手遊。</p>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-cover cover-mobile"><span>🏘️</span><div class="game-cover-overlay"></div></div>
+      <div class="game-body">
+        <div class="game-title-jp">ドラえもんのまち（Bandai Namco）</div>
+        <div class="game-title">哆啦A夢小鎮</div>
+        <div class="game-meta">
+          <span class="game-badge badge-plat plat-mobile">Mobile</span>
+          <span class="game-badge badge-genre">城鎮建設</span>
+        </div>
+        <p class="game-desc">類似《動物森友會》概念的城鎮建設手遊，玩家在大雄的居住城鎮裡蓋建築、邀請各路哆啦A夢角色入住。使用哆啦A夢道具可以快速完成建設，城鎮風格可以自由客製。</p>
+      </div>
+    </div>
+
+  </div><!-- /Mobile -->
+
+  <div style="background:#f8f8f8;border:1px solid #e0e0e0;border-radius:10px;padding:14px 18px;font-size:0.82rem;color:var(--text-light);line-height:1.8;margin-top:12px;">
+    📌 哆啦A夢遊戲數量龐大，多年來累計超過 30 款主機作品與更多手機遊戲。本頁收錄各平台代表作，完整遊戲列表可參考日本 Wikipedia 的哆啦A夢電子遊戲條目。
+  </div>
+
+</div>
+
+<footer>
+  <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
+  <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan</p>
+</footer>
+</body>
+</html>

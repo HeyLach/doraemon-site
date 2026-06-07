@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四次元道具百科 · 哆啦A夢の秘密基地</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ── category strip ── */
+  .cat-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 32px 0 8px;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 18px;
+    border-radius: 999px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  }
+
+  /* ── category section title ── */
+  .cat-title {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 12px;
+    display: inline-block;
+    margin: 44px 0 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  }
+
+  /* ── gadget grid ── */
+  .gadget-grid-full {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 12px;
+  }
+
+  /* ── gadget card ── */
+  .gcard {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(44,24,16,0.12);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s cubic-bezier(.34,1.4,.64,1), box-shadow 0.25s;
+  }
+  .gcard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 36px rgba(44,24,16,0.22);
+  }
+
+  .gcard-icon-wrap {
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.8rem;
+    position: relative;
+  }
+
+  .gcard-body { padding: 16px 18px 20px; flex: 1; display: flex; flex-direction: column; }
+
+  .gcard-jp {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-bottom: 2px;
+    letter-spacing: 0.04em;
+  }
+  .gcard-name {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.22rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .gcard-cat {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: white;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .gcard-desc {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    flex: 1;
+  }
+  .gcard-ep {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #f4f8ff;
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    line-height: 1.65;
+  }
+  .gcard-ep b { color: var(--blue-dark); }
+
+  /* ── category color themes ── */
+  .cat-travel    { background: linear-gradient(135deg,#0077cc,#00aaff); }
+  .cat-knowledge { background: linear-gradient(135deg,#227700,#44bb00); }
+  .cat-stealth   { background: linear-gradient(135deg,#660099,#9933cc); }
+  .cat-special   { background: linear-gradient(135deg,#cc5500,#ff8800); }
+
+  .gcard-icon-travel    { background: linear-gradient(160deg,#cce8ff,#88ccff); }
+  .gcard-icon-knowledge { background: linear-gradient(160deg,#ccffcc,#88ee88); }
+  .gcard-icon-stealth   { background: linear-gradient(160deg,#e8ccff,#cc88ff); }
+  .gcard-icon-special   { background: linear-gradient(160deg,#ffd8aa,#ffaa44); }
+
+  /* ── pocket intro ── */
+  .pocket-banner {
+    background: linear-gradient(135deg,#0066aa,#0099e6);
+    border-radius: 16px;
+    padding: 28px 32px;
+    color: white;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 8px;
+    box-shadow: 0 6px 24px rgba(0,100,200,0.3);
+  }
+  .pocket-icon { font-size: 4rem; flex-shrink: 0; }
+  .pocket-title {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .pocket-desc { font-size: 0.92rem; opacity: 0.9; line-height: 1.7; }
+
+  @media (max-width: 560px) {
+    .gadget-grid-full { grid-template-columns: 1fr; }
+    .pocket-banner { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <div class="logo-icon">🔵</div>
+      <div class="logo-text">哆啦A夢の秘密基地<div class="logo-sub">小叮噹資訊館</div></div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">🏠 首頁</a>
+      <a href="chronicle.html">⏰ 編年史</a>
+      <a href="taiwan.html">🇹🇼 小叮噹</a>
+      <a href="museums.html">🏛️ 博物館</a>
+      <a href="characters.html">👥 人物</a>
+      <a href="gadgets.html" class="active">🎒 道具</a>
+      <a href="games.html">🎮 電玩</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:14px">🎒</div>
+  <h1>四次元道具百科</h1>
+  <p>從任意門到記憶麵包，收錄哆啦A夢最具代表性的秘密道具——每一件都藏著一個神奇的故事</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- 四次元口袋 intro banner -->
+  <div class="pocket-banner">
+    <div class="pocket-icon">👝</div>
+    <div>
+      <div class="pocket-title">四次元百寶袋（四次元ポケット）</div>
+      <div class="pocket-desc">貼在哆啦A夢肚皮上的白色口袋，是所有道具的來源。口袋連結四次元空間，理論上可以無限儲存物品。22世紀的道具就藏在這個看似普通的口袋裡，每次翻找都能帶出一個意想不到的驚喜——或麻煩。</div>
+    </div>
+  </div>
+
+  <!-- ── 移動探索類 ── -->
+  <div class="cat-title cat-travel">🚀 移動探索類</div>
+  <div class="gadget-grid-full">
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-travel">🚪</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">どこでもドア</div>
+        <div class="gcard-name">任意門</div>
+        <span class="gcard-cat cat-travel">移動探索</span>
+        <p class="gcard-desc">打開這扇粉紅色的圓頂門，走進去就能瞬間抵達世界上任何地方——無論是隔壁便利商店還是月球背面。使用時只需在心中想好目的地，門就會自動連結。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>幾乎每集都出現。電影版《大雄的恐龍》中，任意門被用來追尋6600萬年前的白堊紀世界。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-travel">🚁</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">タケコプター</div>
+        <div class="gcard-name">竹蜻蜓</div>
+        <span class="gcard-cat cat-travel">移動探索</span>
+        <p class="gcard-desc">夾在頭頂就能自由飛行的小型螺旋槳。外型如同迷你竹蜻蜓玩具，是繼任意門之後最具代表性的道具。可以讓使用者在空中自由移動，速度快慢由意念控制。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>大雄和哆啦A夢常夾上竹蜻蜓在城鎮上空飛行，靜香的竹蜻蜓有時會搭配任意門進行長途旅行。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-travel">⏰</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">タイムマシン</div>
+        <div class="gcard-name">時光機</div>
+        <span class="gcard-cat cat-travel">移動探索</span>
+        <p class="gcard-desc">能穿越過去與未來的機器，通常藏在大雄房間的抽屜裡。乘坐者可以指定任意年代抵達，但嚴格禁止改變歷史——違反這個規則往往會造成嚴重的時間悖論。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>《大雄的恐龍》《大雄的日本誕生》等幾乎所有電影版都以時光機作為旅行起點。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-travel">🔦</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">スモールライト ／ ビッグライト</div>
+        <div class="gcard-name">縮小燈 ／ 放大燈</div>
+        <span class="gcard-cat cat-travel">移動探索</span>
+        <p class="gcard-desc">手電筒狀的道具，照射後可以將物體縮小（縮小燈）或放大（放大燈）到任意比例。照到生物同樣有效，縮小後體力與重量也等比例減少。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>大雄常用縮小燈縮小自己躲進模型城堡，或把討厭的東西縮到看不見；電影《大雄的宇宙小戰爭》整部片圍繞縮小道具展開。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-travel">🪄</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">通り抜けフープ</div>
+        <div class="gcard-name">穿牆環</div>
+        <span class="gcard-cat cat-travel">移動探索</span>
+        <p class="gcard-desc">一個能讓任何固體「失效」的圓環，把圓環套在牆壁或地板上，就能直接穿越而過。環口大小固定，大型物品無法通過。常被大雄用來逃跑或偷偷翻牆。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>大雄被媽媽追打時用穿牆環穿越廚房的牆逃脫；胖虎把大雄的漫畫拿走後，大雄用此追回。</div>
+      </div>
+    </div>
+
+  </div><!-- /移動探索 -->
+
+  <!-- ── 知識輔助類 ── -->
+  <div class="cat-title cat-knowledge">📚 知識輔助類</div>
+  <div class="gadget-grid-full">
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-knowledge">🍞</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">暗記パン</div>
+        <div class="gcard-name">記憶麵包</div>
+        <span class="gcard-cat cat-knowledge">知識輔助</span>
+        <p class="gcard-desc">把這片麵包壓在書頁上，麵包表面就會印出該頁的文字，吃下後就能完美記憶書中內容。但胃容量有限，如果大雄硬把整本教科書的麵包一次全吃完，最後往往全部吐出，學到的也一起消失。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>考試前夕是記憶麵包最常登場的時機。大雄每次都野心太大，準備了整本書的麵包導致全數作廢，是劇中最具「諷刺感」的道具。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-knowledge">🍡</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">ほんやくコンニャク</div>
+        <div class="gcard-name">翻譯蒟蒻</div>
+        <span class="gcard-cat cat-knowledge">知識輔助</span>
+        <p class="gcard-desc">吃一口蒟蒻，就能聽懂並說出世界上任何語言，包括動物語言和外星語。效果在一段時間內持續，但吃多了可能導致所說的話也自動被翻譯成其他語言，造成溝通混亂。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>電影《大雄的宇宙英雄記》中，哆啦A夢和大雄靠翻譯蒟蒻與外星英雄溝通；短篇中大雄用它和街上的狗說話。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-knowledge">🎨</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">魔法のクレヨン</div>
+        <div class="gcard-name">如意彩色筆</div>
+        <span class="gcard-cat cat-knowledge">知識輔助</span>
+        <p class="gcard-desc">用這組特殊蠟筆畫出的任何東西都會變成真實存在的物體。畫一輛車，車就會出現；畫一個蘋果，蘋果就能吃。但使用黑色蠟筆塗掉某樣東西，該物就會從世界上消失，需謹慎使用。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>大雄常用如意彩色筆繪製食物或玩具，但因為畫技太差導致做出來的東西面目全非；曾有一話大雄不小心把自己的家塗掉。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-knowledge">📞</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">もしもボックス</div>
+        <div class="gcard-name">假如電話亭</div>
+        <span class="gcard-cat cat-knowledge">知識輔助</span>
+        <p class="gcard-desc">外型像老式電話亭，拿起聽筒說出「假如世界是⋯⋯的話」，世界就真的會按照指定設定改變。範圍涵蓋整個世界，效力強大，使用後必須說出「請恢復原狀」才能復原。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>在「假如大雄不存在的話」這集，大雄說出這句話後，世界真的對他視而不見；靜香消失的世界也讓大雄深刻體會到朋友的重要性。</div>
+      </div>
+    </div>
+
+  </div><!-- /知識輔助 -->
+
+  <!-- ── 隱形特效類 ── -->
+  <div class="cat-title cat-stealth">🌫️ 隱形特效類</div>
+  <div class="gadget-grid-full">
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-stealth">🪨</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">石ころぼうし</div>
+        <div class="gcard-name">石頭帽</div>
+        <span class="gcard-cat cat-stealth">隱形特效</span>
+        <p class="gcard-desc">戴上之後，所有人的意識會把使用者當作「路邊的石頭」忽視，看不見也注意不到。雖然肉體仍然存在，但人們的意識會自動跳過，就算站在眼前也不會被盯上。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>大雄用石頭帽跑到便利商店偷吃零食或偷看電視卻引發各種意外，不少劇情以大雄被路人踢到、踩到收場。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-stealth">👻</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">透明マント</div>
+        <div class="gcard-name">透明斗篷</div>
+        <span class="gcard-cat cat-stealth">隱形特效</span>
+        <p class="gcard-desc">披上這件斗篷，整個人的光線反射消失，肉眼無法看見。不同於石頭帽的「意識忽視」，透明斗篷是真正的光學隱形，相機和鏡子也拍不到使用者。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>大雄常用透明斗篷偷看靜香洗澡或窺視胖虎日記，結果每次都以被發現並痛打收場，成為劇中最具諷刺效果的道具之一。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-stealth">⚗️</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">バイバイン</div>
+        <div class="gcard-name">倍增液</div>
+        <span class="gcard-cat cat-stealth">隱形特效</span>
+        <p class="gcard-desc">滴在食物上，每五分鐘就會倍增一次。理論上幾個小時後就能吃不完，解決食物短缺問題。但這個指數成長是無法停止的——若不吃掉所有分裂出來的食物，最終會佔滿整個宇宙。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>「炸地瓜」那集是最經典的倍增液故事——大雄捨不得吃炸地瓜而不斷拖延，地瓜最終多到必須發射到外太空銷毀。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-stealth">🎭</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">変身ビーム</div>
+        <div class="gcard-name">變身光線</div>
+        <span class="gcard-cat cat-stealth">隱形特效</span>
+        <p class="gcard-desc">用光線照射可將外貌完全變成另一個人或動物，外觀、聲音、氣味都會跟著改變。變身效果有時間限制，到期後會自動恢復，偽裝的最佳拍檔。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>大雄常用變身光線假裝成靜香或出木杉逃避考試，但因為個性行為還是本人而輕易被識破。</div>
+      </div>
+    </div>
+
+  </div><!-- /隱形特效 -->
+
+  <!-- ── 特殊功能類 ── -->
+  <div class="cat-title cat-special">⚡ 特殊功能類</div>
+  <div class="gadget-grid-full">
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-special">🌬️</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">空気砲</div>
+        <div class="gcard-name">空氣砲</div>
+        <span class="gcard-cat cat-special">特殊功能</span>
+        <p class="gcard-desc">一種發射高壓縮空氣的武器，能在不造成實體傷害的情況下擊飛或擊退敵人。威力可以調整，最強設定下甚至能把牆壁射穿。在電影版中通常由哆啦A夢在緊急時刻使用。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>電影《大雄的宇宙英雄記》《大雄的海底鬼岩城》中均有哆啦A夢以空氣砲擊退反派的場景，是道具中少數定位為「武器」的一項。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-special">⏱️</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">時間停止時計</div>
+        <div class="gcard-name">時間停止鐘</div>
+        <span class="gcard-cat cat-special">特殊功能</span>
+        <p class="gcard-desc">按下按鈕，周圍所有人和物的時間立刻靜止，只有使用者繼續活動。時間停止期間可以在靜止的世界中自由行動，但無法搬動正在靜止的人，道具用完或再次按下後時間恢復。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>大雄多次在考試前用時間停止鐘抄答案，但因為時間停止也導致鉛筆無法在靜止的紙上寫字，每次都以失敗告終。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-special">🏠</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">コンパクトハウス</div>
+        <div class="gcard-name">迷你膠囊屋</div>
+        <span class="gcard-cat cat-special">特殊功能</span>
+        <p class="gcard-desc">外觀是一顆小膠囊，展開後變成完整的住宅，內有客廳、廚房、臥室等所有設施。功能上等同於一棟真實房屋，特別適合露營或在外長期住宿使用。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>電影版中探險途中常用膠囊屋在野外建立臨時基地；大雄也曾把膠囊屋放在學校屋頂，打算在那裡住一晚逃避媽媽。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-special">🪞</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">もどり光線</div>
+        <div class="gcard-name">復原光線</div>
+        <span class="gcard-cat cat-special">特殊功能</span>
+        <p class="gcard-desc">將任何物體照射後回復到「剛剛以前」的狀態。破掉的杯子變回完好，吃掉的蛋糕重新出現，甚至能讓死去的植物復活。但對記憶沒有效果，照射者仍記得發生過的事。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>大雄每次打破媽媽的花瓶時，這是最受歡迎的補救道具。有時也被用在更嚴肅的場合，讓某些關鍵情節中消失的東西重新出現。</div>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <div class="gcard-icon-wrap gcard-icon-special">🌀</div>
+      <div class="gcard-body">
+        <div class="gcard-jp">ほんものそっくりロボット</div>
+        <div class="gcard-name">替身機器人</div>
+        <span class="gcard-cat cat-special">特殊功能</span>
+        <p class="gcard-desc">能製作出外貌、聲音、行為模式幾乎與指定對象相同的機器人替身。讓替身去上學、接受懲罰或完成無聊任務，本人就可以在其他地方玩耍。機器人的智力有限，容易在細節上露出破綻。</p>
+        <div class="gcard-ep"><b>代表劇情：</b>大雄命令替身機器人去應付媽媽的罰站，自己跑去玩電動，但機器人卻越來越乖越來越勤奮，反而讓媽媽對「大雄」大加稱讚，引發大雄嫉妒。</div>
+      </div>
+    </div>
+
+  </div><!-- /特殊功能 -->
+
+  <div style="background:#f8f8f8;border:1px solid #e0e0e0;border-radius:10px;padding:14px 18px;font-size:0.82rem;color:var(--text-light);line-height:1.8;margin-top:12px;">
+    📌 哆啦A夢的道具數量龐大，據估計整個系列超過 1,700 種。本頁僅收錄最具代表性的 18 件，更多道具詳情可參考《哆啦A夢大百科》。
+  </div>
+
+</div>
+
+<footer>
+  <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
+  <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan</p>
+</footer>
+</body>
+</html>
