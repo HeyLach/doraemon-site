@@ -585,7 +585,7 @@
   <!-- ── 人物關係圖 ── -->
   <div class="char-section-title">🕸️ 人物關係圖</div>
   <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 4px 20px var(--shadow);margin-bottom:40px;overflow-x:auto;">
-  <svg viewBox="0 0 940 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:600px;display:block;font-family:'M PLUS Rounded 1c',sans-serif;">
+  <svg viewBox="0 0 980 545" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:620px;display:block;font-family:'M PLUS Rounded 1c',sans-serif;">
     <defs>
       <marker id="arr-blue"   markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#0088cc"/></marker>
       <marker id="arr-pink"   markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#dd3377"/></marker>
@@ -593,122 +593,141 @@
       <marker id="arr-green"  markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#337700"/></marker>
       <marker id="arr-purple" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#7733aa"/></marker>
       <marker id="arr-gray"   markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#556677"/></marker>
-      <marker id="arr-tan"    markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#886622"/></marker>
     </defs>
 
     <!-- bg -->
-    <rect width="940" height="480" rx="12" fill="#f4f8ff"/>
+    <rect width="980" height="545" rx="12" fill="#f4f8ff"/>
 
-    <!-- ══ EDGES (drawn first, under nodes) ══ -->
+    <!-- ══ 節點座標（中心點）══
+         老師:    (490, 55)  rect(428,37,124,36)
+         哆啦A夢: ( 90,215)  rect( 18,197,144,36)
+         哆啦美:  ( 90,395)  rect( 18,377,144,36)
+         大雄:    (265,215)  rect(203,197,124,36)
+         靜香:    (445,185)  rect(383,167,124,36)
+         出木杉:  (780,165)  rect(718,147,124,36)
+         胖虎:    (560,290)  rect(498,272,124,36)
+         小夫:    (760,270)  rect(698,252,124,36)
+         大雄媽媽:(195,450)  rect(123,432,144,36)
+         大雄爸爸:(400,450)  rect(328,432,144,36)
+         小珠:    (640,450)  rect(578,432,124,36)
+    -->
 
-    <!-- 哆啦美 ↔ 哆啦A夢 兄妹 -->
-    <line x1="185" y1="355" x2="185" y2="230" stroke="#cc6600" stroke-width="2.2" stroke-dasharray="6,3"/>
-    <text x="200" y="298" font-size="11" fill="#cc6600" font-weight="700">兄妹</text>
+    <!-- ══ EDGES（先畫邊，再疊節點） ══ -->
+
+    <!-- 哆啦美 ↔ 哆啦A夢 兄妹（垂直虛線） -->
+    <line x1="90" y1="377" x2="90" y2="233" stroke="#cc6600" stroke-width="2" stroke-dasharray="6,3"/>
+    <text x="106" y="307" font-size="11" fill="#cc6600" font-weight="700">兄妹</text>
 
     <!-- 哆啦A夢 → 大雄 守護夥伴 -->
-    <line x1="248" y1="203" x2="352" y2="203" stroke="#0088cc" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-    <text x="270" y="196" font-size="11" fill="#0088cc" font-weight="700">守護夥伴</text>
+    <line x1="162" y1="215" x2="203" y2="215" stroke="#0088cc" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+    <text x="166" y="209" font-size="11" fill="#0088cc" font-weight="700">守護夥伴</text>
 
-    <!-- 老師 → 大雄 師生 -->
-    <line x1="130" y1="102" x2="362" y2="186" stroke="#556677" stroke-width="2" marker-end="url(#arr-gray)"/>
-    <text x="210" y="138" font-size="11" fill="#556677" font-weight="700">師生</text>
+    <!-- 師生：老師(頂部正中) → 大雄（左下，唯一標示） -->
+    <path d="M428,55 Q345,132 265,197" fill="none" stroke="#556677" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr-gray)"/>
+    <text x="316" y="103" font-size="11" fill="#556677" font-weight="700">師生</text>
+
+    <!-- 師生：老師 → 靜香（微偏左，近直線） -->
+    <path d="M464,73 Q454,122 449,167" fill="none" stroke="#556677" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr-gray)"/>
+
+    <!-- 師生：老師 → 出木杉（右側扇出） -->
+    <path d="M552,55 Q634,98 718,147" fill="none" stroke="#556677" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr-gray)"/>
+
+    <!-- 師生：老師 → 胖虎（偏右，穿過中下區） -->
+    <path d="M510,73 Q530,178 558,272" fill="none" stroke="#556677" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr-gray)"/>
+
+    <!-- 師生：老師 → 小夫（右側大弧） -->
+    <path d="M528,73 Q668,168 754,252" fill="none" stroke="#556677" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr-gray)"/>
 
     <!-- 大雄 → 靜香 暗戀 -->
-    <line x1="468" y1="188" x2="578" y2="138" stroke="#dd3377" stroke-width="2.2" marker-end="url(#arr-pink)"/>
-    <text x="498" y="158" font-size="11" fill="#dd3377" font-weight="700">暗戀</text>
-
-    <!-- 大雄 → 出木杉 同班同學 -->
-    <path d="M 470,192 Q 640,90 756,128" fill="none" stroke="#886622" stroke-width="1.8" marker-end="url(#arr-tan)"/>
-    <text x="600" y="107" font-size="11" fill="#886622" font-weight="700">同班同學</text>
+    <line x1="327" y1="207" x2="383" y2="184" stroke="#dd3377" stroke-width="2.2" marker-end="url(#arr-pink)"/>
+    <text x="338" y="186" font-size="11" fill="#dd3377" font-weight="700">暗戀</text>
 
     <!-- 靜香 ↔ 出木杉 相互欣賞 -->
-    <line x1="682" y1="125" x2="752" y2="131" stroke="#dd3377" stroke-width="1.6" stroke-dasharray="5,3"/>
-    <text x="692" y="118" font-size="10" fill="#dd3377">相互欣賞</text>
+    <line x1="507" y1="178" x2="718" y2="162" stroke="#dd3377" stroke-width="1.6" stroke-dasharray="5,3"/>
+    <text x="588" y="158" font-size="10" fill="#dd3377">相互欣賞</text>
 
     <!-- 大雄 → 胖虎 被欺負 -->
-    <line x1="462" y1="220" x2="568" y2="278" stroke="#cc5500" stroke-width="2.2" marker-end="url(#arr-orange)"/>
-    <text x="488" y="265" font-size="11" fill="#cc5500" font-weight="700">被欺負</text>
+    <line x1="308" y1="233" x2="500" y2="277" stroke="#cc5500" stroke-width="2.2" marker-end="url(#arr-orange)"/>
+    <text x="384" y="272" font-size="11" fill="#cc5500" font-weight="700">被欺負</text>
 
     <!-- 胖虎 → 小夫 跟班 -->
-    <line x1="668" y1="298" x2="762" y2="352" stroke="#337700" stroke-width="2" marker-end="url(#arr-green)"/>
-    <text x="693" y="335" font-size="11" fill="#337700" font-weight="700">跟班</text>
+    <line x1="622" y1="283" x2="698" y2="268" stroke="#337700" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="646" y="264" font-size="11" fill="#337700" font-weight="700">跟班</text>
 
-    <!-- 胖虎 → 小珠 兄妹 -->
-    <line x1="620" y1="318" x2="620" y2="398" stroke="#cc6600" stroke-width="2" stroke-dasharray="6,3"/>
-    <text x="632" y="363" font-size="11" fill="#cc6600" font-weight="700">兄妹</text>
+    <!-- 胖虎 ↔ 小珠 兄妹 -->
+    <line x1="560" y1="308" x2="632" y2="432" stroke="#cc6600" stroke-width="2" stroke-dasharray="6,3"/>
+    <text x="612" y="376" font-size="11" fill="#cc6600" font-weight="700">兄妹</text>
 
-    <!-- 大雄 → 媽媽 母子 -->
-    <line x1="378" y1="220" x2="312" y2="372" stroke="#7733aa" stroke-width="2" marker-end="url(#arr-purple)"/>
-    <text x="324" y="302" font-size="11" fill="#7733aa" font-weight="700">母子</text>
+    <!-- 大雄 → 大雄媽媽 母子 -->
+    <line x1="247" y1="233" x2="195" y2="432" stroke="#7733aa" stroke-width="2" marker-end="url(#arr-purple)"/>
+    <text x="196" y="340" font-size="11" fill="#7733aa" font-weight="700">母子</text>
 
-    <!-- 大雄 → 爸爸 父子 -->
-    <line x1="420" y1="220" x2="494" y2="372" stroke="#2255aa" stroke-width="2" marker-end="url(#arr-purple)"/>
-    <text x="444" y="302" font-size="11" fill="#2255aa" font-weight="700">父子</text>
+    <!-- 大雄 → 大雄爸爸 父子 -->
+    <line x1="283" y1="233" x2="393" y2="432" stroke="#2255aa" stroke-width="2" marker-end="url(#arr-purple)"/>
+    <text x="354" y="344" font-size="11" fill="#2255aa" font-weight="700">父子</text>
 
     <!-- ══ NODES ══ -->
 
-    <!-- 老師 -->
-    <rect x="30" y="74" width="110" height="38" rx="10" fill="#8899bb"/>
-    <text x="85" y="98" text-anchor="middle" font-size="13" font-weight="800" fill="white">大雄的老師</text>
+    <!-- 大雄的老師（頂部正中央） -->
+    <rect x="428" y="37" width="124" height="36" rx="10" fill="#8899bb"/>
+    <text x="490" y="60" text-anchor="middle" font-size="13" font-weight="800" fill="white">大雄的老師</text>
 
-    <!-- 哆啦A夢 -->
-    <rect x="122" y="183" width="126" height="40" rx="12" fill="#0099cc"/>
-    <text x="185" y="208" text-anchor="middle" font-size="14" font-weight="800" fill="white">哆啦A夢</text>
+    <!-- 哆啦A夢（左側） -->
+    <rect x="18" y="197" width="144" height="36" rx="12" fill="#0099cc"/>
+    <text x="90" y="220" text-anchor="middle" font-size="14" font-weight="800" fill="white">哆啦A夢</text>
 
-    <!-- 哆啦美 -->
-    <rect x="122" y="355" width="126" height="40" rx="12" fill="#ddaa00"/>
-    <text x="185" y="380" text-anchor="middle" font-size="14" font-weight="800" fill="white">哆啦美</text>
+    <!-- 哆啦美（左側下） -->
+    <rect x="18" y="377" width="144" height="36" rx="12" fill="#ddaa00"/>
+    <text x="90" y="400" text-anchor="middle" font-size="14" font-weight="800" fill="white">哆啦美</text>
 
-    <!-- 大雄 -->
-    <rect x="352" y="183" width="116" height="40" rx="12" fill="#cc8800"/>
-    <text x="410" y="208" text-anchor="middle" font-size="14" font-weight="800" fill="white">野比大雄</text>
+    <!-- 大雄（中左） -->
+    <rect x="203" y="197" width="124" height="36" rx="12" fill="#cc8800"/>
+    <text x="265" y="220" text-anchor="middle" font-size="14" font-weight="800" fill="white">野比大雄</text>
 
-    <!-- 靜香 -->
-    <rect x="568" y="105" width="104" height="38" rx="12" fill="#cc3366"/>
-    <text x="620" y="129" text-anchor="middle" font-size="14" font-weight="800" fill="white">靜香</text>
+    <!-- 靜香（中） -->
+    <rect x="383" y="167" width="124" height="36" rx="12" fill="#cc3366"/>
+    <text x="445" y="190" text-anchor="middle" font-size="14" font-weight="800" fill="white">靜香</text>
 
-    <!-- 出木杉 -->
-    <rect x="752" y="113" width="104" height="38" rx="12" fill="#885522"/>
-    <text x="804" y="137" text-anchor="middle" font-size="14" font-weight="800" fill="white">出木杉</text>
+    <!-- 出木杉（右上） -->
+    <rect x="718" y="147" width="124" height="36" rx="12" fill="#885522"/>
+    <text x="780" y="170" text-anchor="middle" font-size="14" font-weight="800" fill="white">出木杉</text>
 
-    <!-- 胖虎 -->
-    <rect x="568" y="258" width="104" height="40" rx="12" fill="#cc5500"/>
-    <text x="620" y="283" text-anchor="middle" font-size="14" font-weight="800" fill="white">胖虎</text>
+    <!-- 胖虎（中右） -->
+    <rect x="498" y="272" width="124" height="36" rx="12" fill="#cc5500"/>
+    <text x="560" y="295" text-anchor="middle" font-size="14" font-weight="800" fill="white">胖虎</text>
 
-    <!-- 小夫 -->
-    <rect x="762" y="332" width="104" height="40" rx="12" fill="#448822"/>
-    <text x="814" y="357" text-anchor="middle" font-size="14" font-weight="800" fill="white">小夫</text>
+    <!-- 小夫（右） -->
+    <rect x="698" y="252" width="124" height="36" rx="12" fill="#448822"/>
+    <text x="760" y="275" text-anchor="middle" font-size="14" font-weight="800" fill="white">小夫</text>
 
-    <!-- 小珠（胖虎妹） -->
-    <rect x="568" y="398" width="104" height="38" rx="12" fill="#cc4488"/>
-    <text x="620" y="422" text-anchor="middle" font-size="13" font-weight="800" fill="white">小珠（胖虎妹）</text>
+    <!-- 大雄媽媽（左下） -->
+    <rect x="123" y="432" width="144" height="36" rx="12" fill="#7733aa"/>
+    <text x="195" y="455" text-anchor="middle" font-size="13" font-weight="800" fill="white">大雄媽媽</text>
 
-    <!-- 大雄媽媽 -->
-    <rect x="240" y="372" width="116" height="38" rx="12" fill="#7733aa"/>
-    <text x="298" y="396" text-anchor="middle" font-size="13" font-weight="800" fill="white">大雄媽媽</text>
+    <!-- 大雄爸爸（中下） -->
+    <rect x="328" y="432" width="144" height="36" rx="12" fill="#336699"/>
+    <text x="400" y="455" text-anchor="middle" font-size="13" font-weight="800" fill="white">大雄爸爸</text>
 
-    <!-- 大雄爸爸 -->
-    <rect x="438" y="372" width="116" height="38" rx="12" fill="#336699"/>
-    <text x="496" y="396" text-anchor="middle" font-size="13" font-weight="800" fill="white">大雄爸爸</text>
+    <!-- 小珠（右下） -->
+    <rect x="578" y="432" width="124" height="36" rx="12" fill="#cc4488"/>
+    <text x="640" y="455" text-anchor="middle" font-size="13" font-weight="800" fill="white">小珠（胖虎妹）</text>
 
     <!-- ══ LEGEND ══ -->
-    <rect x="10" y="440" width="920" height="32" rx="8" fill="rgba(0,0,0,0.04)"/>
-    <line x1="28" y1="456" x2="58" y2="456" stroke="#0088cc" stroke-width="2.5" marker-end="url(#arr-blue)"/>
-    <text x="64" y="460" font-size="11" fill="#444">守護</text>
-    <line x1="115" y1="456" x2="145" y2="456" stroke="#dd3377" stroke-width="2" marker-end="url(#arr-pink)"/>
-    <text x="151" y="460" font-size="11" fill="#444">戀愛/欣賞</text>
-    <line x1="228" y1="456" x2="258" y2="456" stroke="#cc5500" stroke-width="2.2" marker-end="url(#arr-orange)"/>
-    <text x="264" y="460" font-size="11" fill="#444">欺負</text>
-    <line x1="308" y1="456" x2="338" y2="456" stroke="#7733aa" stroke-width="2" marker-end="url(#arr-purple)"/>
-    <text x="344" y="460" font-size="11" fill="#444">家人</text>
-    <line x1="386" y1="456" x2="416" y2="456" stroke="#cc6600" stroke-width="2" stroke-dasharray="5,3"/>
-    <text x="422" y="460" font-size="11" fill="#444">兄妹</text>
-    <line x1="460" y1="456" x2="490" y2="456" stroke="#556677" stroke-width="2" marker-end="url(#arr-gray)"/>
-    <text x="496" y="460" font-size="11" fill="#444">師生</text>
-    <line x1="535" y1="456" x2="565" y2="456" stroke="#337700" stroke-width="2" marker-end="url(#arr-green)"/>
-    <text x="571" y="460" font-size="11" fill="#444">跟班</text>
-    <line x1="612" y1="456" x2="642" y2="456" stroke="#886622" stroke-width="1.8" marker-end="url(#arr-tan)"/>
-    <text x="648" y="460" font-size="11" fill="#444">同班同學</text>
+    <rect x="10" y="497" width="960" height="30" rx="8" fill="rgba(0,0,0,0.04)"/>
+    <line x1="28" y1="512" x2="58" y2="512" stroke="#0088cc" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+    <text x="64" y="516" font-size="11" fill="#444">守護</text>
+    <line x1="112" y1="512" x2="142" y2="512" stroke="#dd3377" stroke-width="2" marker-end="url(#arr-pink)"/>
+    <text x="148" y="516" font-size="11" fill="#444">戀愛/欣賞</text>
+    <line x1="230" y1="512" x2="260" y2="512" stroke="#cc5500" stroke-width="2.2" marker-end="url(#arr-orange)"/>
+    <text x="266" y="516" font-size="11" fill="#444">欺負</text>
+    <line x1="310" y1="512" x2="340" y2="512" stroke="#7733aa" stroke-width="2" marker-end="url(#arr-purple)"/>
+    <text x="346" y="516" font-size="11" fill="#444">家人</text>
+    <line x1="390" y1="512" x2="420" y2="512" stroke="#cc6600" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="426" y="516" font-size="11" fill="#444">兄妹</text>
+    <line x1="466" y1="512" x2="496" y2="512" stroke="#556677" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr-gray)"/>
+    <text x="502" y="516" font-size="11" fill="#444">師生</text>
+    <line x1="540" y1="512" x2="570" y2="512" stroke="#337700" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="576" y="516" font-size="11" fill="#444">跟班</text>
   </svg>
   </div>
 
