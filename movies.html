@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>劇場版 · 哆啦A夢の秘密基地</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ── era section ── */
+  .era-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 22px;
+    border-radius: 14px;
+    color: white;
+    margin: 44px 0 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .era-icon { font-size: 2rem; flex-shrink: 0; }
+  .era-title { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 1.2rem; font-weight: 800; }
+  .era-years { font-size: 0.82rem; opacity: 0.85; margin-top: 2px; }
+
+  .era-showa  { background: linear-gradient(135deg,#7a1a00,#cc4400); }
+  .era-heisei { background: linear-gradient(135deg,#003366,#0055aa); }
+  .era-new    { background: linear-gradient(135deg,#440066,#8800cc); }
+
+  /* ── movie grid ── */
+  .movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+    margin-bottom: 8px;
+  }
+
+  /* ── movie card ── */
+  .movie-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(44,24,16,0.12);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s cubic-bezier(.34,1.4,.64,1), box-shadow 0.25s;
+  }
+  .movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(44,24,16,0.2);
+  }
+
+  /* ── poster cover ── */
+  .movie-poster {
+    height: 130px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .poster-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    z-index: 1;
+    padding: 0 12px;
+  }
+  .poster-icon { font-size: 3rem; line-height: 1; }
+  .poster-year {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+  .poster-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.3));
+  }
+
+  .movie-body { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; }
+  .movie-title-jp { font-size: 0.7rem; color: var(--text-light); margin-bottom: 2px; letter-spacing:0.03em; }
+  .movie-title {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .movie-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 9px; }
+  .movie-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 20px;
+    border: 1.5px solid;
+  }
+  .badge-year   { color: #555; border-color: #ccc; background: #f5f5f5; }
+  .badge-type   { color: white; border-color: transparent; background: #666; }
+  .badge-hit    { color: white; border-color: transparent; background: #cc3300; }
+  .badge-remake { color: white; border-color: transparent; background: #336699; }
+
+  .movie-desc { font-size: 0.84rem; color: var(--text-mid); line-height: 1.7; flex: 1; }
+  .movie-note {
+    margin-top: 9px;
+    padding: 7px 11px;
+    background: #f4f8ff;
+    border-left: 3px solid var(--blue);
+    border-radius: 0 7px 7px 0;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    line-height: 1.55;
+  }
+  .movie-note b { color: var(--blue-dark); }
+
+  /* ── Poster gradient themes ── */
+  .pg-1  { background: linear-gradient(160deg,#b33300,#ff6633); }
+  .pg-2  { background: linear-gradient(160deg,#003388,#3366ff); }
+  .pg-3  { background: linear-gradient(160deg,#006622,#33cc66); }
+  .pg-4  { background: linear-gradient(160deg,#003355,#0077bb); }
+  .pg-5  { background: linear-gradient(160deg,#550055,#cc33cc); }
+  .pg-6  { background: linear-gradient(160deg,#334400,#88aa00); }
+  .pg-7  { background: linear-gradient(160deg,#443300,#996600); }
+  .pg-8  { background: linear-gradient(160deg,#220044,#6633cc); }
+  .pg-9  { background: linear-gradient(160deg,#553300,#cc6600); }
+  .pg-10 { background: linear-gradient(160deg,#442200,#cc8800); }
+  .pg-11 { background: linear-gradient(160deg,#004433,#00aa77); }
+  .pg-12 { background: linear-gradient(160deg,#220033,#7700aa); }
+  .pg-13 { background: linear-gradient(160deg,#334466,#6688cc); }
+  .pg-14 { background: linear-gradient(160deg,#553322,#cc7755); }
+  .pg-15 { background: linear-gradient(160deg,#002244,#0055aa); }
+  .pg-16 { background: linear-gradient(160deg,#443300,#886600); }
+  .pg-17 { background: linear-gradient(160deg,#110033,#440099); }
+  .pg-18 { background: linear-gradient(160deg,#553311,#aa6622); }
+  .pg-19 { background: linear-gradient(160deg,#003311,#006633); }
+  .pg-20 { background: linear-gradient(160deg,#220000,#880000); }
+  .pg-21 { background: linear-gradient(160deg,#224400,#558800); }
+  .pg-22 { background: linear-gradient(160deg,#003344,#006688); }
+  .pg-23 { background: linear-gradient(160deg,#442200,#995500); }
+  .pg-24 { background: linear-gradient(160deg,#003300,#008800); }
+  .pg-25 { background: linear-gradient(160deg,#004455,#0088aa); }
+  .pg-26 { background: linear-gradient(160deg,#880000,#ff2200); }
+  .pg-27 { background: linear-gradient(160deg,#440066,#aa00ff); }
+  .pg-28 { background: linear-gradient(160deg,#004400,#00bb44); }
+  .pg-29 { background: linear-gradient(160deg,#002266,#0044cc); }
+  .pg-30 { background: linear-gradient(160deg,#003355,#005599); }
+  .pg-31 { background: linear-gradient(160deg,#332200,#885500); }
+  .pg-32 { background: linear-gradient(160deg,#004422,#009955); }
+  .pg-33 { background: linear-gradient(160deg,#002244,#0066bb); }
+  .pg-34 { background: linear-gradient(160deg,#112200,#446600); }
+  .pg-35 { background: linear-gradient(160deg,#001133,#002288); }
+  .pg-36 { background: linear-gradient(160deg,#331100,#995500); }
+  .pg-37 { background: linear-gradient(160deg,#002233,#005577); }
+  .pg-38 { background: linear-gradient(160deg,#440000,#bb1100); }
+  .pg-39 { background: linear-gradient(160deg,#001133,#0033aa); }
+  .pg-40 { background: linear-gradient(160deg,#220011,#880044); }
+  .pg-41 { background: linear-gradient(160deg,#003311,#007733); }
+  .pg-42 { background: linear-gradient(160deg,#111144,#4444cc); }
+  .pg-43 { background: linear-gradient(160deg,#002200,#006600); }
+
+  /* ── stats bar ── */
+  .stats-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: white;
+    border-radius: 14px;
+    padding: 18px 24px;
+    box-shadow: 0 3px 14px rgba(44,24,16,0.1);
+    margin-bottom: 8px;
+  }
+  .stat-item { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
+  .stat-num  { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--blue-dark); line-height: 1; }
+  .stat-label{ font-size: 0.72rem; color: var(--text-light); margin-top: 3px; }
+
+  /* ── featured banner ── */
+  .featured-banner {
+    background: linear-gradient(135deg,#7a1a00,#cc4400);
+    border-radius: 16px;
+    padding: 26px 30px;
+    color: white;
+    display: flex;
+    gap: 22px;
+    align-items: center;
+    box-shadow: 0 6px 24px rgba(180,60,0,0.35);
+    margin-bottom: 8px;
+  }
+  .featured-icon { font-size: 3.6rem; flex-shrink: 0; }
+  .featured-title { font-family:'M PLUS Rounded 1c',sans-serif; font-size:1.35rem; font-weight:800; margin-bottom:6px; }
+  .featured-desc  { font-size:0.9rem; opacity:0.93; line-height:1.7; }
+
+  @media (max-width: 560px) {
+    .movie-grid { grid-template-columns: 1fr; }
+    .featured-banner { flex-direction: column; text-align: center; }
+    .stats-bar { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <div class="logo-icon">🔵</div>
+      <div class="logo-text">哆啦A夢の秘密基地<div class="logo-sub">小叮噹資訊館</div></div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">🏠 首頁</a>
+      <a href="chronicle.html">⏰ 編年史</a>
+      <a href="taiwan.html">🇹🇼 小叮噹</a>
+      <a href="museums.html">🏛️ 博物館</a>
+      <a href="characters.html">👥 人物</a>
+      <a href="gadgets.html">🎒 道具</a>
+      <a href="games.html">🎮 電玩</a>
+      <a href="movies.html" class="active">🎬 劇場版</a>
+      <a href="spinoff-manga.html">📚 漫畫</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:14px">🎬</div>
+  <h1>哆啦A夢劇場版</h1>
+  <p>從 1980 年至今，每年春天上映的大銀幕冒險——43 部電影，43 段穿越時空的感動旅程</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">43</div><div class="stat-label">部劇場版</div></div>
+    <div class="stat-item"><div class="stat-num">44</div><div class="stat-label">年連續上映</div></div>
+    <div class="stat-item"><div class="stat-num">1980</div><div class="stat-label">首部上映年份</div></div>
+    <div class="stat-item"><div class="stat-num">84億</div><div class="stat-label">宝島票房（日圓）</div></div>
+    <div class="stat-item"><div class="stat-num">3月</div><div class="stat-label">固定上映月份</div></div>
+  </div>
+
+  <!-- Featured banner -->
+  <div class="featured-banner" style="margin-top:32px;">
+    <div class="featured-icon">🎭</div>
+    <div>
+      <div class="featured-title">每年春天的約定</div>
+      <div class="featured-desc">哆啦A夢劇場版自 1980 年起連續上映至今，是全球持續時間最長的動畫電影系列之一。每部電影以「大雄與夥伴踏入未知世界冒險」為基本結構，卻年年帶來不同的感動。電影中充滿熱淚、友情、勇氣，以及哆啦A夢宇宙中最純粹的溫情。2006 年角色造型更新後，系列以全新活力重新出發，至今仍是日本春季電影的代名詞。</div>
+    </div>
+  </div>
+
+  <!-- ══ 昭和時代 ══ -->
+  <div class="era-header era-showa">
+    <div class="era-icon">🎞️</div>
+    <div>
+      <div class="era-title">昭和時代 ── 藤子・F・不二雄原作期</div>
+      <div class="era-years">1980 – 1996 ｜ 舊版動畫聲優陣容 ｜ 17 部</div>
+    </div>
+  </div>
+  <div class="movie-grid">
+
+    <!-- 1980 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-1">
+        <div class="poster-inner"><span class="poster-icon">🦕</span><div class="poster-year">1980</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の恐竜（東宝 / 大山ドラ第1作）</div>
+        <div class="movie-title">大雄的恐龍</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1980</span>
+          <span class="movie-badge badge-hit">系列第一作</span>
+        </div>
+        <p class="movie-desc">大雄在空地發現一塊化石，用哆啦A夢的「即時繁殖藥」孵化出一隻嬰兒恐龍，取名「皮助」。皮助迅速成長，無法繼續藏在家中，大雄決定用時光機將牠送回八千萬年前的白堊紀。旅途中一行人遭遇異時代偷獵者，最終與皮助含淚道別。</p>
+        <div class="movie-note"><b>歷史意義：</b>哆啦A夢電影系列的起點。皮助與大雄的友情至今仍被視為系列中最催淚的告別，奠定了劇場版「與非人類生命相遇、感動道別」的情感公式。</div>
+      </div>
+    </div>
+
+    <!-- 1981 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-2">
+        <div class="poster-inner"><span class="poster-icon">🚀</span><div class="poster-year">1981</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の宇宙開拓史（東宝）</div>
+        <div class="movie-title">大雄的宇宙開拓史</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1981</span>
+        </div>
+        <p class="movie-desc">太空植物星球「Florian」遭到 Gilmore 鑽探帝國入侵，少年「Loplyce」穿越宇宙逃到大雄的壁櫥求援。一行人乘坐宇宙飛船前往太空，與星球居民並肩對抗巨大機械艦隊，展開哆啦A夢系列首部宇宙背景的冒險。</p>
+        <div class="movie-note"><b>宇宙首演：</b>系列首次以宇宙戰爭為舞台，Loplyce 的故事奠定了「外星少年求援」類型的劇情模板。</div>
+      </div>
+    </div>
+
+    <!-- 1982 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-3">
+        <div class="poster-inner"><span class="poster-icon">🦁</span><div class="poster-year">1982</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の大魔境（東宝）</div>
+        <div class="movie-title">大雄的大魔境</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1982</span>
+        </div>
+        <p class="movie-desc">大雄的玩具熊「太郎」突然自己走動，哆啦A夢追蹤訊號後發現了隱藏在非洲叢林深處的小人國「貝卡萊」。統治者「鼴鼠族」殘暴壓迫著小人們，大雄一行人以秘密道具幫助受壓迫的居民反抗暴政，解放這個被遺忘的王國。</p>
+        <div class="movie-note"><b>非洲冒險：</b>以非洲叢林為舞台，首次引入「被壓迫的弱小民族」主題，是系列中政治色彩最鮮明的早期作品。</div>
+      </div>
+    </div>
+
+    <!-- 1983 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-4">
+        <div class="poster-inner"><span class="poster-icon">🌊</span><div class="poster-year">1983</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の海底鬼岩城（東宝）</div>
+        <div class="movie-title">大雄的海底鬼岩城</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1983</span>
+        </div>
+        <p class="movie-desc">大雄一行人前往美麗的海底王國探險，卻發現傳說中的巨型機械城「鬼岩城」正在從海底復活。若它與宇宙人控制的「鬼岩城二號」合而為一，將引發滅世洪水。哆啦A夢的道具在深海中失效，一行人必須靠智慧與勇氣阻止末世危機。</p>
+        <div class="movie-note"><b>末世威脅：</b>系列首次引入「滅世級危機」，海底背景與機械巨城的組合給當時的兒童觀眾留下深刻印象。</div>
+      </div>
+    </div>
+
+    <!-- 1984 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-5">
+        <div class="poster-inner"><span class="poster-icon">🧙</span><div class="poster-year">1984</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の魔界大冒険（東宝）</div>
+        <div class="movie-title">大雄的魔界大冒險</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1984</span>
+        </div>
+        <p class="movie-desc">大雄用「如果電話亭」創造了一個存在魔法的平行世界，靜香在那裡是魔法少女「魔女小靜」。然而邪惡魔族「蠑螈」企圖侵佔這個魔法世界。在這個世界裡，哆啦A夢的道具全部失效，大雄等人必須學習魔法，以純粹的力量對抗強大的惡魔。</p>
+        <div class="movie-note"><b>無道具挑戰：</b>全片刻意讓哆啦A夢道具失效，逼迫大雄以自身力量面對困境，是系列中主角最有成長的一部。</div>
+      </div>
+    </div>
+
+    <!-- 1985 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-6">
+        <div class="poster-inner"><span class="poster-icon">⭐</span><div class="poster-year">1985</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の宇宙小戦争（東宝）</div>
+        <div class="movie-title">大雄的宇宙小戰爭</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1985</span>
+        </div>
+        <p class="movie-desc">外太空遙遠星球的縮小版總統「帕比」逃到地球，對大雄一行人而言他只有手指大小。帕比的星球遭到軍事政變，獨裁將軍掌權。大雄等人用道具縮小自身後前往太空，在微型戰場上以智慧對抗全副武裝的機甲軍隊，協助帕比奪回政權。</p>
+        <div class="movie-note"><b>縮小冒險：</b>以「縮小」的視角呈現宇宙戰爭，槍林彈雨的戰鬥場景對當年的兒童觀眾而言極具震撼力，是系列中動作設計最出色的早期作品。</div>
+      </div>
+    </div>
+
+    <!-- 1986 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-7">
+        <div class="poster-inner"><span class="poster-icon">🤖</span><div class="poster-year">1986</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太と鉄人兵団（東宝）</div>
+        <div class="movie-title">大雄與鐵人兵團</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1986</span>
+          <span class="movie-badge badge-hit">昭和最高傑作</span>
+        </div>
+        <p class="movie-desc">大雄從河裡撿到機器人零件，哆啦A夢將其組裝後發現是一個來自宇宙的少女型機器人「利琉路」。她的主人企圖利用平行鏡面世界入侵地球，派出巨大鐵人兵團。然而利琉路與靜香之間跨越敵我的深厚友情，在最後關頭改變了戰爭走向，讓侵略計劃徹底崩潰。</p>
+        <div class="movie-note"><b>系列之魂：</b>靜香與利琉路的友情被公認為整個劇場版系列最動人的情感描寫。「鏡面世界」設定至今仍是哆啦A夢迷心中最經典的世界觀之一，2011 年重製版也忠實再現了這份情感。</div>
+      </div>
+    </div>
+
+    <!-- 1987 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-8">
+        <div class="poster-inner"><span class="poster-icon">🐉</span><div class="poster-year">1987</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太と龍の騎士（東宝）</div>
+        <div class="movie-title">大雄與龍的騎士</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1987</span>
+        </div>
+        <p class="movie-desc">地球內部隱藏著一個「地底世界」，恐龍文明在此延續了六千五百萬年，建立出高度發展的社會。大雄一行人發現地底恐龍族與地表人類之間潛藏著即將爆發的衝突，必須在兩個文明之間架起溝通橋樑，化解誤解與戰爭。</p>
+        <div class="movie-note"><b>地底文明：</b>「恐龍沒有滅絕，而是躲入地底繼續發展」的設定極具創意，是系列中世界觀最獨特的作品之一。</div>
+      </div>
+    </div>
+
+    <!-- 1988 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-9">
+        <div class="poster-inner"><span class="poster-icon">🐒</span><div class="poster-year">1988</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太のパラレル西遊記（東宝）</div>
+        <div class="movie-title">大雄的平行西遊記</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1988</span>
+        </div>
+        <p class="movie-desc">哆啦A夢的道具讓大雄等人穿越進了《西遊記》的世界，孫悟空、豬八戒、沙悟淨等人物真實存在。邪惡的妖怪真神試圖霸佔這個傳說世界，唐僧一行的取經之旅面臨危機。現代小朋友的智慧和道具成了拯救古代神話世界的關鍵。</p>
+        <div class="movie-note"><b>跨文化冒險：</b>以中國古典文學為背景，是系列少數借用既有神話世界觀的電影，深受喜愛《西遊記》的中日兩國觀眾喜愛。</div>
+      </div>
+    </div>
+
+    <!-- 1989 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-10">
+        <div class="poster-inner"><span class="poster-icon">⛰️</span><div class="poster-year">1989</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の日本誕生（東宝）</div>
+        <div class="movie-title">大雄的日本誕生</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1989</span>
+          <span class="movie-badge badge-hit">昭和名作</span>
+        </div>
+        <p class="movie-desc">大雄一行人因為家人衝突，決定各自「離家出走」，乘時光機前往七萬年前的石器時代日本。在荒野中遇到被神秘追殺的少年「克魯魯」和他的猛獸夥伴「卡比洛斯」。在史前大地的狂風與雷雨中，大雄學到了家人的重要，也解開了這片大陸誕生的謎題。</p>
+        <div class="movie-note"><b>史前日本：</b>以「日本的起源」為主題，史前自然景觀壯麗，卡比洛斯的戰鬥場面是昭和時代票房最高的劇場版，也是系列中主題最宏大的作品之一。</div>
+      </div>
+    </div>
+
+    <!-- 1990 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-11">
+        <div class="poster-inner"><span class="poster-icon">🐘</span><div class="poster-year">1990</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太とアニマル惑星（東宝）</div>
+        <div class="movie-title">大雄與動物星球</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1990</span>
+        </div>
+        <p class="movie-desc">透過神秘通路，大雄一行人抵達了一個只有動物居住的和平星球。然而人類形態的外來侵略者正悄悄污染這顆美麗星球，動物文明正面臨覆滅危機。大雄等人與動物星球居民齊心對抗，守護這個沒有人類污染的純淨世界。</p>
+        <div class="movie-note"><b>環保先驅：</b>在環保意識尚未普及的 1990 年代初，以「人類對自然的破壞」為核心主題，是系列最早觸及生態議題的作品。</div>
+      </div>
+    </div>
+
+    <!-- 1991 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-12">
+        <div class="poster-inner"><span class="poster-icon">🌙</span><div class="poster-year">1991</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太のドラビアンナイト（東宝）</div>
+        <div class="movie-title">大雄的天方夜譚</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1991</span>
+        </div>
+        <p class="movie-desc">靜香正在閱讀《一千零一夜》，忽然被一張神秘魔毯捲入書中世界。大雄和哆啦A夢追入阿拉伯神話的世界，在飛沙走石的沙漠、金碧輝煌的宮殿和神燈精靈之間展開冒險，尋找被綁架的靜香。</p>
+        <div class="movie-note"><b>異文化浪漫：</b>以《一千零一夜》為背景，異國情調濃厚，是系列中視覺設計最華麗的昭和作品，神燈精靈「亞利巴巴」造型深受觀眾喜愛。</div>
+      </div>
+    </div>
+
+    <!-- 1992 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-13">
+        <div class="poster-inner"><span class="poster-icon">☁️</span><div class="poster-year">1992</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太と雲の王国（東宝）</div>
+        <div class="movie-title">大雄與雲的王國</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1992</span>
+        </div>
+        <p class="movie-desc">大雄和哆啦A夢在雲端構築了小小的天上之城，卻意外發現雲端早有一個古老的「天空族」文明。天空族視人類為破壞自然的罪人，正計劃以洪水清洗地球——大雄等人必須向天空族的神靈證明人類也有善良的一面，否則地球將迎來滅頂之災。</p>
+        <div class="movie-note"><b>人性試煉：</b>以人類的善惡辯證為核心，天空族的審判設定讓劇情具有強烈的哲學意涵，是系列主題深度最高的昭和作品之一。</div>
+      </div>
+    </div>
+
+    <!-- 1993 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-14">
+        <div class="poster-inner"><span class="poster-icon">🔩</span><div class="poster-year">1993</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太とブリキの迷宮（東宝）</div>
+        <div class="movie-title">大雄與機器人迷宮</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1993</span>
+        </div>
+        <p class="movie-desc">大雄的玩具熊奪走了哆啦A夢的四次元口袋！追蹤到宇宙星球「チャモチャ星」，那裡的人類被機器人完全奴役，喪失了思考和勞動的能力，淪為自我麻痺的存在。大雄等人必須在沒有道具的情況下逃出迷宮，同時喚醒被遺忘了的人類意志。</p>
+        <div class="movie-note"><b>反科技寓言：</b>以「機器過度取代人力導致人類退化」為主題，在科技高速發展的 1990 年代初具有特別的預言意義。</div>
+      </div>
+    </div>
+
+    <!-- 1994 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-15">
+        <div class="poster-inner"><span class="poster-icon">⚔️</span><div class="poster-year">1994</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太と夢幻三剣士（東宝）</div>
+        <div class="movie-title">大雄與夢幻三劍士</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1994</span>
+        </div>
+        <p class="movie-desc">哆啦A夢的道具「夢幻工廠」讓大雄一行人進入自己設計的劍與魔法夢境世界。然而夢中潛藏著一個吞噬夢境的邪惡存在，若不能從夢中奪回控制，夢境中的死亡也將殃及現實中沉睡的身體。</p>
+        <div class="movie-note"><b>奇幻 RPG：</b>以「劍與魔法」的角色扮演遊戲世界觀為背景，英雄角色裝扮充滿魅力，是系列中奇幻氛圍最濃厚的昭和作品。</div>
+      </div>
+    </div>
+
+    <!-- 1995 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-16">
+        <div class="poster-inner"><span class="poster-icon">📖</span><div class="poster-year">1995</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の創世日記（東宝）</div>
+        <div class="movie-title">大雄的創世日記</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1995</span>
+        </div>
+        <p class="movie-desc">哆啦A夢拿來「神之筆記本」，在上面寫下設定就能創造出真實存在的世界。大雄用筆記本創造了一顆行星，讓生命在其上自行演化繁衍。觀看自己創造的文明跨越數百萬年的興衰，卻在某一天發現這個小世界竟遭到外來惡意侵入。</p>
+        <div class="movie-note"><b>造物主視角：</b>「扮演上帝創造世界」的設定在系列中絕無僅有，藤子先生晚年的哲學思考在本作中達到了最深刻的表達。</div>
+      </div>
+    </div>
+
+    <!-- 1996 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-17">
+        <div class="poster-inner"><span class="poster-icon">🌌</span><div class="poster-year">1996</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太と銀河超特急（東宝）</div>
+        <div class="movie-title">大雄與銀河超特急</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1996</span>
+          <span class="movie-badge badge-hit">昭和最終作</span>
+        </div>
+        <p class="movie-desc">哆啦A夢帶大家搭上「銀河超特急」——一艘豪華遊輪式宇宙列車——展開星際旅遊。然而列車上的乘客開始神秘失蹤，所謂的「星際度假」背後隱藏著令人不寒而慄的陰謀。這是藤子・F・不二雄先生逝世前最後一部完整監修的劇場版。</p>
+        <div class="movie-note"><b>昭和謝幕：</b>1996 年 9 月藤子先生辭世，本作成為他最後親身參與的電影。銀河列車的神秘氛圍是對這位偉大創作者的最後致敬。</div>
+      </div>
+    </div>
+
+  </div><!-- /昭和時代 -->
+
+  <!-- ══ 平成時代 ══ -->
+  <div class="era-header era-heisei">
+    <div class="era-icon">🎦</div>
+    <div>
+      <div class="era-title">平成時代 ── 藤子プロ製作期</div>
+      <div class="era-years">1997 – 2005 ｜ 舊版聲優、新製作陣容 ｜ 9 部</div>
+    </div>
+  </div>
+  <div class="movie-grid">
+
+    <!-- 1997 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-18">
+        <div class="poster-inner"><span class="poster-icon">🔧</span><div class="poster-year">1997</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太のねじ巻き都市冒険記（東宝）</div>
+        <div class="movie-title">大雄的發條城市冒險記</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1997</span>
+        </div>
+        <p class="movie-desc">大雄等人的玩具被哆啦A夢的道具帶到雲端，玩具人偶在天空中自動建起一座小小的「發條城市」，竟有了自己的生命和文明。然而惡意的外力侵入了這個玩具烏托邦，大雄等人必須縮小身體進入玩具世界拯救朋友。</p>
+        <div class="movie-note"><b>玩具有命：</b>以玩具角色為主軸，充滿奇想與溫情，是藤子先生逝世後的第一部作品，延續了他對「玩具有靈魂」這一幻想主題的探索。</div>
+      </div>
+    </div>
+
+    <!-- 1998 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-19">
+        <div class="poster-inner"><span class="poster-icon">🏴‍☠️</span><div class="poster-year">1998</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の南海大冒険（東宝）</div>
+        <div class="movie-title">大雄的南海大冒險</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1998</span>
+        </div>
+        <p class="movie-desc">哆啦A夢帶大家乘坐時光機穿越到 17 世紀的大航海時代，成為海盜船員。在加勒比海的浪濤中，他們捲入了尋找傳說神秘寶藏的競賽，並與殖民者的鐵甲艦隊正面交鋒，上演了哆啦A夢系列中最壯觀的海戰場面。</p>
+        <div class="movie-note"><b>大航海冒險：</b>以海盜為主題，帆船海戰場面壯麗，是系列中動作場景最豐富的平成作品，胖虎的海賊王夢想在本片得到了充分展現。</div>
+      </div>
+    </div>
+
+    <!-- 1999 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-20">
+        <div class="poster-inner"><span class="poster-icon">🪐</span><div class="poster-year">1999</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の宇宙漂流記（東宝）</div>
+        <div class="movie-title">大雄的宇宙漂流記</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">1999</span>
+        </div>
+        <p class="movie-desc">太空旅行途中宇宙飛船墜落在未知星球，表面看似平靜，卻藏著一個恐怖的統治系統——星球上的生命體被植入控制晶片，完全受到支配。大雄一行人在資訊完全封鎖的環境中，試圖找出反抗這個看不見的控制機制的方法。</p>
+        <div class="movie-note"><b>反烏托邦：</b>「看不見的控制與自由意志」的主題超越兒童電影的常規深度，是平成時代哲學意涵最深的作品之一。</div>
+      </div>
+    </div>
+
+    <!-- 2000 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-21">
+        <div class="poster-inner"><span class="poster-icon">👑</span><div class="poster-year">2000</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の太陽王伝説（東宝）</div>
+        <div class="movie-title">大雄的太陽王傳說</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2000</span>
+        </div>
+        <p class="movie-desc">哆啦A夢的「複製道具」複製出了一個與大雄長得一模一樣的分身。分身意外穿越到古代文明王國，被誤認為太陽神轉世的王子，大雄必須前往替換分身。在金字塔文明的壯麗宮殿裡，兩個「大雄」的命運產生奇妙交錯。</p>
+        <div class="movie-note"><b>雙重大雄：</b>以「分身」為概念，兩個大雄交互出現讓劇情充滿喜劇與感動，古文明背景的視覺設計也是系列中最壯觀的之一。</div>
+      </div>
+    </div>
+
+    <!-- 2001 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-22">
+        <div class="poster-inner"><span class="poster-icon">🦅</span><div class="poster-year">2001</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太と翼の勇者たち（東宝）</div>
+        <div class="movie-title">大雄與翼的勇者們</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2001</span>
+        </div>
+        <p class="movie-desc">在地球某處隱藏著鳥人族的秘密文明，他們長著翅膀翱翔於天際，建立了純粹的天空社會。大雄一行人發現後被邀入其中，卻逐漸察覺族內的階級矛盾與外部威脅正在逼近，這個美麗種族的存亡懸於一線。</p>
+        <div class="movie-note"><b>翱翔天際：</b>空中飛行場面氣勢磅礴，是系列中最適合大螢幕觀賞的動作場景之一，鳥人族文化設計細膩精緻。</div>
+      </div>
+    </div>
+
+    <!-- 2002 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-23">
+        <div class="poster-inner"><span class="poster-icon">🦾</span><div class="poster-year">2002</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太とロボット王国（東宝）</div>
+        <div class="movie-title">大雄與機器人王國</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2002</span>
+        </div>
+        <p class="movie-desc">機器人「波可」從一個以機器人為奴隸的宇宙星球逃到地球求援。大雄一行人前往那個星球後發現，機器人被程式化為無情工具，而波可卻真實擁有情感。在「機器人到底有沒有靈魂」的哲學辯論中，大雄為波可的自由而戰。</p>
+        <div class="movie-note"><b>機器人有情：</b>「機器人的情感與自由」主題先於許多科幻作品觸及 AI 倫理的核心問題，是劇場版系列在主題深度上的一大高峰。</div>
+      </div>
+    </div>
+
+    <!-- 2003 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-24">
+        <div class="poster-inner"><span class="poster-icon">🌪️</span><div class="poster-year">2003</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太とふしぎ風使い（東宝）</div>
+        <div class="movie-title">大雄與神秘的風使者</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2003</span>
+        </div>
+        <p class="movie-desc">少女「風莉」是能召喚風的神秘存在，被邪惡勢力追捕。哆啦A夢一行人幫她逃往雲端的風之神殿，卻捲入了一個影響整個地球大氣層的陰謀。風的力量與自然法則的威嚴在銀幕上壯麗呈現。</p>
+        <div class="movie-note"><b>風的詩篇：</b>以「風」為核心意象，空中飛行與風暴場景頗具詩意，是平成時代視覺美感最突出的作品之一。</div>
+      </div>
+    </div>
+
+    <!-- 2004 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-25">
+        <div class="poster-inner"><span class="poster-icon">🐱</span><div class="poster-year">2004</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太のワンニャン時空伝（東宝）</div>
+        <div class="movie-title">大雄的汪喵時空傳</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2004</span>
+          <span class="movie-badge badge-hit">舊版收官作</span>
+        </div>
+        <p class="movie-desc">大雄偷偷帶著哆啦A夢的道具，讓流浪貓狗組成了「貓犬共和國」，建立在兩萬年前的過去。貓犬們建立出嶄新的文明。數年後大雄回到那個年代，發現動物共和國正面臨前所未有的危機，與昔日的貓犬朋友重逢的情感衝擊極為強烈。</p>
+        <div class="movie-note"><b>告別大山版：</b>這是配音員大山那由多（大山のぶ代）版哆啦A夢的最後一部劇場版，也是第一代聲優陣容的謝幕之作，承載了整整一個世代的記憶。</div>
+      </div>
+    </div>
+
+  </div><!-- /平成時代 -->
+
+  <!-- ══ 新時代 ══ -->
+  <div class="era-header era-new">
+    <div class="era-icon">✨</div>
+    <div>
+      <div class="era-title">新時代 ── 新ドラえもん製作期</div>
+      <div class="era-years">2006 – 現在 ｜ 新版聲優陣容、全新設計 ｜ 18 部（截至 2023）</div>
+    </div>
+  </div>
+  <div class="movie-grid">
+
+    <!-- 2006 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-26">
+        <div class="poster-inner"><span class="poster-icon">🦕</span><div class="poster-year">2006</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の恐竜2006（東宝）</div>
+        <div class="movie-title">大雄的恐龍 2006</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2006</span>
+          <span class="movie-badge badge-remake">重製 1980</span>
+        </div>
+        <p class="movie-desc">新時代的第一部電影，選擇重製系列的起點「大雄的恐龍」（1980）。新聲優陣容首次亮相，以現代 CG 技術重現皮助與大雄的感人故事。忠實呈現原作精神的同時，加入了更豐富的動作場面與情感細節。</p>
+        <div class="movie-note"><b>新時代起點：</b>新版哆啦A夢的「換代首映」選擇重製最感人的初代作品，向觀眾宣示新時代的到來，也表達了對系列根源的敬意。</div>
+      </div>
+    </div>
+
+    <!-- 2007 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-27">
+        <div class="poster-inner"><span class="poster-icon">🧙</span><div class="poster-year">2007</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の新魔界大冒険（東宝）</div>
+        <div class="movie-title">大雄的新魔界大冒險</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2007</span>
+          <span class="movie-badge badge-remake">重製 1984</span>
+        </div>
+        <p class="movie-desc">「魔界大冒險」（1984）的全新重製。以現代動畫技術重現平行魔法世界，故事骨幹相同，同時加入了新角色魔法少女「エリス」，為重製版帶來獨特的新情感線索，受到新舊兩代觀眾的共同喜愛。</p>
+        <div class="movie-note"><b>新角色加入：</b>エリス的加入讓劇情在原版結構外多了一層情感厚度，是系列重製中改編力度最大、最成功的一部。</div>
+      </div>
+    </div>
+
+    <!-- 2008 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-28">
+        <div class="poster-inner"><span class="poster-icon">🌿</span><div class="poster-year">2008</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太と緑の巨人伝（東宝）</div>
+        <div class="movie-title">大雄與綠之巨人傳</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2008</span>
+        </div>
+        <p class="movie-desc">新時代首部全原創電影。大雄等人到達一個被植物文明統治的星球，被稱為「綠の巨人」的巨型植物人威脅著星球上的小生命。強烈的環保主題呼應當年全球暖化議題，是新系列以電影形式宣示原創路線的重要作品。</p>
+        <div class="movie-note"><b>新時代原創：</b>新版第一部完全原創故事，以植物巨人的壯觀視覺征服觀眾，環保主旨讓電影在教育層面也備受重視。</div>
+      </div>
+    </div>
+
+    <!-- 2009 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-29">
+        <div class="poster-inner"><span class="poster-icon">🚀</span><div class="poster-year">2009</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">新・のび太の宇宙開拓史（東宝）</div>
+        <div class="movie-title">新・大雄的宇宙開拓史</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2009</span>
+          <span class="movie-badge badge-remake">重製 1981</span>
+        </div>
+        <p class="movie-desc">1981 年版的重製，Loplyce 的星球解放故事以高品質 CG 宇宙戰爭場面全新呈現，並加入了 Loplyce 父親的故事線，讓原版的情感更加豐富立體，父子情義成為本片的新核心情感。</p>
+        <div class="movie-note"><b>父子情義：</b>加入父子敘事後，整部電影的情感層次大幅提升，是系列重製中情感升級最成功的一部。</div>
+      </div>
+    </div>
+
+    <!-- 2010 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-30">
+        <div class="poster-inner"><span class="poster-icon">🧜</span><div class="poster-year">2010</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の人魚大海戦（東宝）</div>
+        <div class="movie-title">大雄的人魚大海戰</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2010</span>
+        </div>
+        <p class="movie-desc">全原創故事。大雄等人發現海底存在著人魚文明，並被捲入人魚族與入侵機械軍的水下大海戰。人魚公主的悲壯抵抗與壯觀的水中戰鬥場面是本片兩大亮點，是新時代視覺效果最震撼的動作電影之一。</p>
+        <div class="movie-note"><b>水中壯觀：</b>水下動作場面與人魚文明的視覺設計是製作團隊的最高傑作之一，在水中物理效果上達到了系列前所未有的水準。</div>
+      </div>
+    </div>
+
+    <!-- 2011 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-31">
+        <div class="poster-inner"><span class="poster-icon">🤖</span><div class="poster-year">2011</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太と鉄人兵団 ～天空の勇者たち～（東宝）</div>
+        <div class="movie-title">大雄與鐵人兵團～天空勇者～</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2011</span>
+          <span class="movie-badge badge-remake">重製 1986</span>
+        </div>
+        <p class="movie-desc">系列最高傑作「鐵人兵團」的全新重製。利琉路與靜香的跨越敵我友情再度感動全場，加入了「天空の勇者たち」副題，部分劇情強化了利琉路的內心衝突與最終選擇，讓感人程度有增無減。</p>
+        <div class="movie-note"><b>感動再現：</b>即使是熟知原版劇情的老觀眾，在重製版中仍然流下了眼淚。利琉路的自我犧牲在現代動畫技術下更加震撼人心。</div>
+      </div>
+    </div>
+
+    <!-- 2012 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-32">
+        <div class="poster-inner"><span class="poster-icon">🏝️</span><div class="poster-year">2012</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太と奇跡の島 ～アニマル アドベンチャー～（東宝）</div>
+        <div class="movie-title">大雄與奇蹟之島</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2012</span>
+        </div>
+        <p class="movie-desc">全原創環保主題。大雄在神秘小島上發現了各種已滅絕的奇特動物，那裡是地球上最後的動物樂園。然而人類開發的威脅正在逼近，大雄和瀕危動物的相遇讓人對物種滅絕問題有了切身感受。</p>
+        <div class="movie-note"><b>生態關懷：</b>以繪本般的色彩呈現奇幻島嶼，各種已滅絕生物的登場讓孩子們對自然保育產生真實的情感連結。</div>
+      </div>
+    </div>
+
+    <!-- 2013 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-33">
+        <div class="poster-inner"><span class="poster-icon">🏛️</span><div class="poster-year">2013</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太のひみつ道具博物館（東宝）</div>
+        <div class="movie-title">大雄的秘密道具博物館</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2013</span>
+        </div>
+        <p class="movie-desc">哆啦A夢珍視的慣用鈴鐺神秘失竊！追查線索後來到宇宙中一個神秘的「秘密道具博物館」，所有歷代道具都被展示其中。博物館館長的真實面目與鈴鐺失竊的原因交織成一個比表面更深刻的謎題。</p>
+        <div class="movie-note"><b>道具致敬：</b>博物館設定是對哆啦A夢歷代道具的一次大型致敬，見到任意門、竹蜻蜓等道具展示的場景讓老粉絲倍感溫馨。</div>
+      </div>
+    </div>
+
+    <!-- 2014 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-34">
+        <div class="poster-inner"><span class="poster-icon">🦁</span><div class="poster-year">2014</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">新・のび太の大魔境 ～ペコと5人の探検隊～（東宝）</div>
+        <div class="movie-title">新・大雄的大魔境</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2014</span>
+          <span class="movie-badge badge-remake">重製 1982</span>
+        </div>
+        <p class="movie-desc">1982 年版「大魔境」的重製，加入原版未有的少年「貝可」作為貝卡萊王國的核心角色，強化了大雄與貝可之間跨文化的友情。非洲叢林的視覺設計更加壯觀，讓小人國的反抗更具氣勢。</p>
+        <div class="movie-note"><b>友情升級：</b>新增的貝可角色讓重製版比原版多了一條完整的友情主線，大雄為友誼奮戰的形象在本片中最為突出。</div>
+      </div>
+    </div>
+
+    <!-- 2015 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-35">
+        <div class="poster-inner"><span class="poster-icon">🦸</span><div class="poster-year">2015</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の宇宙英雄記 ～スペースヒーローズ～（東宝）</div>
+        <div class="movie-title">大雄的宇宙英雄記</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2015</span>
+        </div>
+        <p class="movie-desc">全原創故事。大雄一行人搖身成為宇宙超級英雄，前往宇宙中受惡勢力壓迫的星球執行正義任務。超級英雄的特殊服裝造型充滿設計感，熱血動作場面與道具的創意結合是本片最大的看點。</p>
+        <div class="movie-note"><b>英雄主義：</b>「普通的大雄成為超級英雄」的主題讓孩子們熱血沸騰，是系列中動作設計最符合現代超級英雄電影口味的一部。</div>
+      </div>
+    </div>
+
+    <!-- 2016 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-36">
+        <div class="poster-inner"><span class="poster-icon">⛰️</span><div class="poster-year">2016</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">新・のび太の日本誕生（東宝）</div>
+        <div class="movie-title">新・大雄的日本誕生</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2016</span>
+          <span class="movie-badge badge-remake">重製 1989</span>
+        </div>
+        <p class="movie-desc">昭和名作「日本誕生」（1989）的重製版，七萬年前日本史前大地的史詩冒險全面重現。克魯魯的故事以新動畫技術打造更壯觀的自然景觀，卡比洛斯的戰鬥場面震撼升級，大雄與家人的情感羈絆也比原版更加細膩。</p>
+        <div class="movie-note"><b>史詩重現：</b>在新技術加持下，原版已很壯觀的史前場景達到了全新高度，票房在重製系列中也是最高的，印證了原版故事的強大魅力。</div>
+      </div>
+    </div>
+
+    <!-- 2017 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-37">
+        <div class="poster-inner"><span class="poster-icon">🧊</span><div class="poster-year">2017</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の南極カチコチ大冒険（東宝）</div>
+        <div class="movie-title">大雄的南極冰冰大冒險</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2017</span>
+        </div>
+        <p class="movie-desc">全原創故事。哆啦A夢一行人前往南極探險，在冰層下發現了封存三億年前的神秘古代城市。隨著冰封城市開始解凍，其中蘊藏的未知力量可能引發全球性的氣候災難。南極的壯麗冰景與謎樣古文明的組合帶來了前所未有的視覺衝擊。</p>
+        <div class="movie-note"><b>冰封古城：</b>南極的視覺設計令人嘆為觀止，「三億年前文明被封存於冰下」的設定充滿奇想，是新時代科幻色彩最濃的一部。</div>
+      </div>
+    </div>
+
+    <!-- 2018 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-38">
+        <div class="poster-inner"><span class="poster-icon">🏝️</span><div class="poster-year">2018</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の宝島（東宝）</div>
+        <div class="movie-title">大雄的寶島</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2018</span>
+          <span class="movie-badge badge-hit">史上最高票房</span>
+        </div>
+        <p class="movie-desc">大雄從寶藏夢中醒來，堅信世界上真的有寶島。哆啦A夢準備了特製海盜船，一行人出海追尋傳說中的浮動寶島。寶島的秘密牽涉到大雄的弟弟、失落的家人，以及守護寶島的謎樣少女「シルビア」。航海冒險與家庭親情並重，是系列電影感動深度的巔峰之作。</p>
+        <div class="movie-note"><b>史上最高：</b>日本票房突破 84 億日圓，創系列記錄。主題曲《宝島》由 STAR WARS 成員演唱，紅遍全日本，讓哆啦A夢再次走進所有年齡層的心。</div>
+      </div>
+    </div>
+
+    <!-- 2019 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-39">
+        <div class="poster-inner"><span class="poster-icon">🌕</span><div class="poster-year">2019</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の月面探査記（東宝）</div>
+        <div class="movie-title">大雄的月面探查記</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2019</span>
+        </div>
+        <p class="movie-desc">大雄用「如果電話亭」在月球背面創造了一個住著「月の民」的秘密世界。他和新朋友月球少年建立了深厚友情，卻發現月球人的真實身份牽涉到一個宇宙級的欺騙陰謀。信任與背叛、幻想與現實之間的情感衝突讓本片超越以往的深度。</p>
+        <div class="movie-note"><b>芥川賞作家加持：</b>本片由芥川賞作家辻村深月撰寫劇本，讓劇場版首次具備了文學層次的情感敘事，是系列迄今最具深度的原創故事。</div>
+      </div>
+    </div>
+
+    <!-- 2020 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-40">
+        <div class="poster-inner"><span class="poster-icon">🦖</span><div class="poster-year">2020</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の新恐竜（東宝）</div>
+        <div class="movie-title">大雄的新恐龍</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2020</span>
+          <span class="movie-badge badge-hit">50 週年紀念作</span>
+        </div>
+        <p class="movie-desc">哆啦A夢誕生 50 週年的紀念大作。大雄在考古挖掘中孵化出一對雙胞胎恐龍「kū」與「muu」，帶牠們回到白堊紀的旅途中，大雄從照顧兩隻幼小恐龍的過程中真正學會了責任與守護。情感深度向 1980 年的初代之作致敬，卻同時傳遞了全新的溫情。</p>
+        <div class="movie-note"><b>50 週年致敬：</b>以 1980 年「大雄的恐龍」為精神原點，雙胞胎恐龍的設計與大雄的成長線是獻給所有世代的感動禮物，是系列近年情感最飽滿的一部。</div>
+      </div>
+    </div>
+
+    <!-- 2021 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-41">
+        <div class="poster-inner"><span class="poster-icon">⭐</span><div class="poster-year">2021</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太の小宇宙戦争2021（東宝）</div>
+        <div class="movie-title">大雄的宇宙小戰爭 2021</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2021</span>
+          <span class="movie-badge badge-remake">重製 1985</span>
+        </div>
+        <p class="movie-desc">1985 年版「宇宙小戰爭」的重製，因 COVID-19 疫情延期一年上映。帕比的故事以最新動畫技術重現，星球政變的場景更加壯觀，同時加強了帕比故鄉的世界觀背景，讓觀眾對帕比的奮鬥有更深的投入感。</p>
+        <div class="movie-note"><b>疫情中的勇氣：</b>在疫情延期後終於上映，片中帕比為自由而戰的主題恰好與疫情時代的困境呼應，引起了觀眾更深的共鳴。</div>
+      </div>
+    </div>
+
+    <!-- 2022 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-42">
+        <div class="poster-inner"><span class="poster-icon">🌤️</span><div class="poster-year">2022</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太と空の理想郷（東宝）</div>
+        <div class="movie-title">大雄與空中的理想鄉</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2022</span>
+        </div>
+        <p class="movie-desc">天空深處存在著一個烏托邦城市「パラダピア」，那裡的一切都完美無缺——居民永遠快樂，沒有爭吵，沒有失敗。然而大雄逐漸察覺，完美背後隱藏著對自由意志的恐怖剝奪。究竟是「被控制的完美」還是「痛苦的自由」，才是真正的幸福？</p>
+        <div class="movie-note"><b>反烏托邦深思：</b>以批判「被設計出來的完美社會」為主題，是近年系列中最具社會批判意涵的作品，尤其對自由與控制的辯論讓成年觀眾有諸多感觸。</div>
+      </div>
+    </div>
+
+    <!-- 2023 -->
+    <div class="movie-card">
+      <div class="movie-poster pg-43">
+        <div class="poster-inner"><span class="poster-icon">🎵</span><div class="poster-year">2023</div></div>
+        <div class="poster-overlay"></div>
+      </div>
+      <div class="movie-body">
+        <div class="movie-title-jp">のび太と地球交響楽（東宝）</div>
+        <div class="movie-title">大雄與地球交響樂</div>
+        <div class="movie-meta">
+          <span class="movie-badge badge-year">2023</span>
+        </div>
+        <p class="movie-desc">以音樂為主題的感動大作。音樂少女「ムシカ」出現在大雄面前，她帶來了壞消息——地球上所有的聲音正在消失，動物的叫聲、自然的音韻、人類的歌聲都在枯竭。唯有集合世界所有的音樂力量，才能拯救這場無聲的末世危機。</p>
+        <div class="movie-note"><b>音樂禮讚：</b>以音樂為主題的大製作，交響樂與大自然之音的視聽體驗在劇場大螢幕上帶來強烈感官衝擊，是系列近年藝術性最高的一部。</div>
+      </div>
+    </div>
+
+  </div><!-- /新時代 -->
+
+  <div style="background:#f8f8f8;border:1px solid #e0e0e0;border-radius:10px;padding:14px 18px;font-size:0.82rem;color:var(--text-light);line-height:1.8;margin-top:12px;">
+    📌 哆啦A夢劇場版每年三月在日本院線上映，台灣通常在四至五月引進。本頁收錄截至 2023 年的 43 部電影。劇情介紹以主線故事為主，不含劇透性結局描寫。
+  </div>
+
+</div><!-- /content-wrap -->
+
+<footer>
+  <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
+  <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan / TV Asahi / ADK / Toho</p>
+</footer>
+
+</body>
+</html>

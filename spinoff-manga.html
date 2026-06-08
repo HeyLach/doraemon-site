@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>相關漫畫 · 哆啦A夢の秘密基地</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ── category header ── */
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 22px;
+    border-radius: 14px;
+    color: white;
+    margin: 44px 0 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .cat-icon  { font-size: 2rem; flex-shrink: 0; }
+  .cat-title { font-family:'M PLUS Rounded 1c',sans-serif; font-size:1.2rem; font-weight:800; }
+  .cat-sub   { font-size:0.82rem; opacity:0.85; margin-top:2px; }
+
+  .cat-daichouhen { background: linear-gradient(135deg,#660000,#cc2200); }
+  .cat-doraz      { background: linear-gradient(135deg,#004488,#0066cc); }
+  .cat-gakushu    { background: linear-gradient(135deg,#005500,#009900); }
+  .cat-plus       { background: linear-gradient(135deg,#554400,#cc9900); }
+
+  /* ── manga grid ── */
+  .manga-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 8px;
+  }
+  .manga-grid.wide {
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  }
+
+  /* ── manga card ── */
+  .manga-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(44,24,16,0.12);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s cubic-bezier(.34,1.4,.64,1), box-shadow 0.25s;
+  }
+  .manga-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(44,24,16,0.2);
+  }
+
+  /* ── manga cover ── */
+  .manga-cover {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    z-index: 1;
+    padding: 0 12px;
+  }
+  .cover-icon { font-size: 2.8rem; line-height: 1; }
+  .cover-label {
+    font-family:'M PLUS Rounded 1c',sans-serif;
+    font-size: 0.64rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.88);
+    text-align: center;
+    line-height: 1.3;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+  .cover-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.25)); }
+
+  .manga-body { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; }
+  .manga-title-jp { font-size: 0.7rem; color: var(--text-light); margin-bottom: 2px; letter-spacing:0.03em; }
+  .manga-title {
+    font-family:'M PLUS Rounded 1c',sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .manga-meta { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:9px; }
+  .manga-badge {
+    font-size: 0.68rem; font-weight: 700;
+    padding: 2px 9px; border-radius: 20px; border: 1.5px solid;
+  }
+  .badge-vol   { color:#555; border-color:#ccc; background:#f5f5f5; }
+  .badge-pub   { color:white; border-color:transparent; background:#0066aa; }
+  .badge-sub   { color:#363; border-color:#8c8; background:#e8f8e8; }
+  .badge-grade { color:#663300; border-color:#cc9955; background:#fff4e0; }
+
+  .manga-desc { font-size: 0.84rem; color: var(--text-mid); line-height:1.7; flex:1; }
+  .manga-note {
+    margin-top: 9px; padding: 7px 11px;
+    background: #f4f8ff;
+    border-left: 3px solid var(--blue);
+    border-radius: 0 7px 7px 0;
+    font-size: 0.75rem; color: var(--text-light); line-height:1.55;
+  }
+  .manga-note b { color: var(--blue-dark); }
+
+  /* ── cover gradients ── */
+  .mcg-red    { background:linear-gradient(160deg,#cc2200,#ff6633); }
+  .mcg-blue   { background:linear-gradient(160deg,#003388,#3366ff); }
+  .mcg-green  { background:linear-gradient(160deg,#005522,#33bb55); }
+  .mcg-purple { background:linear-gradient(160deg,#440066,#9933cc); }
+  .mcg-orange { background:linear-gradient(160deg,#884400,#cc8800); }
+  .mcg-teal   { background:linear-gradient(160deg,#004455,#0099aa); }
+  .mcg-pink   { background:linear-gradient(160deg,#880044,#cc3377); }
+  .mcg-brown  { background:linear-gradient(160deg,#553311,#996633); }
+  .mcg-navy   { background:linear-gradient(160deg,#001133,#003377); }
+  .mcg-lime   { background:linear-gradient(160deg,#335500,#669900); }
+  .mcg-gold   { background:linear-gradient(160deg,#554400,#cc9900); }
+  .mcg-cyan   { background:linear-gradient(160deg,#003344,#0088bb); }
+  .mcg-grape  { background:linear-gradient(160deg,#330044,#770099); }
+
+  /* ── manga panel block ── */
+  .panel-section {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed #dde8f4;
+  }
+  .panel-section-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .panel-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 3px;
+    background: #222;
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 3px;
+  }
+  .panel-grid.two-col { grid-template-columns: repeat(2,1fr); }
+  .panel {
+    background: #fafaf8;
+    min-height: 88px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    color: #333;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .panel.wide  { grid-column: span 2; }
+  .panel.tall  { grid-row: span 2; min-height: 180px; }
+  .panel-char  { font-size: 2rem; margin-bottom: 2px; }
+  .speech-bubble {
+    background: white;
+    border: 1.5px solid #333;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 0.68rem;
+    color: #111;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: #333;
+  }
+  .panel-scene {
+    font-size: 0.66rem;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .sfx {
+    font-family:'M PLUS Rounded 1c',sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #cc2200;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── stats bar ── */
+  .stats-bar {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    background: white; border-radius: 14px;
+    padding: 18px 24px;
+    box-shadow: 0 3px 14px rgba(44,24,16,0.1);
+    margin-bottom: 8px;
+  }
+  .stat-item { display:flex; flex-direction:column; align-items:center; min-width:80px; }
+  .stat-num  { font-family:'M PLUS Rounded 1c',sans-serif; font-size:1.8rem; font-weight:800; color:var(--blue-dark); line-height:1; }
+  .stat-label{ font-size:0.72rem; color:var(--text-light); margin-top:3px; }
+
+  /* ── featured banner ── */
+  .featured-banner {
+    background: linear-gradient(135deg,#003366,#0066cc);
+    border-radius: 16px; padding: 26px 30px; color: white;
+    display: flex; gap: 22px; align-items: center;
+    box-shadow: 0 6px 24px rgba(0,80,160,0.3); margin-bottom:8px;
+  }
+  .featured-icon { font-size:3.5rem; flex-shrink:0; }
+  .featured-title { font-family:'M PLUS Rounded 1c',sans-serif; font-size:1.3rem; font-weight:800; margin-bottom:6px; }
+  .featured-desc  { font-size:0.9rem; opacity:0.93; line-height:1.7; }
+
+  @media(max-width:560px){
+    .manga-grid,.manga-grid.wide{grid-template-columns:1fr;}
+    .featured-banner{flex-direction:column;text-align:center;}
+    .stats-bar{justify-content:center;}
+    .panel-grid.two-col,.panel-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <div class="logo-icon">🔵</div>
+      <div class="logo-text">哆啦A夢の秘密基地<div class="logo-sub">小叮噹資訊館</div></div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">🏠 首頁</a>
+      <a href="chronicle.html">⏰ 編年史</a>
+      <a href="taiwan.html">🇹🇼 小叮噹</a>
+      <a href="museums.html">🏛️ 博物館</a>
+      <a href="characters.html">👥 人物</a>
+      <a href="gadgets.html">🎒 道具</a>
+      <a href="games.html">🎮 電玩</a>
+      <a href="movies.html">🎬 劇場版</a>
+      <a href="spinoff-manga.html" class="active">📚 漫畫</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div style="font-size:3rem;margin-bottom:14px">📚</div>
+  <h1>哆啦A夢相關漫畫</h1>
+  <p>從大長篇電影版漫畫到棒球、數學、科學教育系列——哆啦A夢的漫畫宇宙遠比你想像的更廣闊</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">45</div><div class="stat-label">主線單行本</div></div>
+    <div class="stat-item"><div class="stat-num">26</div><div class="stat-label">大長篇電影版</div></div>
+    <div class="stat-item"><div class="stat-num">100+</div><div class="stat-label">學習漫畫冊數</div></div>
+    <div class="stat-item"><div class="stat-num">15+</div><div class="stat-label">學科主題</div></div>
+    <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">プラス 特別卷</div></div>
+  </div>
+
+  <!-- Featured banner -->
+  <div class="featured-banner" style="margin-top:32px;">
+    <div class="featured-icon">📖</div>
+    <div>
+      <div class="featured-title">哆啦A夢漫畫宇宙</div>
+      <div class="featured-desc">哆啦A夢的漫畫世界遠不止主線 45 冊。小學館以哆啦A夢為主角，創作了覆蓋算數、理科、社會、語言、體育等各科目的「学習まんがシリーズ」——讓孩子在閱讀故事的同時自然而然地學習知識。除此之外，「大長篇」電影漫畫版、「ザ・ドラえもんズ」番外篇，以及補完主線的「プラス」系列，共同構成了一個龐大的藍色宇宙。</div>
+    </div>
+  </div>
+
+  <!-- ══ 大長篇漫畫 ══ -->
+  <div class="cat-header cat-daichouhen">
+    <div class="cat-icon">📽️</div>
+    <div>
+      <div class="cat-title">大長篇ドラえもん ── 劇場版漫畫版</div>
+      <div class="cat-sub">1979 – 2009 ｜ 小学館 ｜ 共 26 冊 ｜ 藤子・F・不二雄 原著</div>
+    </div>
+  </div>
+
+  <div class="manga-grid wide">
+
+    <div class="manga-card">
+      <div class="manga-cover mcg-red">
+        <div class="cover-inner"><span class="cover-icon">📚</span><div class="cover-label">大長篇ドラえもん</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">大長篇ドラえもん Vol.1～26（小学館）</div>
+        <div class="manga-title">大長篇系列：電影漫畫版</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-vol">26 冊</span>
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">劇場版改編</span>
+        </div>
+        <p class="manga-desc">哆啦A夢每年劇場版電影的漫畫版，由藤子・F・不二雄先生本人執筆（1980 年起至 1996 年），後由藤子プロ接手續作。與電影的最大差異在於：漫畫版的故事往往更詳細，包含電影剪掉的細節和補充劇情；部分感人橋段因為漫畫的頁面形式，情感鋪陳比電影更細膩豐富。</p>
+        <div class="manga-note"><b>收藏建議：</b>電影看過後再讀漫畫版，能發現許多電影刪去的細節，是雙重享受哆啦A夢劇場版故事的最佳方式。「大雄的恐龍」和「鐵人兵團」的漫畫版尤其值得一讀。</div>
+        <div class="panel-section">
+          <div class="panel-section-title">📋 代表場景示意</div>
+          <div class="panel-grid two-col">
+            <div class="panel tall">
+              <div class="panel-char">🦕</div>
+              <div class="speech-bubble">「皮助！你要好好的！」</div>
+              <div class="panel-scene">大雄與皮助<br>含淚道別</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🤖</div>
+              <div class="panel-scene">利琉路決定<br>反抗命令</div>
+            </div>
+            <div class="panel">
+              <div class="sfx">BOOM！</div>
+              <div class="panel-scene">巨大鐵人<br>現身</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="manga-card">
+      <div class="manga-cover mcg-purple">
+        <div class="cover-inner"><span class="cover-icon">✨</span><div class="cover-label">藤子先生的最後手稿</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">大長篇 vs 映画の違い</div>
+        <div class="manga-title">大長篇 vs 電影版：五大差異</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-sub">深度比較</span>
+        </div>
+        <p class="manga-desc">①<b>細節補完</b>：漫畫有電影刪除的角色對話與內心獨白；②<b>結局差異</b>：部分結局在兩版中不同；③<b>感情線</b>：漫畫的靜香情感表現往往比電影更明顯；④<b>道具說明</b>：漫畫有更完整的道具使用邏輯解釋；⑤<b>分鏡差異</b>：藤子先生以漫畫家的視角重新設計分鏡，與電影導演的剪接邏輯截然不同，讀起來是截然不同的體驗。</p>
+        <div class="manga-note"><b>特別推薦：</b>「のび太の日本誕生」漫畫版對克魯魯的內心描寫遠比電影版豐富；「宇宙小戰爭」漫畫版的帕比故鄉場景更加詳細。</div>
+      </div>
+    </div>
+
+  </div><!-- /大長篇 -->
+
+  <!-- ══ ザ・ドラえもんズ ══ -->
+  <div class="cat-header cat-doraz">
+    <div class="cat-icon">🌏</div>
+    <div>
+      <div class="cat-title">ザ・ドラえもんズ ── 世界の仲間たち</div>
+      <div class="cat-sub">1995 – 2001 ｜ コロコロコミック ｜ 佐藤正喜 作 ｜ 8 名機器人</div>
+    </div>
+  </div>
+
+  <div class="manga-grid">
+
+    <div class="manga-card">
+      <div class="manga-cover mcg-blue">
+        <div class="cover-inner"><span class="cover-icon">🌍</span><div class="cover-label">世界の哆啦A夢們</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ザ・ドラえもんズ（小学館 コロコロコミックス）</div>
+        <div class="manga-title">ザ・ドラえもんズ</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-vol">8 角色</span>
+          <span class="manga-badge badge-pub">コロコロ</span>
+          <span class="manga-badge badge-sub">番外篇</span>
+        </div>
+        <p class="manga-desc">以「世界各地都有一個哆啦A夢」為概念創作的衍生系列。八位外型和個性各異的機器人貓，各自守護著屬於自己的「大雄型」孩子，卻在特殊任務中齊聚一堂展開冒險。每個角色都有鮮明的文化背景，是哆啦A夢宇宙中最充滿多元文化色彩的番外篇。</p>
+        <div class="panel-section">
+          <div class="panel-section-title">📋 八位ドラえもんズ</div>
+          <div class="panel-grid">
+            <div class="panel">
+              <div class="panel-char">🔵</div>
+              <div class="speech-bubble">ドラえもん</div>
+              <div class="panel-scene">日本・藍色<br>主角</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🟡</div>
+              <div class="speech-bubble">ドラミ</div>
+              <div class="panel-scene">日本・黃色<br>ドラえもん妹妹</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">👑</div>
+              <div class="speech-bubble">王ドラ</div>
+              <div class="panel-scene">金色・王様タイプ<br>傲嬌性格</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🤠</div>
+              <div class="speech-bubble">ドラ・ザ・キッド</div>
+              <div class="panel-scene">美國西部・綠色<br>牛仔帽</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">❄️</div>
+              <div class="speech-bubble">ドラニコフ</div>
+              <div class="panel-scene">ロシア・白色<br>熊型</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🦅</div>
+              <div class="speech-bubble">エル・マタドール</div>
+              <div class="panel-scene">西班牙・鬥牛士<br>斗篷造型</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🐼</div>
+              <div class="speech-bubble">ドラパン</div>
+              <div class="panel-scene">東亞・熊猫型<br>武術専門</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🥋</div>
+              <div class="speech-bubble">ウォン・ニャ</div>
+              <div class="panel-scene">朝鮮半島・<br>跆拳道型</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="manga-card">
+      <div class="manga-cover mcg-navy">
+        <div class="cover-inner"><span class="cover-icon">🎭</span><div class="cover-label">番外短篇集</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ザ・ドラえもんズ スペシャル（全 8 巻）</div>
+        <div class="manga-title">ザ・ドラえもんズ 特別短篇集</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-vol">全 8 卷</span>
+          <span class="manga-badge badge-pub">小学館</span>
+        </div>
+        <p class="manga-desc">在 1995–2001 年的 CoroCoro 漫畫雜誌連載期間，各角色均有獨立的短篇故事集。每一冊聚焦一位 Doraemon-type 角色的冒險——從王ドラ的宮廷生活到ドラ・ザ・キッド的西部牛仔冒險，每個角色的故事都帶有鮮明的文化特色和獨特的幽默風格。</p>
+        <div class="manga-note"><b>文化趣味：</b>ドラニコフ的俄羅斯冬天故事和エル・マタドール的鬥牛場景尤其有趣，是讓兒童在歡笑中接觸不同文化的寓教於樂之作。</div>
+        <div class="panel-section">
+          <div class="panel-section-title">📋 各角色代表場景</div>
+          <div class="panel-grid">
+            <div class="panel wide">
+              <div class="panel-char">🤠</div>
+              <div class="speech-bubble">「這個西部鎮我說了算！」</div>
+              <div class="panel-scene">キッドの西部冒險</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">👑</div>
+              <div class="panel-scene">王ドラ<br>被困宮廷難題</div>
+            </div>
+            <div class="panel">
+              <div class="sfx">バカ！</div>
+              <div class="panel-scene">8人が<br>大喧嘩！</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ザ・ドラえもんズ -->
+
+  <!-- ══ 学習まんが ══ -->
+  <div class="cat-header cat-gakushu">
+    <div class="cat-icon">✏️</div>
+    <div>
+      <div class="cat-title">ドラえもんの学習まんがシリーズ</div>
+      <div class="cat-sub">小学館 ｜ 小学1–6年生對應 ｜ 算數・理科・社会・語文・體育・英語 等 100+ 冊</div>
+    </div>
+  </div>
+
+  <!-- 野球 -->
+  <div class="manga-grid">
+
+    <div class="manga-card">
+      <div class="manga-cover mcg-teal">
+        <div class="cover-inner"><span class="cover-icon">⚾</span><div class="cover-label">ドラえもんの野球</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ドラえもんの学習シリーズ ── スポーツ 野球編（小学館）</div>
+        <div class="manga-title">哆啦A夢的野球（棒球）入門</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">體育・運動</span>
+          <span class="manga-badge badge-grade">小學生向</span>
+        </div>
+        <p class="manga-desc">以大雄初學棒球為故事主線，哆啦A夢用各種道具幫助大雄克服「運動白癡」的本能，同時用漫畫分鏡詳細解說棒球的基本規則：好球區、出局方式、跑壘規則、投球姿勢、打擊技巧、外野接球要領。胖虎組成的棒球隊作為「對手」登場，故事充滿歡笑的同時讓讀者自然學會棒球知識。</p>
+        <div class="manga-note"><b>學習重點：</b>投球（速球、變化球入門）、打擊（站姿、揮棒方法）、守備位置說明、計分規則、一局三振出局機制。以漫畫動作線條直觀呈現動作要領，比純文字教學更好懂。</div>
+        <div class="panel-section">
+          <div class="panel-section-title">📋 漫畫場景重現</div>
+          <div class="panel-grid">
+            <div class="panel">
+              <div class="panel-char">😰</div>
+              <div class="speech-bubble">「三振！出局！」</div>
+              <div class="panel-scene">大雄第一次<br>上場打擊</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🤖</div>
+              <div class="panel-scene">哆啦A夢用<br>「投球練習機器」<br>訓練大雄</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">💡</div>
+              <div class="speech-bubble">「好球帶就是這個範圍！」</div>
+              <div class="panel-scene">好球帶<br>圖解說明</div>
+            </div>
+            <div class="panel wide">
+              <div class="panel-char">⚾</div>
+              <div class="speech-bubble">「我投出了完美的變化球！」</div>
+              <div class="panel-scene">大雄練成投球技巧，首次讓胖虎揮空</div>
+            </div>
+            <div class="panel">
+              <div class="sfx">CRACK！</div>
+              <div class="panel-scene">大雄安打！<br>全場歡呼</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 算數 -->
+    <div class="manga-card">
+      <div class="manga-cover mcg-orange">
+        <div class="cover-inner"><span class="cover-icon">🔢</span><div class="cover-label">ドラえもんの算数</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ドラえもんの算数おもしろ攻略シリーズ（小学館 全10冊以上）</div>
+        <div class="manga-title">哆啦A夢的算數趣味攻略</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">算數・數學</span>
+          <span class="manga-badge badge-grade">小1–小6</span>
+        </div>
+        <p class="manga-desc">以大雄的各種算數困境為出發點，哆啦A夢用「算數神器」或直接講解幫助大雄解題，同時讓讀者跟著理解概念。系列涵蓋：分數與小數、乘法與除法、面積與體積、圖形計算、應用題解法、計算速度提升等主題，每個主題一冊，總計超過 10 冊，覆蓋小學全六年的算數課程。</p>
+        <div class="manga-note"><b>主要分冊：</b>①分數・小數 ②かけ算・わり算 ③面積・体積 ④図形 ⑤文章題 ⑥計算力アップ ⑦算數まるわかり辞典（1–3年/4–6年）。每冊附有練習題，讀完後可立即測試。</div>
+        <div class="panel-section">
+          <div class="panel-section-title">📋 漫畫場景重現</div>
+          <div class="panel-grid">
+            <div class="panel">
+              <div class="panel-char">😭</div>
+              <div class="speech-bubble">「分數完全不懂啊！」</div>
+              <div class="panel-scene">大雄的<br>算數苦惱</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🍕</div>
+              <div class="panel-scene">用「披薩圖解」<br>說明分數概念<br>1/2 與 1/4</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🤖</div>
+              <div class="speech-bubble">「先算乘除，再算加減！」</div>
+              <div class="panel-scene">四則運算<br>優先順序解說</div>
+            </div>
+            <div class="panel wide">
+              <div class="sfx">わかった！</div>
+              <div class="panel-scene">大雄突然理解了面積公式：「長×寬就是面積！」—— 生活化例子讓數學概念變得直觀</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">📊</div>
+              <div class="panel-scene">圓面積<br>π × r² 圖解</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 理科 -->
+    <div class="manga-card">
+      <div class="manga-cover mcg-cyan">
+        <div class="cover-inner"><span class="cover-icon">🔬</span><div class="cover-label">ドラえもんの理科</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ドラえもんのふしぎのサイエンスシリーズ（小学館 全12冊以上）</div>
+        <div class="manga-title">哆啦A夢的不可思議科學</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">理科・科學</span>
+          <span class="manga-badge badge-grade">小3–小6</span>
+        </div>
+        <p class="manga-desc">以「不思議のサイエンス」系列名稱出版，每冊聚焦一個科學主題。哆啦A夢和大雄在日常生活中遇到各種科學現象，道具的原理往往引出當冊的核心科學概念，讓抽象知識變得具體可感。系列主題包含：宇宙・天文、深海、昆虫、植物、音と光、ミクロの世界、恐竜、月・地球、南極・北極等。</p>
+        <div class="manga-note"><b>特色設計：</b>每章先以漫畫說明現象，再以「博士補充頁」深化科學知識，融合娛樂與學習。昆虫篇讓大雄的昆蟲觀察被放大數千倍呈現，視覺衝擊感極強。</div>
+        <div class="panel-section">
+          <div class="panel-section-title">📋 宇宙・天文篇場景</div>
+          <div class="panel-grid">
+            <div class="panel tall">
+              <div class="panel-char">🌌</div>
+              <div class="panel-scene">哆啦A夢帶大雄<br>搭乘宇宙飛船<br>觀察太陽系<br>行星排列</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🌑</div>
+              <div class="speech-bubble">「月球上為什麼沒有空氣？」</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">⭐</div>
+              <div class="panel-scene">光年的概念：<br>光一年能走的距離<br>圖解說明</div>
+            </div>
+            <div class="panel wide">
+              <div class="panel-char">🔭</div>
+              <div class="panel-scene">大雄用望遠鏡觀察木星的大紅斑 ── 「它比地球大三倍！」哆啦A夢解說</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 社会科・歴史 -->
+    <div class="manga-card">
+      <div class="manga-cover mcg-brown">
+        <div class="cover-inner"><span class="cover-icon">🏯</span><div class="cover-label">ドラえもんの社会科</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ドラえもんの社会科おもしろ攻略・日本の歴史シリーズ（小学館 全4冊）</div>
+        <div class="manga-title">哆啦A夢的社會科・日本歷史</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-vol">全 4 冊</span>
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">歷史・社會</span>
+          <span class="manga-badge badge-grade">小4–小6</span>
+        </div>
+        <p class="manga-desc">以時光機為設定，哆啦A夢帶大雄穿越到日本各歷史時代，親眼「目擊」重要歷史事件。四冊分別涵蓋：①舊石器時代～平安時代 ②鎌倉時代～江戸時代前半 ③江戸時代後半～現代 ④昭和時代後半～令和時代。時光機設定讓歷史學習有了「身歷其境」的臨場感。</p>
+        <div class="manga-note"><b>學習方式：</b>大雄在歷史現場的無知反應和哆啦A夢的解說形成完美的問答結構——大雄的疑問=讀者的疑問，哆啦A夢的回答=課本知識，但以漫畫形式呈現更有趣。</div>
+        <div class="panel-section">
+          <div class="panel-section-title">📋 時光機歷史之旅</div>
+          <div class="panel-grid">
+            <div class="panel">
+              <div class="panel-char">⏰</div>
+              <div class="panel-scene">時光機抵達<br>戦國時代<br>1560 年</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">⚔️</div>
+              <div class="speech-bubble">「這是桶狹間之戰！」</div>
+              <div class="panel-scene">織田信長<br>登場</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">😱</div>
+              <div class="speech-bubble">「這裡好危險！快跑！」</div>
+              <div class="panel-scene">大雄差點<br>捲入戰亂</div>
+            </div>
+            <div class="panel wide">
+              <div class="panel-char">📜</div>
+              <div class="panel-scene">江戶幕府成立 ── 哆啦A夢解說「参勤交代」制度如何維繫了德川家的統治</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🎌</div>
+              <div class="panel-scene">明治維新<br>西洋服裝<br>突然流行</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 国語 -->
+    <div class="manga-card">
+      <div class="manga-cover mcg-pink">
+        <div class="cover-inner"><span class="cover-icon">✍️</span><div class="cover-label">ドラえもんの国語</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ドラえもんの国語おもしろ攻略シリーズ（小学館 全10冊以上）</div>
+        <div class="manga-title">哆啦A夢的國語趣味攻略</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">語文・漢字</span>
+          <span class="manga-badge badge-grade">小1–小6</span>
+        </div>
+        <p class="manga-desc">以漫畫方式講解日語語文的各個面向。系列主題包含：漢字（各年級分冊）、文章力（作文）、敬語の使い方、慣用句、四字熟語、読解力、文法・助詞等。大雄不會寫漢字或說錯敬語的場景往往引出當頁的語言重點，錯誤示範加正確示範的對比格式讓讀者印象深刻。</p>
+        <div class="manga-note"><b>最受歡迎分冊：</b>「慣用句がわかる」——大雄誤用慣用句鬧出笑話，再由哆啦A夢糾正；「四字熟語」——以四字成語描述日常情境，讓抽象成語變得生活化。</div>
+        <div class="panel-section">
+          <div class="panel-section-title">📋 慣用句篇場景</div>
+          <div class="panel-grid two-col">
+            <div class="panel tall">
+              <div class="panel-char">😅</div>
+              <div class="speech-bubble">「我的腳都變成出去啦！」</div>
+              <div class="panel-scene">大雄把「足が出る」<br>（超出預算）<br>誤解為字面意思</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🤖</div>
+              <div class="speech-bubble">「其實是指預算超支喔！」</div>
+              <div class="panel-scene">哆啦A夢<br>正確解釋</div>
+            </div>
+            <div class="panel">
+              <div class="sfx">なるほど！</div>
+              <div class="panel-scene">大雄<br>豁然開朗</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 英語 -->
+    <div class="manga-card">
+      <div class="manga-cover mcg-lime">
+        <div class="cover-inner"><span class="cover-icon">🇬🇧</span><div class="cover-label">ドラえもんの英語</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ドラえもんの英語おもしろ攻略シリーズ（小学館）</div>
+        <div class="manga-title">哆啦A夢的英語趣味攻略</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">英語・外語</span>
+          <span class="manga-badge badge-grade">小3–中學</span>
+        </div>
+        <p class="manga-desc">以漫畫格式介紹英語基礎，大雄和哆啦A夢前往說英語的異次元世界，在實際情境中學習日常英語對話。涵蓋：基本問候、數字與時間、家族介紹、學校生活、購物英語、自我介紹等主題。部分較新版本也加入了小學英語必學單字與基本句型。</p>
+        <div class="manga-note"><b>情境學習：</b>以「穿越到英語世界不得不說英語」的緊迫情境製造真實感，讓孩子在享受冒險故事的同時不知不覺吸收英語知識。</div>
+        <div class="panel-section">
+          <div class="panel-section-title">📋 英語冒險場景</div>
+          <div class="panel-grid">
+            <div class="panel">
+              <div class="panel-char">🌍</div>
+              <div class="panel-scene">哆啦A夢的<br>翻譯道具壞掉！<br>大雄必須說英語</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">😰</div>
+              <div class="speech-bubble">「H-Hello...?」</div>
+              <div class="panel-scene">大雄<br>緊張地開口</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">😊</div>
+              <div class="speech-bubble">「Nice to meet you!」</div>
+              <div class="panel-scene">當地人<br>友善回應</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- サッカー -->
+    <div class="manga-card">
+      <div class="manga-cover mcg-green">
+        <div class="cover-inner"><span class="cover-icon">⚽</span><div class="cover-label">ドラえもんのサッカー</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ドラえもんの学習シリーズ スポーツ サッカー編（小学館）</div>
+        <div class="manga-title">哆啦A夢的足球入門</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">體育・運動</span>
+          <span class="manga-badge badge-grade">小學生向</span>
+        </div>
+        <p class="manga-desc">以大雄參加學校足球賽為故事背景，詳細介紹足球規則：越位、角球、任意球、守門員規則、球場大小、比賽時間。進攻戰術（傳球路線、射門技巧）和防守策略（搶球時機、站位）也以漫畫圖解呈現，是適合初學者的足球入門讀物。</p>
+        <div class="manga-note"><b>特色場景：</b>大雄因為不懂「越位規則」在比賽中多次被判無效進球，越位的漫畫圖解是全書最被讀者稱讚的段落，讓這條複雜規則變得一目了然。</div>
+        <div class="panel-section">
+          <div class="panel-section-title">📋 漫畫場景重現</div>
+          <div class="panel-grid two-col">
+            <div class="panel">
+              <div class="panel-char">⚽</div>
+              <div class="speech-bubble">「進球了！」→「越位！無效！」</div>
+              <div class="panel-scene">大雄不懂越位<br>頻頻踩規</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🤖</div>
+              <div class="panel-scene">哆啦A夢圖解<br>越位線概念</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- プログラミング -->
+    <div class="manga-card">
+      <div class="manga-cover mcg-grape">
+        <div class="cover-inner"><span class="cover-icon">💻</span><div class="cover-label">ドラえもんのプログラミング</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ドラえもんのプログラミング おもしろ攻略（小学館）</div>
+        <div class="manga-title">哆啦A夢的程式設計趣味攻略</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">資訊・程式</span>
+          <span class="manga-badge badge-grade">小3–中學</span>
+        </div>
+        <p class="manga-desc">因應日本小學程式設計必修化（2020 年起）而推出的新系列。以「哆啦A夢的秘密道具其實是程式」為切入點，解說程式設計的核心概念：順序執行、條件判斷（if-then）、迴圈（loop）、函式等。道具任意門的工作原理被比喻為「輸入起點→目的地，輸出結果」，讓程式邏輯和日常生活產生連結。</p>
+        <div class="manga-note"><b>現代必讀：</b>2020 年後出版的最新系列，涵蓋 Scratch 視覺化程式語言的基礎操作，是目前學習まんが系列中最符合當代教育需求的一冊。</div>
+        <div class="panel-section">
+          <div class="panel-section-title">📋 程式概念場景</div>
+          <div class="panel-grid">
+            <div class="panel wide">
+              <div class="panel-char">🚪</div>
+              <div class="panel-scene">「任意門的運作原理其實就是程式：input（出發地） → process（計算路徑） → output（目的地）！」</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">🔄</div>
+              <div class="panel-scene">迴圈概念：<br>重複執行<br>直到條件結束</div>
+            </div>
+            <div class="panel">
+              <div class="panel-char">❓</div>
+              <div class="panel-scene">if-then：<br>如果下雨<br>就帶雨傘</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /学習まんが -->
+
+  <!-- ══ プラス ══ -->
+  <div class="cat-header cat-plus">
+    <div class="cat-icon">⭐</div>
+    <div>
+      <div class="cat-title">ドラえもんプラス ＆ 特別版</div>
+      <div class="cat-sub">2005 – 現在 ｜ 補完主線的珍藏系列</div>
+    </div>
+  </div>
+  <div class="manga-grid">
+
+    <div class="manga-card">
+      <div class="manga-cover mcg-gold">
+        <div class="cover-inner"><span class="cover-icon">💛</span><div class="cover-label">ドラえもん プラス</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ドラえもん プラス（小学館 全6巻）</div>
+        <div class="manga-title">哆啦A夢 PLUS</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-vol">全 6 卷</span>
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">補完主線</span>
+        </div>
+        <p class="manga-desc">2005–2007 年出版的 6 冊特別版，收錄了原始 45 冊主線之外、散落在各雜誌的「未收錄短篇」。這些故事曾被認為「遺失」或「刻意省略」，在 PLUS 系列中首次以單行本形式集結出版。部分故事是藤子先生在實驗不同風格時的嘗試，具有很高的收藏與研究價值。</p>
+        <div class="manga-note"><b>為何未收錄？</b>原因各異：有些故事是早期試作，風格尚未定型；有些含有後期修改的設定矛盾；有些是為雜誌特輯創作的季節限定篇。PLUS 的出版讓哆啦A夢的故事宇宙更加完整。</div>
+      </div>
+    </div>
+
+    <div class="manga-card">
+      <div class="manga-cover mcg-red">
+        <div class="cover-inner"><span class="cover-icon">🌈</span><div class="cover-label">カラー作品集</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">ドラえもん カラー作品集 ＆ 小学館版全集（小学館）</div>
+        <div class="manga-title">哆啦A夢彩色作品集 ＆ 全集版</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">全集・彩色</span>
+        </div>
+        <p class="manga-desc">藤子先生在生前創作了少量彩色漫畫，以及部分短篇故事的彩色版本。2009 年出版的「小学館版 ドラえもん全集」（全45冊）是目前最完整的主線收藏版本，採用更接近原稿品質的印刷，部分珍稀短篇也包含其中。彩色作品集則收錄了原版雜誌刊登時的彩色扉頁藝術原稿。</p>
+        <div class="manga-note"><b>收藏價值：</b>45 冊全集版是哆啦A夢迷必備的收藏，目前仍在印刷中，購買管道包含日本 Amazon 或各大書店，部分台灣書店也有進口。</div>
+      </div>
+    </div>
+
+    <div class="manga-card">
+      <div class="manga-cover mcg-teal">
+        <div class="cover-inner"><span class="cover-icon">🎨</span><div class="cover-label">藤子作品集</div></div>
+        <div class="cover-overlay"></div>
+      </div>
+      <div class="manga-body">
+        <div class="manga-title-jp">藤子・F・不二雄 大全集（小学館 全112巻）</div>
+        <div class="manga-title">藤子・F・不二雄大全集</div>
+        <div class="manga-meta">
+          <span class="manga-badge badge-vol">全 112 卷</span>
+          <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-sub">大師全作品</span>
+        </div>
+        <p class="manga-desc">2009–2013 年出版的藤子先生完整作品大全集，涵蓋哆啦A夢之外的所有作品，包括：オバケのQ太郎、パーマン、21エモン、キテレツ大百科等。其中哆啦A夢部分以最接近原稿的品質重新印製，含大量從未收錄過的初期試稿和草稿，是研究藤子先生創作歷程的最珍貴資料。</p>
+        <div class="manga-note"><b>超級珍藏：</b>112 卷全集具有極高的文化價值，但因絕版問題目前二手價格相當高。部分圖書館有館藏，也是研究日本漫畫史的重要文獻。</div>
+      </div>
+    </div>
+
+  </div><!-- /プラス -->
+
+  <div style="background:#f8f8f8;border:1px solid #e0e0e0;border-radius:10px;padding:14px 18px;font-size:0.82rem;color:var(--text-light);line-height:1.8;margin-top:12px;">
+    📌 哆啦A夢学習まんが系列持續出版更新中，最新版本通常附有「改訂新版」標籤，內容符合最新課程綱要。購買時請確認版本年份，建議選擇 2015 年後出版的改訂版。各系列在日本書店及 Amazon.co.jp 均有售，部分台灣書店有代購服務。
+  </div>
+
+</div><!-- /content-wrap -->
+
+<footer>
+  <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
+  <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan</p>
+</footer>
+
+</body>
+</html>

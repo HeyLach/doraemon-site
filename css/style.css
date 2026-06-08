@@ -94,14 +94,15 @@ a:hover { color: var(--blue); }
 
 .site-nav {
   display: flex;
-  gap: 4px;
+  flex-wrap: wrap;
+  gap: 3px;
 }
 
 .site-nav a {
   color: rgba(255,255,255,0.9);
-  padding: 8px 14px;
+  padding: 7px 11px;
   border-radius: 6px;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 700;
   transition: all 0.2s;
   white-space: nowrap;
