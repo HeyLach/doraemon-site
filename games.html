@@ -223,6 +223,51 @@
     .featured-banner { flex-direction: column; text-align: center; }
     .stats-bar { justify-content: center; }
   }
+
+  /* ── YouTube 影片嵌入 ── */
+  .game-video {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed #dde8f4;
+  }
+  .yt-thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #111;
+  }
+  .yt-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: opacity 0.2s;
+  }
+  .yt-thumb:hover img { opacity: 0.82; }
+  .yt-btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 52px; height: 52px;
+    background: rgba(200,0,0,0.92);
+    border: none; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.18s;
+    pointer-events: none;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  .yt-thumb:hover .yt-btn {
+    background: #cc0000;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  .yt-tag {
+    position: absolute; bottom: 7px; left: 8px;
+    background: rgba(0,0,0,0.65);
+    color: white; font-size: 0.68rem;
+    padding: 2px 8px; border-radius: 4px;
+    pointer-events: none;
+  }
 </style>
 </head>
 <body>
@@ -297,6 +342,13 @@
         </div>
         <p class="game-desc">Hudson Soft 發行的橫向卷軸動作遊戲，也是哆啦A夢系列的第一款主機遊戲。玩家操控哆啦A夢，以道具（任意門、竹蜻蜓）對抗各種敵人，最終目標是拯救被抓走的夥伴們。</p>
         <div class="game-note"><b>歷史意義：</b>哆啦A夢電玩史的起點，確立了「使用道具」為核心遊戲機制的設計方向。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="5gliAAnowhs">
+            <img src="https://i.ytimg.com/vi/5gliAAnowhs/mqdefault.jpg" alt="FC ドラえもん 1986 實機影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ 實機通關影片</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -316,6 +368,13 @@
         </div>
         <p class="game-desc">Epoch 發行的 RPG，哆啦A夢系列首度採用回合制戰鬥。玩家操控哆啦A夢和夥伴們，以使用道具代替魔法攻擊，穿越各時代對抗終極反派「吉加殭屍」。劇情有相當完整的世界觀，在當時評價極高。</p>
         <div class="game-note"><b>特色：</b>以 RPG 形式融入哆啦A夢道具，任意門被設計為傳送魔法，是系列中深度最高的 FC 作品。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="LBW1eE7GRWE">
+            <img src="https://i.ytimg.com/vi/LBW1eE7GRWE/mqdefault.jpg" alt="ギガゾンビの逆襲 實機影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ 實機通關影片</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -395,6 +454,13 @@
         </div>
         <p class="game-desc">Super Famicom 首款哆啦A夢遊戲，玩家跟隨哆啦A夢與大雄進入精靈居住的神秘國度冒險。豐富的色彩與流暢動畫充分展現 SFC 的 16-bit 圖形表現力，從紅白機的 8-bit 風格大幅躍進。</p>
         <div class="game-note"><b>視覺升級：</b>哆啦A夢首次在家機上呈現接近動畫的角色造型，地圖探索結合動作關卡，是當時品質最高的兒童向 SFC 遊戲之一。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="55ceagSgAZo">
+            <img src="https://i.ytimg.com/vi/55ceagSgAZo/mqdefault.jpg" alt="妖精の国 SFC 實機影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ SFC Longplay</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -414,6 +480,13 @@
         </div>
         <p class="game-desc">SFC 系列第三作，以傳說中能操控時間的寶珠為核心，哆啦A夢一行人穿越各時代阻止反派奪取時之寶珠。關卡設計更加豐富，在 SFC 系列中以劇情完整性著稱，是公認的 SFC 哆啦A夢系列巔峰之作。</p>
         <div class="game-note"><b>時代意義：</b>SFC 系列共四作（1993–1995），以時之寶珠為主題的第三作被認為是機制與故事最均衡的一作，收藏價值也最高。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="GQg-xOHtLDU">
+            <img src="https://i.ytimg.com/vi/GQg-xOHtLDU/mqdefault.jpg" alt="時の宝玉 SFC 實機影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ SFC Walkthrough</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -445,6 +518,13 @@
         </div>
         <p class="game-desc">哆啦A夢首款 3D 遊戲，也是系列踏入多邊形時代的重要里程碑。玩家在立體空間中操控哆啦A夢，收集散落各處的三塊神秘精靈石阻止惡魔復活。自由視角的 3D 關卡設計在當時是全新體驗，畫面品質也讓玩家驚艷。</p>
         <div class="game-note"><b>3D 初登場：</b>同年《超級馬利歐 64》確立了 3D 平台遊戲標準，哆啦A夢同樣以 N64 跨入立體世界，是系列技術躍進的象徵。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="bT_jXAbVJ9I">
+            <img src="https://i.ytimg.com/vi/bT_jXAbVJ9I/mqdefault.jpg" alt="精霊石 N64 實機影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ N64 Longplay</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -464,6 +544,13 @@
         </div>
         <p class="game-desc">N64 系列第二作，以神秘光之神殿為舞台，哆啦A夢與大雄深入神殿探索古文明遺跡。在前作 3D 基礎上進化，新增更多道具互動機制與謎題設計，畫面細節也有明顯提升，是 N64 三部曲中最受好評的一作。</p>
         <div class="game-note"><b>系列評價：</b>光之神殿的異世界氛圍搭配精緻的 3D 關卡設計，被許多老玩家視為 N64 哆啦A夢遊戲的最佳之作，二手價格至今仍居三部曲之冠。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="04hdM2e9fJg">
+            <img src="https://i.ytimg.com/vi/04hdM2e9fJg/mqdefault.jpg" alt="光の神殿 N64 實機影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ N64 Longplay</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -483,6 +570,13 @@
         </div>
         <p class="game-desc">N64 系列完結篇，故事將冒險場景帶回現代城市，大雄所在的小鎮遭受神秘力量威脅，哆啦A夢必須拯救城市居民。以熟悉的街道為 3D 關卡背景，城市探索與道具解謎融合，是對 N64 三部曲的完整總結。</p>
         <div class="game-note"><b>N64 三部曲終章：</b>1997–2000 年三款 N64 遊戲構成完整的「精靈石三部曲」，共同記錄了哆啦A夢跨入 3D 時代的完整軌跡。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="CGFiLWZyaYI">
+            <img src="https://i.ytimg.com/vi/CGFiLWZyaYI/mqdefault.jpg" alt="まちSOS N64 實機影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ N64 Longplay</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -513,6 +607,13 @@
         </div>
         <p class="game-desc">改編自 2006 年重製版電影《大雄的恐龍》，利用 NDS 雙螢幕特性呈現上下場景切換。觸控筆設計讓玩家能直接在下螢幕選擇道具或與場景互動，是哆啦A夢遊戲中最早充分活用 NDS 特殊功能的一作。</p>
         <div class="game-note"><b>NDS 特色：</b>觸控選道具、麥克風呼叫哆啦A夢等互動元素，帶來全新遊玩體驗。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="avjwv7WdLDo">
+            <img src="https://i.ytimg.com/vi/avjwv7WdLDo/mqdefault.jpg" alt="恐竜2006 DS 宣傳影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ 官方宣傳影片</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -549,6 +650,13 @@
         </div>
         <p class="game-desc">改編自環保主題的 2008 年電影，大雄與一群植物人在神秘星球上冒險。遊戲中加入了環境解謎元素，玩家需要利用植物生長特性解開關卡，是系列中主題最具特色的作品之一。</p>
         <div class="game-note"><b>主題特色：</b>整體設計以「植物與環境」為核心，關卡中的植物道具是攻略重點，呼應電影環保訊息。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="LgI05elWLBc">
+            <img src="https://i.ytimg.com/vi/LgI05elWLBc/mqdefault.jpg" alt="緑の巨人伝 DS 實機影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ 實機影片</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -568,6 +676,13 @@
         </div>
         <p class="game-desc">Sega 發行的 Wii 體感派對遊戲，內含 36 款以哆啦A夢道具為主題的小遊戲，最多支援四人同樂。利用 Wii Remote 的體感功能模擬使用道具的動作，例如揮動遙控器射出空氣砲、搖晃模擬竹蜻蜓飛行。</p>
         <div class="game-note"><b>聚會神器：</b>Wii 體感操作與哆啦A夢道具完美結合，是少數讓多名玩家同時享受的哆啦A夢家用機遊戲，在當時受到家庭玩家好評。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="VopcfC4q-j4">
+            <img src="https://i.ytimg.com/vi/VopcfC4q-j4/mqdefault.jpg" alt="Wii 道具王決定戦 宣傳影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ 官方宣傳影片</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -599,6 +714,13 @@
         </div>
         <p class="game-desc">GBA 掌機上的哆啦A夢動作冒險遊戲，故事圍繞一顆被污染的綠色星球展開。玩家操控哆啦A夢及夥伴，使用各種秘密道具清除星球上的威脅，搭救被困的居民。彩色 GBA 畫面讓哆啦A夢的世界比 GB 時代更為鮮豔生動。</p>
         <div class="game-note"><b>掌機進化：</b>從 Game Boy 的黑白螢幕升級到 GBA 彩色顯示，哆啦A夢的角色造型首次在掌機上以接近 SFC 的色彩呈現，是系列掌機版本的重要一步。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="4uh9Xi_S3Jo">
+            <img src="https://i.ytimg.com/vi/4uh9Xi_S3Jo/mqdefault.jpg" alt="GBA 緑の惑星 實機影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ GBA Longplay</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -648,6 +770,13 @@
         </div>
         <p class="game-desc">FuRyu 製作，配合 2016 年上映的同名電影推出。玩家與原始時代的孩子們共同保衛部落，利用哆啦A夢的道具建造設施、對抗猛獸。遊戲加入了建設要素，玩家可以為原始部落升級防禦工事，是 3DS 系列中玩法最多元的一作。</p>
         <div class="game-note"><b>建設融合：</b>在傳統動作玩法中加入輕量建設元素，讓玩家以「建造」的方式幫助部落成長，為哆啦A夢遊戲帶來新鮮感。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="keQIUnuykMY">
+            <img src="https://i.ytimg.com/vi/keQIUnuykMY/mqdefault.jpg" alt="新日本誕生 3DS 2016 實機影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ 實機影片</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -667,6 +796,13 @@
         </div>
         <p class="game-desc">3DS 最後一款哆啦A夢遊戲，改編自 2018 年電影《大雄的寶島》。以加勒比海風格的神秘島嶼為舞台，哆啦A夢與夥伴們乘風破浪尋找傳說中的寶藏。FuRyu 三部 3DS 作品中視覺效果最精緻，劇情也最完整。</p>
         <div class="game-note"><b>3DS 告別作：</b>2018 年 Switch 已成為主流，這款遊戲是 3DS 上的哆啦A夢最終章；同年電影在日本票房超過 84 億日圓，是系列電影史上最高票房之一。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="VyWF0wDQ1aE">
+            <img src="https://i.ytimg.com/vi/VyWF0wDQ1aE/mqdefault.jpg" alt="宝島 3DS 官方道具示範影片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ 官方道具示範</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -699,6 +835,13 @@
         </div>
         <p class="game-desc">與《牧場物語》系列正式聯名，大雄與哆啦A夢降落在一個充滿魔法的小鎮，開始農場生活。玩家種植作物、飼養動物、與鎮民交友，並使用哆啦A夢的秘密道具簡化農場作業。故事中有完整的四季循環，節奏溫馨療癒。</p>
         <div class="game-note"><b>里程碑：</b>哆啦A夢系列首款登上 Nintendo Switch 的大型遊戲，也是首款真正打入全球英語市場的作品，在日本、台灣、歐美均有發售。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="YuKO0tUVoQI">
+            <img src="https://i.ytimg.com/vi/YuKO0tUVoQI/mqdefault.jpg" alt="牧場物語 2019 Switch 發售宣傳片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ 發售宣傳片</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -719,6 +862,13 @@
         </div>
         <p class="game-desc">第二款牧場物語聯名作品，在前作成功後全面升級。地圖更廣大，新增更多秘密道具、寵物種類，以及多達數十位來自哆啦A夢世界的角色。「大家的家」功能讓多位角色能加入玩家的農場生活。</p>
         <div class="game-note"><b>改進重點：</b>根據玩家回饋大幅增加內容量，遊戲時數比首作多出約三倍，被認為是系列至今最完整的農場冒險體驗。</div>
+        <div class="game-video">
+          <div class="yt-thumb" data-vid="IItnQhDqChE">
+            <img src="https://i.ytimg.com/vi/IItnQhDqChE/mqdefault.jpg" alt="牧場物語2 大自然王國 2022 發售日宣傳片" loading="lazy">
+            <button class="yt-btn" aria-label="播放影片"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="white"/></svg></button>
+            <span class="yt-tag">▶ 發售日宣傳片</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -778,5 +928,23 @@
   <p>哆啦A夢の秘密基地 · 內容僅供資訊參考與教育用途</p>
   <p style="margin-top:6px">哆啦A夢（ドラえもん）原作：藤子・F・不二雄 © Fujiko Pro / Shogakukan</p>
 </footer>
+<script>
+document.querySelectorAll('.yt-thumb').forEach(el => {
+  el.addEventListener('click', function() {
+    const vid = this.dataset.vid;
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'position:absolute;inset:0;';
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed/' + vid + '?autoplay=1&rel=0';
+    iframe.style.cssText = 'width:100%;height:100%;border:none;border-radius:8px;';
+    iframe.allow = 'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
+    iframe.allowFullscreen = true;
+    wrap.appendChild(iframe);
+    this.style.cursor = 'default';
+    this.innerHTML = '';
+    this.appendChild(wrap);
+  });
+});
+</script>
 </body>
 </html>
