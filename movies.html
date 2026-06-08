@@ -51,34 +51,41 @@
 
   /* ── poster cover ── */
   .movie-poster {
-    height: 130px;
+    aspect-ratio: 3/4;
     position: relative;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #111;
   }
-  .poster-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    z-index: 1;
-    padding: 0 12px;
+  .poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.35s ease;
   }
-  .poster-icon { font-size: 3rem; line-height: 1; }
-  .poster-year {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: white;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  .movie-card:hover .poster-img {
+    transform: scale(1.04);
   }
   .poster-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.3));
+    background: linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.55));
+    pointer-events: none;
+  }
+  .poster-year-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.72);
+    color: white;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-weight: 800;
+    font-size: 0.88rem;
+    padding: 3px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+    pointer-events: none;
   }
 
   .movie-body { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; }
@@ -116,51 +123,6 @@
     line-height: 1.55;
   }
   .movie-note b { color: var(--blue-dark); }
-
-  /* ── Poster gradient themes ── */
-  .pg-1  { background: linear-gradient(160deg,#b33300,#ff6633); }
-  .pg-2  { background: linear-gradient(160deg,#003388,#3366ff); }
-  .pg-3  { background: linear-gradient(160deg,#006622,#33cc66); }
-  .pg-4  { background: linear-gradient(160deg,#003355,#0077bb); }
-  .pg-5  { background: linear-gradient(160deg,#550055,#cc33cc); }
-  .pg-6  { background: linear-gradient(160deg,#334400,#88aa00); }
-  .pg-7  { background: linear-gradient(160deg,#443300,#996600); }
-  .pg-8  { background: linear-gradient(160deg,#220044,#6633cc); }
-  .pg-9  { background: linear-gradient(160deg,#553300,#cc6600); }
-  .pg-10 { background: linear-gradient(160deg,#442200,#cc8800); }
-  .pg-11 { background: linear-gradient(160deg,#004433,#00aa77); }
-  .pg-12 { background: linear-gradient(160deg,#220033,#7700aa); }
-  .pg-13 { background: linear-gradient(160deg,#334466,#6688cc); }
-  .pg-14 { background: linear-gradient(160deg,#553322,#cc7755); }
-  .pg-15 { background: linear-gradient(160deg,#002244,#0055aa); }
-  .pg-16 { background: linear-gradient(160deg,#443300,#886600); }
-  .pg-17 { background: linear-gradient(160deg,#110033,#440099); }
-  .pg-18 { background: linear-gradient(160deg,#553311,#aa6622); }
-  .pg-19 { background: linear-gradient(160deg,#003311,#006633); }
-  .pg-20 { background: linear-gradient(160deg,#220000,#880000); }
-  .pg-21 { background: linear-gradient(160deg,#224400,#558800); }
-  .pg-22 { background: linear-gradient(160deg,#003344,#006688); }
-  .pg-23 { background: linear-gradient(160deg,#442200,#995500); }
-  .pg-24 { background: linear-gradient(160deg,#003300,#008800); }
-  .pg-25 { background: linear-gradient(160deg,#004455,#0088aa); }
-  .pg-26 { background: linear-gradient(160deg,#880000,#ff2200); }
-  .pg-27 { background: linear-gradient(160deg,#440066,#aa00ff); }
-  .pg-28 { background: linear-gradient(160deg,#004400,#00bb44); }
-  .pg-29 { background: linear-gradient(160deg,#002266,#0044cc); }
-  .pg-30 { background: linear-gradient(160deg,#003355,#005599); }
-  .pg-31 { background: linear-gradient(160deg,#332200,#885500); }
-  .pg-32 { background: linear-gradient(160deg,#004422,#009955); }
-  .pg-33 { background: linear-gradient(160deg,#002244,#0066bb); }
-  .pg-34 { background: linear-gradient(160deg,#112200,#446600); }
-  .pg-35 { background: linear-gradient(160deg,#001133,#002288); }
-  .pg-36 { background: linear-gradient(160deg,#331100,#995500); }
-  .pg-37 { background: linear-gradient(160deg,#002233,#005577); }
-  .pg-38 { background: linear-gradient(160deg,#440000,#bb1100); }
-  .pg-39 { background: linear-gradient(160deg,#001133,#0033aa); }
-  .pg-40 { background: linear-gradient(160deg,#220011,#880044); }
-  .pg-41 { background: linear-gradient(160deg,#003311,#007733); }
-  .pg-42 { background: linear-gradient(160deg,#111144,#4444cc); }
-  .pg-43 { background: linear-gradient(160deg,#002200,#006600); }
 
   /* ── stats bar ── */
   .stats-bar {
@@ -267,9 +229,10 @@
 
     <!-- 1980 -->
     <div class="movie-card">
-      <div class="movie-poster pg-1">
-        <div class="poster-inner"><span class="poster-icon">🦕</span><div class="poster-year">1980</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p0.jpg" alt="大雄的恐龍（1980）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1980</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の恐竜（東宝 / 大山ドラ第1作）</div>
@@ -285,9 +248,10 @@
 
     <!-- 1981 -->
     <div class="movie-card">
-      <div class="movie-poster pg-2">
-        <div class="poster-inner"><span class="poster-icon">🚀</span><div class="poster-year">1981</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p1.jpg" alt="大雄的宇宙開拓史（1981）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1981</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の宇宙開拓史（東宝）</div>
@@ -302,9 +266,10 @@
 
     <!-- 1982 -->
     <div class="movie-card">
-      <div class="movie-poster pg-3">
-        <div class="poster-inner"><span class="poster-icon">🦁</span><div class="poster-year">1982</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p2.jpg" alt="大雄的大魔境（1982）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1982</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の大魔境（東宝）</div>
@@ -319,9 +284,10 @@
 
     <!-- 1983 -->
     <div class="movie-card">
-      <div class="movie-poster pg-4">
-        <div class="poster-inner"><span class="poster-icon">🌊</span><div class="poster-year">1983</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p3.jpg" alt="大雄的海底鬼岩城（1983）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1983</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の海底鬼岩城（東宝）</div>
@@ -336,9 +302,10 @@
 
     <!-- 1984 -->
     <div class="movie-card">
-      <div class="movie-poster pg-5">
-        <div class="poster-inner"><span class="poster-icon">🧙</span><div class="poster-year">1984</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p4.jpg" alt="大雄的魔界大冒險（1984）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1984</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の魔界大冒険（東宝）</div>
@@ -353,9 +320,10 @@
 
     <!-- 1985 -->
     <div class="movie-card">
-      <div class="movie-poster pg-6">
-        <div class="poster-inner"><span class="poster-icon">⭐</span><div class="poster-year">1985</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p5.jpg" alt="大雄的宇宙小戰爭（1985）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1985</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の宇宙小戦争（東宝）</div>
@@ -370,9 +338,10 @@
 
     <!-- 1986 -->
     <div class="movie-card">
-      <div class="movie-poster pg-7">
-        <div class="poster-inner"><span class="poster-icon">🤖</span><div class="poster-year">1986</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p6.jpg" alt="大雄與鐵人兵團（1986）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1986</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太と鉄人兵団（東宝）</div>
@@ -388,9 +357,10 @@
 
     <!-- 1987 -->
     <div class="movie-card">
-      <div class="movie-poster pg-8">
-        <div class="poster-inner"><span class="poster-icon">🐉</span><div class="poster-year">1987</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p7.jpg" alt="大雄與龍的騎士（1987）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1987</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太と龍の騎士（東宝）</div>
@@ -405,9 +375,10 @@
 
     <!-- 1988 -->
     <div class="movie-card">
-      <div class="movie-poster pg-9">
-        <div class="poster-inner"><span class="poster-icon">🐒</span><div class="poster-year">1988</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p8.jpg" alt="大雄的平行西遊記（1988）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1988</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太のパラレル西遊記（東宝）</div>
@@ -422,9 +393,10 @@
 
     <!-- 1989 -->
     <div class="movie-card">
-      <div class="movie-poster pg-10">
-        <div class="poster-inner"><span class="poster-icon">⛰️</span><div class="poster-year">1989</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p9.jpg" alt="大雄的日本誕生（1989）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1989</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の日本誕生（東宝）</div>
@@ -440,9 +412,10 @@
 
     <!-- 1990 -->
     <div class="movie-card">
-      <div class="movie-poster pg-11">
-        <div class="poster-inner"><span class="poster-icon">🐘</span><div class="poster-year">1990</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p10.jpg" alt="大雄與動物星球（1990）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1990</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太とアニマル惑星（東宝）</div>
@@ -457,9 +430,10 @@
 
     <!-- 1991 -->
     <div class="movie-card">
-      <div class="movie-poster pg-12">
-        <div class="poster-inner"><span class="poster-icon">🌙</span><div class="poster-year">1991</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p11.jpg" alt="大雄的天方夜譚（1991）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1991</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太のドラビアンナイト（東宝）</div>
@@ -474,9 +448,10 @@
 
     <!-- 1992 -->
     <div class="movie-card">
-      <div class="movie-poster pg-13">
-        <div class="poster-inner"><span class="poster-icon">☁️</span><div class="poster-year">1992</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p12.jpg" alt="大雄與雲的王國（1992）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1992</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太と雲の王国（東宝）</div>
@@ -491,9 +466,10 @@
 
     <!-- 1993 -->
     <div class="movie-card">
-      <div class="movie-poster pg-14">
-        <div class="poster-inner"><span class="poster-icon">🔩</span><div class="poster-year">1993</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p13.jpg" alt="大雄與機器人迷宮（1993）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1993</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太とブリキの迷宮（東宝）</div>
@@ -508,9 +484,10 @@
 
     <!-- 1994 -->
     <div class="movie-card">
-      <div class="movie-poster pg-15">
-        <div class="poster-inner"><span class="poster-icon">⚔️</span><div class="poster-year">1994</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p14.jpg" alt="大雄與夢幻三劍士（1994）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1994</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太と夢幻三剣士（東宝）</div>
@@ -525,9 +502,10 @@
 
     <!-- 1995 -->
     <div class="movie-card">
-      <div class="movie-poster pg-16">
-        <div class="poster-inner"><span class="poster-icon">📖</span><div class="poster-year">1995</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p15.jpg" alt="大雄的創世日記（1995）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1995</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の創世日記（東宝）</div>
@@ -542,9 +520,10 @@
 
     <!-- 1996 -->
     <div class="movie-card">
-      <div class="movie-poster pg-17">
-        <div class="poster-inner"><span class="poster-icon">🌌</span><div class="poster-year">1996</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p16.jpg" alt="大雄與銀河超特急（1996）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1996</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太と銀河超特急（東宝）</div>
@@ -572,9 +551,10 @@
 
     <!-- 1997 -->
     <div class="movie-card">
-      <div class="movie-poster pg-18">
-        <div class="poster-inner"><span class="poster-icon">🔧</span><div class="poster-year">1997</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p17.jpg" alt="大雄的發條城市冒險記（1997）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1997</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太のねじ巻き都市冒険記（東宝）</div>
@@ -589,9 +569,10 @@
 
     <!-- 1998 -->
     <div class="movie-card">
-      <div class="movie-poster pg-19">
-        <div class="poster-inner"><span class="poster-icon">🏴‍☠️</span><div class="poster-year">1998</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p18.jpg" alt="大雄的南海大冒險（1998）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1998</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の南海大冒険（東宝）</div>
@@ -606,9 +587,10 @@
 
     <!-- 1999 -->
     <div class="movie-card">
-      <div class="movie-poster pg-20">
-        <div class="poster-inner"><span class="poster-icon">🪐</span><div class="poster-year">1999</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p19.jpg" alt="大雄的宇宙漂流記（1999）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">1999</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の宇宙漂流記（東宝）</div>
@@ -623,9 +605,10 @@
 
     <!-- 2000 -->
     <div class="movie-card">
-      <div class="movie-poster pg-21">
-        <div class="poster-inner"><span class="poster-icon">👑</span><div class="poster-year">2000</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p20.jpg" alt="大雄的太陽王傳說（2000）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2000</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の太陽王伝説（東宝）</div>
@@ -640,9 +623,10 @@
 
     <!-- 2001 -->
     <div class="movie-card">
-      <div class="movie-poster pg-22">
-        <div class="poster-inner"><span class="poster-icon">🦅</span><div class="poster-year">2001</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p21.jpg" alt="大雄與翼的勇者們（2001）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2001</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太と翼の勇者たち（東宝）</div>
@@ -657,9 +641,10 @@
 
     <!-- 2002 -->
     <div class="movie-card">
-      <div class="movie-poster pg-23">
-        <div class="poster-inner"><span class="poster-icon">🦾</span><div class="poster-year">2002</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p22.jpg" alt="大雄與機器人王國（2002）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2002</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太とロボット王国（東宝）</div>
@@ -674,9 +659,10 @@
 
     <!-- 2003 -->
     <div class="movie-card">
-      <div class="movie-poster pg-24">
-        <div class="poster-inner"><span class="poster-icon">🌪️</span><div class="poster-year">2003</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p23.jpg" alt="大雄與神秘的風使者（2003）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2003</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太とふしぎ風使い（東宝）</div>
@@ -691,9 +677,10 @@
 
     <!-- 2004 -->
     <div class="movie-card">
-      <div class="movie-poster pg-25">
-        <div class="poster-inner"><span class="poster-icon">🐱</span><div class="poster-year">2004</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p24.jpg" alt="大雄的汪喵時空傳（2004）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2004</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太のワンニャン時空伝（東宝）</div>
@@ -721,9 +708,10 @@
 
     <!-- 2006 -->
     <div class="movie-card">
-      <div class="movie-poster pg-26">
-        <div class="poster-inner"><span class="poster-icon">🦕</span><div class="poster-year">2006</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p25.jpg" alt="大雄的恐龍2006（2006）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2006</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の恐竜2006（東宝）</div>
@@ -739,9 +727,10 @@
 
     <!-- 2007 -->
     <div class="movie-card">
-      <div class="movie-poster pg-27">
-        <div class="poster-inner"><span class="poster-icon">🧙</span><div class="poster-year">2007</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p26.jpg" alt="大雄的新魔界大冒險（2007）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2007</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の新魔界大冒険（東宝）</div>
@@ -757,9 +746,10 @@
 
     <!-- 2008 -->
     <div class="movie-card">
-      <div class="movie-poster pg-28">
-        <div class="poster-inner"><span class="poster-icon">🌿</span><div class="poster-year">2008</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p27.jpg" alt="大雄與綠之巨人傳（2008）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2008</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太と緑の巨人伝（東宝）</div>
@@ -774,9 +764,10 @@
 
     <!-- 2009 -->
     <div class="movie-card">
-      <div class="movie-poster pg-29">
-        <div class="poster-inner"><span class="poster-icon">🚀</span><div class="poster-year">2009</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p28.jpg" alt="新・大雄的宇宙開拓史（2009）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2009</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">新・のび太の宇宙開拓史（東宝）</div>
@@ -792,9 +783,10 @@
 
     <!-- 2010 -->
     <div class="movie-card">
-      <div class="movie-poster pg-30">
-        <div class="poster-inner"><span class="poster-icon">🧜</span><div class="poster-year">2010</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p29.jpg" alt="大雄的人魚大海戰（2010）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2010</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の人魚大海戦（東宝）</div>
@@ -809,9 +801,10 @@
 
     <!-- 2011 -->
     <div class="movie-card">
-      <div class="movie-poster pg-31">
-        <div class="poster-inner"><span class="poster-icon">🤖</span><div class="poster-year">2011</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p30.jpg" alt="大雄與鐵人兵團天空勇者（2011）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2011</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太と鉄人兵団 ～天空の勇者たち～（東宝）</div>
@@ -827,9 +820,10 @@
 
     <!-- 2012 -->
     <div class="movie-card">
-      <div class="movie-poster pg-32">
-        <div class="poster-inner"><span class="poster-icon">🏝️</span><div class="poster-year">2012</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p31.jpg" alt="大雄與奇蹟之島（2012）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2012</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太と奇跡の島 ～アニマル アドベンチャー～（東宝）</div>
@@ -844,9 +838,10 @@
 
     <!-- 2013 -->
     <div class="movie-card">
-      <div class="movie-poster pg-33">
-        <div class="poster-inner"><span class="poster-icon">🏛️</span><div class="poster-year">2013</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p32.jpg" alt="大雄的秘密道具博物館（2013）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2013</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太のひみつ道具博物館（東宝）</div>
@@ -861,9 +856,10 @@
 
     <!-- 2014 -->
     <div class="movie-card">
-      <div class="movie-poster pg-34">
-        <div class="poster-inner"><span class="poster-icon">🦁</span><div class="poster-year">2014</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p33.jpg" alt="新・大雄的大魔境（2014）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2014</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">新・のび太の大魔境 ～ペコと5人の探検隊～（東宝）</div>
@@ -879,9 +875,10 @@
 
     <!-- 2015 -->
     <div class="movie-card">
-      <div class="movie-poster pg-35">
-        <div class="poster-inner"><span class="poster-icon">🦸</span><div class="poster-year">2015</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p34.jpg" alt="大雄的宇宙英雄記（2015）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2015</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の宇宙英雄記 ～スペースヒーローズ～（東宝）</div>
@@ -896,9 +893,10 @@
 
     <!-- 2016 -->
     <div class="movie-card">
-      <div class="movie-poster pg-36">
-        <div class="poster-inner"><span class="poster-icon">⛰️</span><div class="poster-year">2016</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p35.jpg" alt="新・大雄的日本誕生（2016）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2016</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">新・のび太の日本誕生（東宝）</div>
@@ -914,9 +912,10 @@
 
     <!-- 2017 -->
     <div class="movie-card">
-      <div class="movie-poster pg-37">
-        <div class="poster-inner"><span class="poster-icon">🧊</span><div class="poster-year">2017</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p36.jpg" alt="大雄的南極冰冰大冒險（2017）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2017</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の南極カチコチ大冒険（東宝）</div>
@@ -931,9 +930,10 @@
 
     <!-- 2018 -->
     <div class="movie-card">
-      <div class="movie-poster pg-38">
-        <div class="poster-inner"><span class="poster-icon">🏝️</span><div class="poster-year">2018</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p37.jpg" alt="大雄的寶島（2018）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2018</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の宝島（東宝）</div>
@@ -949,9 +949,10 @@
 
     <!-- 2019 -->
     <div class="movie-card">
-      <div class="movie-poster pg-39">
-        <div class="poster-inner"><span class="poster-icon">🌕</span><div class="poster-year">2019</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p38.jpg" alt="大雄的月面探查記（2019）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2019</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の月面探査記（東宝）</div>
@@ -966,9 +967,10 @@
 
     <!-- 2020 -->
     <div class="movie-card">
-      <div class="movie-poster pg-40">
-        <div class="poster-inner"><span class="poster-icon">🦖</span><div class="poster-year">2020</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p39.jpg" alt="大雄的新恐龍（2020）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2020</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の新恐竜（東宝）</div>
@@ -984,9 +986,10 @@
 
     <!-- 2021 -->
     <div class="movie-card">
-      <div class="movie-poster pg-41">
-        <div class="poster-inner"><span class="poster-icon">⭐</span><div class="poster-year">2021</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p40.jpg" alt="大雄的宇宙小戰爭2021（2021）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2021</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太の小宇宙戦争2021（東宝）</div>
@@ -1002,9 +1005,10 @@
 
     <!-- 2022 -->
     <div class="movie-card">
-      <div class="movie-poster pg-42">
-        <div class="poster-inner"><span class="poster-icon">🌤️</span><div class="poster-year">2022</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p41.jpg" alt="大雄與空中的理想鄉（2022）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2022</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太と空の理想郷（東宝）</div>
@@ -1019,9 +1023,10 @@
 
     <!-- 2023 -->
     <div class="movie-card">
-      <div class="movie-poster pg-43">
-        <div class="poster-inner"><span class="poster-icon">🎵</span><div class="poster-year">2023</div></div>
+      <div class="movie-poster">
+        <img class="poster-img" src="images/movies/poster_p42.jpg" alt="大雄與地球交響樂（2023）劇場版海報" loading="lazy">
         <div class="poster-overlay"></div>
+        <span class="poster-year-badge">2023</span>
       </div>
       <div class="movie-body">
         <div class="movie-title-jp">のび太と地球交響楽（東宝）</div>
