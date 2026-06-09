@@ -22,10 +22,107 @@
   .cat-title { font-family:'M PLUS Rounded 1c',sans-serif; font-size:1.2rem; font-weight:800; }
   .cat-sub   { font-size:0.82rem; opacity:0.85; margin-top:2px; }
 
+  .cat-main       { background: linear-gradient(135deg,#002255,#0055bb); }
   .cat-daichouhen { background: linear-gradient(135deg,#660000,#cc2200); }
   .cat-doraz      { background: linear-gradient(135deg,#004488,#0066cc); }
   .cat-gakushu    { background: linear-gradient(135deg,#005500,#009900); }
   .cat-plus       { background: linear-gradient(135deg,#554400,#cc9900); }
+
+  /* ── main series volume grid ── */
+  .vol-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(82px, 1fr));
+    gap: 10px;
+    margin: 14px 0 22px;
+  }
+  .vol-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    background: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .vol-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+  .vol-cover {
+    aspect-ratio: 2/3;
+    position: relative;
+    overflow: hidden;
+    background: #cde2f5;
+  }
+  .vol-cover img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top;
+    display: block;
+  }
+  .vol-fallback {
+    position: absolute; inset: 0;
+    display: none;
+    align-items: center; justify-content: center;
+    background: linear-gradient(160deg,#003366,#0077bb);
+    color: white;
+    font-family:'M PLUS Rounded 1c',sans-serif;
+    font-size: 0.78rem; font-weight: 800;
+    text-align: center; line-height: 1.4;
+    padding: 4px;
+  }
+  .vol-info {
+    padding: 5px 4px 7px;
+    text-align: center; line-height: 1.25;
+  }
+  .vol-num {
+    font-family:'M PLUS Rounded 1c',sans-serif;
+    font-size: 0.65rem; font-weight: 800;
+    color: var(--blue-dark);
+  }
+  .vol-date {
+    font-size: 0.57rem; color: var(--text-light);
+    margin-top: 1px;
+  }
+
+  /* ── era dividers inside main series ── */
+  .era-header {
+    font-family:'M PLUS Rounded 1c',sans-serif;
+    font-size: 0.88rem; font-weight: 800;
+    color: var(--blue-dark);
+    padding: 8px 14px;
+    background: #e8f4ff;
+    border-radius: 8px;
+    margin: 24px 0 6px;
+    border-left: 4px solid var(--blue);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .era-header span { font-size: 0.72rem; font-weight: 600; color: var(--text-mid); }
+  .era-note {
+    font-size: 0.78rem; color: var(--text-mid); line-height: 1.65;
+    margin: 6px 0 14px; padding: 0 2px;
+  }
+
+  /* ── famous stories ── */
+  .story-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .story-card {
+    background: white;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.09);
+    border-left: 4px solid var(--blue);
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .story-emoji { font-size: 1.6rem; }
+  .story-title-jp { font-size: 0.68rem; color: var(--text-light); }
+  .story-title { font-family:'M PLUS Rounded 1c',sans-serif; font-size:0.95rem; font-weight:800; color:var(--text); }
+  .story-desc { font-size: 0.79rem; color: var(--text-mid); line-height: 1.65; }
+  .story-note { font-size: 0.72rem; color: var(--blue-dark); font-weight:700; }
 
   /* ── manga grid ── */
   .manga-grid {
@@ -38,7 +135,7 @@
     grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   }
 
-  /* ── manga card ── */
+  /* ── manga card (no emoji cover) ── */
   .manga-card {
     background: white;
     border-radius: 16px;
@@ -52,45 +149,32 @@
     transform: translateY(-5px);
     box-shadow: 0 12px 32px rgba(44,24,16,0.2);
   }
-
-  /* ── manga cover ── */
-  .manga-cover {
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
+  /* Thin colour bar replaces the old emoji cover */
+  .manga-bar {
+    height: 8px;
+    width: 100%;
+    flex-shrink: 0;
   }
-  .cover-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    z-index: 1;
-    padding: 0 12px;
-  }
-  .cover-icon { font-size: 2.8rem; line-height: 1; }
-  .cover-label {
-    font-family:'M PLUS Rounded 1c',sans-serif;
-    font-size: 0.64rem;
-    font-weight: 800;
-    color: rgba(255,255,255,0.88);
-    text-align: center;
-    line-height: 1.3;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-  }
-  .cover-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.25)); }
+  .bar-red    { background: linear-gradient(90deg,#cc2200,#ff6633); }
+  .bar-purple { background: linear-gradient(90deg,#440066,#9933cc); }
+  .bar-blue   { background: linear-gradient(90deg,#003388,#3366ff); }
+  .bar-navy   { background: linear-gradient(90deg,#001133,#003377); }
+  .bar-teal   { background: linear-gradient(90deg,#004455,#0099aa); }
+  .bar-orange { background: linear-gradient(90deg,#884400,#cc8800); }
+  .bar-cyan   { background: linear-gradient(90deg,#003344,#0088bb); }
+  .bar-brown  { background: linear-gradient(90deg,#553311,#996633); }
+  .bar-pink   { background: linear-gradient(90deg,#880044,#cc3377); }
+  .bar-lime   { background: linear-gradient(90deg,#335500,#669900); }
+  .bar-green  { background: linear-gradient(90deg,#005522,#33bb55); }
+  .bar-grape  { background: linear-gradient(90deg,#330044,#770099); }
+  .bar-gold   { background: linear-gradient(90deg,#554400,#cc9900); }
 
   .manga-body { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; }
   .manga-title-jp { font-size: 0.7rem; color: var(--text-light); margin-bottom: 2px; letter-spacing:0.03em; }
   .manga-title {
     font-family:'M PLUS Rounded 1c',sans-serif;
-    font-size: 1rem;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 8px;
-    line-height: 1.3;
+    font-size: 1rem; font-weight: 800;
+    color: var(--text); margin-bottom: 8px; line-height: 1.3;
   }
   .manga-meta { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:9px; }
   .manga-badge {
@@ -101,6 +185,7 @@
   .badge-pub   { color:white; border-color:transparent; background:#0066aa; }
   .badge-sub   { color:#363; border-color:#8c8; background:#e8f8e8; }
   .badge-grade { color:#663300; border-color:#cc9955; background:#fff4e0; }
+  .badge-date  { color:#553; border-color:#cc9; background:#fffce0; }
 
   .manga-desc { font-size: 0.84rem; color: var(--text-mid); line-height:1.7; flex:1; }
   .manga-note {
@@ -112,98 +197,69 @@
   }
   .manga-note b { color: var(--blue-dark); }
 
-  /* ── cover gradients ── */
-  .mcg-red    { background:linear-gradient(160deg,#cc2200,#ff6633); }
-  .mcg-blue   { background:linear-gradient(160deg,#003388,#3366ff); }
-  .mcg-green  { background:linear-gradient(160deg,#005522,#33bb55); }
-  .mcg-purple { background:linear-gradient(160deg,#440066,#9933cc); }
-  .mcg-orange { background:linear-gradient(160deg,#884400,#cc8800); }
-  .mcg-teal   { background:linear-gradient(160deg,#004455,#0099aa); }
-  .mcg-pink   { background:linear-gradient(160deg,#880044,#cc3377); }
-  .mcg-brown  { background:linear-gradient(160deg,#553311,#996633); }
-  .mcg-navy   { background:linear-gradient(160deg,#001133,#003377); }
-  .mcg-lime   { background:linear-gradient(160deg,#335500,#669900); }
-  .mcg-gold   { background:linear-gradient(160deg,#554400,#cc9900); }
-  .mcg-cyan   { background:linear-gradient(160deg,#003344,#0088bb); }
-  .mcg-grape  { background:linear-gradient(160deg,#330044,#770099); }
+  /* ── 大長篇 volume list table ── */
+  .dc-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin: 14px 0;
+  }
+  .dc-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: white; border-radius: 10px; padding: 10px 13px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+    transition: background 0.15s;
+  }
+  .dc-row:hover { background: #f0f7ff; }
+  .dc-num {
+    font-family:'M PLUS Rounded 1c',sans-serif;
+    font-size: 0.78rem; font-weight: 800; color: var(--blue-dark);
+    flex-shrink: 0; min-width: 26px; padding-top: 1px;
+  }
+  .dc-info { flex: 1; }
+  .dc-title { font-size: 0.82rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .dc-title-zh { font-size: 0.72rem; color: var(--text-mid); margin-top: 1px; }
+  .dc-meta { font-size: 0.66rem; color: var(--text-light); margin-top: 3px; }
 
   /* ── manga panel block ── */
   .panel-section {
-    margin-top: 12px;
-    padding-top: 12px;
+    margin-top: 12px; padding-top: 12px;
     border-top: 1px dashed #dde8f4;
   }
   .panel-section-title {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--blue-dark);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    font-size: 0.72rem; font-weight: 700; color: var(--blue-dark);
+    margin-bottom: 8px; display: flex; align-items: center; gap: 5px;
   }
   .panel-grid {
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    gap: 3px;
-    background: #222;
-    border-radius: 6px;
-    overflow: hidden;
-    padding: 3px;
+    gap: 3px; background: #222;
+    border-radius: 6px; overflow: hidden; padding: 3px;
   }
   .panel-grid.two-col { grid-template-columns: repeat(2,1fr); }
   .panel {
-    background: #fafaf8;
-    min-height: 88px;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    font-size: 0.72rem;
-    color: #333;
-    text-align: center;
-    line-height: 1.4;
+    background: #fafaf8; min-height: 88px; padding: 8px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 4px; font-size: 0.72rem; color: #333;
+    text-align: center; line-height: 1.4;
   }
   .panel.wide  { grid-column: span 2; }
   .panel.tall  { grid-row: span 2; min-height: 180px; }
   .panel-char  { font-size: 2rem; margin-bottom: 2px; }
   .speech-bubble {
-    background: white;
-    border: 1.5px solid #333;
-    border-radius: 8px;
-    padding: 4px 8px;
-    font-size: 0.68rem;
-    color: #111;
-    position: relative;
-    width: 100%;
-    text-align: center;
-    line-height: 1.4;
+    background: white; border: 1.5px solid #333;
+    border-radius: 8px; padding: 4px 8px;
+    font-size: 0.68rem; color: #111;
+    position: relative; width: 100%; text-align: center; line-height: 1.4;
   }
   .speech-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 4px solid transparent;
-    border-top-color: #333;
+    content: ''; position: absolute;
+    bottom: -8px; left: 50%; transform: translateX(-50%);
+    border: 4px solid transparent; border-top-color: #333;
   }
-  .panel-scene {
-    font-size: 0.66rem;
-    color: #666;
-    font-style: italic;
-    text-align: center;
-    line-height: 1.3;
-  }
-  .sfx {
-    font-family:'M PLUS Rounded 1c',sans-serif;
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: #cc2200;
-    letter-spacing: 0.05em;
-  }
+  .panel-scene { font-size:0.66rem; color:#666; font-style:italic; text-align:center; line-height:1.3; }
+  .sfx { font-family:'M PLUS Rounded 1c',sans-serif; font-size:1.1rem; font-weight:800; color:#cc2200; letter-spacing:0.05em; }
 
   /* ── stats bar ── */
   .stats-bar {
@@ -228,11 +284,14 @@
   .featured-title { font-family:'M PLUS Rounded 1c',sans-serif; font-size:1.3rem; font-weight:800; margin-bottom:6px; }
   .featured-desc  { font-size:0.9rem; opacity:0.93; line-height:1.7; }
 
-  @media(max-width:560px){
+  @media(max-width:640px){
     .manga-grid,.manga-grid.wide{grid-template-columns:1fr;}
     .featured-banner{flex-direction:column;text-align:center;}
     .stats-bar{justify-content:center;}
     .panel-grid.two-col,.panel-grid{grid-template-columns:1fr 1fr;}
+    .vol-grid{grid-template-columns:repeat(auto-fill,minmax(70px,1fr));}
+    .dc-list{grid-template-columns:1fr;}
+    .story-highlights{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -261,7 +320,7 @@
 <div class="page-hero">
   <div style="font-size:3rem;margin-bottom:14px">📚</div>
   <h1>哆啦A夢相關漫畫</h1>
-  <p>從大長篇電影版漫畫到棒球、數學、科學教育系列——哆啦A夢的漫畫宇宙遠比你想像的更廣闊</p>
+  <p>從主線 45 冊到大長篇、教育系列——哆啦A夢的漫畫宇宙遠比你想像的更廣闊</p>
 </div>
 
 <div class="content-wrap">
@@ -276,10 +335,10 @@
   <!-- Stats -->
   <div class="stats-bar">
     <div class="stat-item"><div class="stat-num">45</div><div class="stat-label">主線單行本</div></div>
-    <div class="stat-item"><div class="stat-num">26</div><div class="stat-label">大長篇電影版</div></div>
+    <div class="stat-item"><div class="stat-num">821</div><div class="stat-label">收錄短篇數</div></div>
+    <div class="stat-item"><div class="stat-num">22</div><div class="stat-label">連載年數（年）</div></div>
+    <div class="stat-item"><div class="stat-num">24</div><div class="stat-label">大長篇漫畫版</div></div>
     <div class="stat-item"><div class="stat-num">100+</div><div class="stat-label">學習漫畫冊數</div></div>
-    <div class="stat-item"><div class="stat-num">15+</div><div class="stat-label">學科主題</div></div>
-    <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">プラス 特別卷</div></div>
   </div>
 
   <!-- Featured banner -->
@@ -287,76 +346,235 @@
     <div class="featured-icon">📖</div>
     <div>
       <div class="featured-title">哆啦A夢漫畫宇宙</div>
-      <div class="featured-desc">哆啦A夢的漫畫世界遠不止主線 45 冊。小學館以哆啦A夢為主角，創作了覆蓋算數、理科、社會、語言、體育等各科目的「学習まんがシリーズ」——讓孩子在閱讀故事的同時自然而然地學習知識。除此之外，「大長篇」電影漫畫版、「ザ・ドラえもんズ」番外篇，以及補完主線的「プラス」系列，共同構成了一個龐大的藍色宇宙。</div>
+      <div class="featured-desc">哆啦A夢的漫畫世界遠不止主線 45 冊。小學館以哆啦A夢為主角，創作了覆蓋算數、理科、社會、語言、體育等各科目的「学習まんがシリーズ」——讓孩子在閱讀故事的同時自然而然地學習知識。除此之外，「大長篇」電影漫畫版（24 冊）、「ザ・ドラえもんズ」番外篇，以及補完主線的「プラス」系列，共同構成了一個龐大的藍色宇宙。</div>
     </div>
   </div>
 
-  <!-- ══ 大長篇漫畫 ══ -->
+  <!-- ══════════════════════════════════════════════════════
+       主線 45 冊
+  ══════════════════════════════════════════════════════ -->
+  <div class="cat-header cat-main" style="margin-top:44px;">
+    <div class="cat-icon">📗</div>
+    <div>
+      <div class="cat-title">ドラえもん 主線單行本 ── てんとう虫コミックス</div>
+      <div class="cat-sub">1974.08.01 – 1996.05.25 ｜ 小学館 ｜ 全 45 冊 ｜ 各巻 192 頁 ｜ 作：藤子・F・不二雄</div>
+    </div>
+  </div>
+
+  <p style="font-size:0.88rem;color:var(--text-mid);line-height:1.8;margin-bottom:6px;">
+    1969 年起在小學館旗下多本雜誌連載，1974 年以「てんとう虫コミックス」品牌首次出版單行本，第 1 卷至第 6 卷在 1974 年 8 月至 1975 年 1 月的短短半年內密集上市，日後改為每半年一冊左右的節奏。全 45 冊共收錄 821 篇短篇故事，每冊固定 192 頁，定價隨時代從 320 円（1974）到 400 円（1996）逐漸上調。第 45 冊於 1996 年 5 月出版，是藤子・F・不二雄先生生前最後完成的單行本（先生於同年 9 月辭世）。
+  </p>
+
+  <!-- ── Era 1: 昭和前期 (Vol 1-20) ── -->
+  <div class="era-header">
+    昭和前期 ── 第 1〜20 巻
+    <span>1974.08 ～ 1981.01（6 年半）</span>
+  </div>
+  <p class="era-note">
+    連載初期。在《小学三年生》《小学四年生》等多本學年誌同步連載，每本雜誌刊載不同故事。哆啦A夢的各種代表性道具（竹蜻蜓、任意門、時光機、記憶麵包、縮小燈等）幾乎都在這個時期登場，奠定了作品的核心設定。第 1-6 卷在半年內密集出版，反映了連載初期的高產速度。
+  </p>
+  <div class="vol-grid">
+    <!-- Vol 1-20 -->
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091400017-M.jpg" alt="第1巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第1巻</div></div><div class="vol-info"><div class="vol-num">第1巻</div><div class="vol-date">1974.08</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091400024-M.jpg" alt="第2巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第2巻</div></div><div class="vol-info"><div class="vol-num">第2巻</div><div class="vol-date">1974.09</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091400031-M.jpg" alt="第3巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第3巻</div></div><div class="vol-info"><div class="vol-num">第3巻</div><div class="vol-date">1974.10</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091400048-M.jpg" alt="第4巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第4巻</div></div><div class="vol-info"><div class="vol-num">第4巻</div><div class="vol-date">1974.11</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091400055-M.jpg" alt="第5巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第5巻</div></div><div class="vol-info"><div class="vol-num">第5巻</div><div class="vol-date">1974.12</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091400062-M.jpg" alt="第6巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第6巻</div></div><div class="vol-info"><div class="vol-num">第6巻</div><div class="vol-date">1975.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091400079-M.jpg" alt="第7巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第7巻</div></div><div class="vol-info"><div class="vol-num">第7巻</div><div class="vol-date">1975.05</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091400086-M.jpg" alt="第8巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第8巻</div></div><div class="vol-info"><div class="vol-num">第8巻</div><div class="vol-date">1975.07</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091400093-M.jpg" alt="第9巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第9巻</div></div><div class="vol-info"><div class="vol-num">第9巻</div><div class="vol-date">1975.11</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091400109-M.jpg" alt="第10巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第10巻</div></div><div class="vol-info"><div class="vol-num">第10巻</div><div class="vol-date">1976.04</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091401014-M.jpg" alt="第11巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第11巻</div></div><div class="vol-info"><div class="vol-num">第11巻</div><div class="vol-date">1976.07</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091401021-M.jpg" alt="第12巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第12巻</div></div><div class="vol-info"><div class="vol-num">第12巻</div><div class="vol-date">1976.12</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091401038-M.jpg" alt="第13巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第13巻</div></div><div class="vol-info"><div class="vol-num">第13巻</div><div class="vol-date">1977.04</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091401045-M.jpg" alt="第14巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第14巻</div></div><div class="vol-info"><div class="vol-num">第14巻</div><div class="vol-date">1978.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091401052-M.jpg" alt="第15巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第15巻</div></div><div class="vol-info"><div class="vol-num">第15巻</div><div class="vol-date">1978.07</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091401069-M.jpg" alt="第16巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第16巻</div></div><div class="vol-info"><div class="vol-num">第16巻</div><div class="vol-date">1979.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091401076-M.jpg" alt="第17巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第17巻</div></div><div class="vol-info"><div class="vol-num">第17巻</div><div class="vol-date">1979.07</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091401083-M.jpg" alt="第18巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第18巻</div></div><div class="vol-info"><div class="vol-num">第18巻</div><div class="vol-date">1980.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091401090-M.jpg" alt="第19巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第19巻</div></div><div class="vol-info"><div class="vol-num">第19巻</div><div class="vol-date">1980.07</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091401106-M.jpg" alt="第20巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第20巻</div></div><div class="vol-info"><div class="vol-num">第20巻</div><div class="vol-date">1981.01</div></div></div>
+  </div>
+
+  <!-- ── Era 2: 昭和後期 (Vol 21-39) ── -->
+  <div class="era-header">
+    昭和後期 ── 第 21〜39 巻
+    <span>1981.05 ～ 1989.01（近 8 年）</span>
+  </div>
+  <p class="era-note">
+    連載進入成熟期，故事主題愈趨豐富，科幻道具的社會性思考（如「もしもボックス」「石ころ帽子」等）更加深刻。藤子先生同步投入大長篇電影漫畫的創作，主線短篇的更新頻率略降，第 38 卷（1987.01）到第 39 卷（1989.01）之間有長達兩年的空白，為全系列最長的間隔。
+  </p>
+  <div class="vol-grid">
+    <!-- Vol 21-39 -->
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091405012-M.jpg" alt="第21巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第21巻</div></div><div class="vol-info"><div class="vol-num">第21巻</div><div class="vol-date">1981.05</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091405029-M.jpg" alt="第22巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第22巻</div></div><div class="vol-info"><div class="vol-num">第22巻</div><div class="vol-date">1981.08</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091405036-M.jpg" alt="第23巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第23巻</div></div><div class="vol-info"><div class="vol-num">第23巻</div><div class="vol-date">1982.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091405043-M.jpg" alt="第24巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第24巻</div></div><div class="vol-info"><div class="vol-num">第24巻</div><div class="vol-date">1982.04</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091405050-M.jpg" alt="第25巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第25巻</div></div><div class="vol-info"><div class="vol-num">第25巻</div><div class="vol-date">1982.08</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091405067-M.jpg" alt="第26巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第26巻</div></div><div class="vol-info"><div class="vol-num">第26巻</div><div class="vol-date">1983.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091405074-M.jpg" alt="第27巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第27巻</div></div><div class="vol-info"><div class="vol-num">第27巻</div><div class="vol-date">1983.04</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091405081-M.jpg" alt="第28巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第28巻</div></div><div class="vol-info"><div class="vol-num">第28巻</div><div class="vol-date">1983.08</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091405098-M.jpg" alt="第29巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第29巻</div></div><div class="vol-info"><div class="vol-num">第29巻</div><div class="vol-date">1984.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091405104-M.jpg" alt="第30巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第30巻</div></div><div class="vol-info"><div class="vol-num">第30巻</div><div class="vol-date">1984.04</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091408013-M.jpg" alt="第31巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第31巻</div></div><div class="vol-info"><div class="vol-num">第31巻</div><div class="vol-date">1984.08</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091408020-M.jpg" alt="第32巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第32巻</div></div><div class="vol-info"><div class="vol-num">第32巻</div><div class="vol-date">1985.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091408037-M.jpg" alt="第33巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第33巻</div></div><div class="vol-info"><div class="vol-num">第33巻</div><div class="vol-date">1985.04</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091408044-M.jpg" alt="第34巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第34巻</div></div><div class="vol-info"><div class="vol-num">第34巻</div><div class="vol-date">1985.08</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091408051-M.jpg" alt="第35巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第35巻</div></div><div class="vol-info"><div class="vol-num">第35巻</div><div class="vol-date">1986.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091408068-M.jpg" alt="第36巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第36巻</div></div><div class="vol-info"><div class="vol-num">第36巻</div><div class="vol-date">1986.04</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091408075-M.jpg" alt="第37巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第37巻</div></div><div class="vol-info"><div class="vol-num">第37巻</div><div class="vol-date">1986.08</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091408082-M.jpg" alt="第38巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第38巻</div></div><div class="vol-info"><div class="vol-num">第38巻</div><div class="vol-date">1987.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091408099-M.jpg" alt="第39巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第39巻</div></div><div class="vol-info"><div class="vol-num">第39巻</div><div class="vol-date">1989.01</div></div></div>
+  </div>
+
+  <!-- ── Era 3: 平成・完結篇 (Vol 40-45) ── -->
+  <div class="era-header">
+    平成・完結篇 ── 第 40〜45 巻
+    <span>1990.01 ～ 1996.05（6 年）</span>
+  </div>
+  <p class="era-note">
+    藤子先生晚期創作，故事的哲學性與感情深度達到頂峰。第 44 卷（1993.05）與第 45 卷（1996.05）之間再度出現長達 3 年的間隔，對應先生健康狀況下滑的時期。第 45 卷是先生生前親自確認出版的最後一冊，1996 年 9 月 23 日先生辭世，結束了長達 27 年的哆啦A夢創作生涯。
+  </p>
+  <div class="vol-grid">
+    <!-- Vol 40-45 -->
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091408105-M.jpg" alt="第40巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第40巻</div></div><div class="vol-info"><div class="vol-num">第40巻</div><div class="vol-date">1990.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091416612-M.jpg" alt="第41巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第41巻</div></div><div class="vol-info"><div class="vol-num">第41巻</div><div class="vol-date">1990.08</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091416629-M.jpg" alt="第42巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第42巻</div></div><div class="vol-info"><div class="vol-num">第42巻</div><div class="vol-date">1991.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091416636-M.jpg" alt="第43巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第43巻</div></div><div class="vol-info"><div class="vol-num">第43巻</div><div class="vol-date">1992.01</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091416643-M.jpg" alt="第44巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第44巻</div></div><div class="vol-info"><div class="vol-num">第44巻</div><div class="vol-date">1993.05</div></div></div>
+    <div class="vol-item"><div class="vol-cover"><img src="https://covers.openlibrary.org/b/isbn/9784091416650-M.jpg" alt="第45巻" loading="lazy" onerror="this.style.opacity=0;this.nextElementSibling.style.display='flex'"><div class="vol-fallback">第45巻</div></div><div class="vol-info"><div class="vol-num">第45巻</div><div class="vol-date">1996.05</div></div></div>
+  </div>
+
+  <!-- ── Famous Stories ── -->
+  <div style="font-family:'M PLUS Rounded 1c',sans-serif;font-size:0.9rem;font-weight:800;color:var(--blue-dark);margin:28px 0 10px;padding:8px 14px;background:#e8f4ff;border-radius:8px;border-left:4px solid var(--blue);">
+    ✨ 主線不可不讀的代表短篇
+  </div>
+  <div class="story-highlights">
+    <div class="story-card">
+      <div class="story-emoji">🌀</div>
+      <div class="story-title-jp">台風のフー子</div>
+      <div class="story-title">颱風的芙子</div>
+      <div class="story-desc">大雄撿到一個小小的颱風寶寶，取名「芙子」並悉心照料。隨著芙子長大，她注定要離去……是哆啦A夢最早期的感人名作，展示了藤子先生以科幻外殼包裹純粹情感的獨特才能。</div>
+      <div class="story-note">📅 收錄於第 2 卷（1974.09）</div>
+    </div>
+    <div class="story-card">
+      <div class="story-emoji">🚪</div>
+      <div class="story-title-jp">さようならドラえもん / 帰ってきたドラえもん</div>
+      <div class="story-title">再見哆啦A夢 / 哆啦A夢回來了</div>
+      <div class="story-desc">哆啦A夢被召回未來，大雄決定靠自己一人面對胖虎。這兩篇前後相連的故事曾在日本票選「最感人哆啦A夢短篇」連年名列前茅，也是「大雄其實很有韌性」這個主題的最佳詮釋。</div>
+      <div class="story-note">📅 收錄於第 6 卷（1975.01）</div>
+    </div>
+    <div class="story-card">
+      <div class="story-emoji">💍</div>
+      <div class="story-title-jp">のび太の結婚前夜</div>
+      <div class="story-title">大雄的結婚前夜</div>
+      <div class="story-desc">哆啦A夢帶大雄穿越到未來，親眼看見婚禮前夜靜香父親與女兒的對話。靜香的父親說：「我相信，大雄一定會讓我女兒幸福的。」是全系列最治癒的故事之一，多次名列讀者票選第一名。</div>
+      <div class="story-note">📅 收錄於第 29 卷（1984.01）</div>
+    </div>
+    <div class="story-card">
+      <div class="story-emoji">📦</div>
+      <div class="story-title-jp">もしもボックス</div>
+      <div class="story-title">假如電話亭</div>
+      <div class="story-desc">大雄使用「假如電話亭」，讓世界變成「文明與野蠻」對調的原始社會，卻發現現代文明所有看似理所當然的東西，其實是無數人努力的結果。是藤子先生借科幻道具進行社會思考的代表作。</div>
+      <div class="story-note">📅 收錄於第 4 卷（1974.11）</div>
+    </div>
+    <div class="story-card">
+      <div class="story-emoji">🤖</div>
+      <div class="story-title-jp">ドラえもんが生まれる日</div>
+      <div class="story-title">哆啦A夢誕生的那一天</div>
+      <div class="story-desc">以哆啦A夢的視角，回顧他在 2112 年 9 月 3 日出生、被老鼠咬掉耳朵、變成藍色的全部過程，以及他決定來到大雄身邊的理由。是全系列最重要的「補完設定」故事之一。</div>
+      <div class="story-note">📅 收錄於第 45 卷（1996.05）</div>
+    </div>
+    <div class="story-card">
+      <div class="story-emoji">🌱</div>
+      <div class="story-title-jp">ぼくの生まれた日</div>
+      <div class="story-title">我誕生的那天</div>
+      <div class="story-desc">大雄使用時光機，想親眼看見自己出生的瞬間，卻意外目睹了年輕父母在貧困環境中仍滿懷喜悅迎接新生兒的樣子。溫柔、沉靜，沒有任何誇張情節，卻讓無數讀者落淚。</div>
+      <div class="story-note">📅 收錄於第 43 卷（1992.01）</div>
+    </div>
+  </div><!-- /famous stories -->
+
+
+  <!-- ══════════════════════════════════════════════════════
+       大長篇 漫畫版
+  ══════════════════════════════════════════════════════ -->
   <div class="cat-header cat-daichouhen">
     <div class="cat-icon">📽️</div>
     <div>
       <div class="cat-title">大長篇ドラえもん ── 劇場版漫畫版</div>
-      <div class="cat-sub">1979 – 2009 ｜ 小学館 ｜ 共 26 冊 ｜ 藤子・F・不二雄 原著</div>
+      <div class="cat-sub">1980 – 2004 對應電影 ｜ 小学館 てんとう虫コミックス ｜ 共 24 冊 ｜ 藤子・F・不二雄 原著</div>
     </div>
   </div>
 
   <div class="manga-grid wide">
 
     <div class="manga-card">
-      <div class="manga-cover mcg-red">
-        <div class="cover-inner"><span class="cover-icon">📚</span><div class="cover-label">大長篇ドラえもん</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-red"></div>
       <div class="manga-body">
-        <div class="manga-title-jp">大長篇ドラえもん Vol.1～26（小学館）</div>
-        <div class="manga-title">大長篇系列：電影漫畫版</div>
+        <div class="manga-title-jp">大長篇ドラえもん（てんとう虫コミックス・全 24 巻）</div>
+        <div class="manga-title">大長篇系列：劇場版漫畫版 全 24 冊</div>
         <div class="manga-meta">
-          <span class="manga-badge badge-vol">26 冊</span>
+          <span class="manga-badge badge-vol">24 冊</span>
           <span class="manga-badge badge-pub">小学館</span>
           <span class="manga-badge badge-sub">劇場版改編</span>
+          <span class="manga-badge badge-vol">各約 192 頁</span>
         </div>
-        <p class="manga-desc">哆啦A夢每年劇場版電影的漫畫版，由藤子・F・不二雄先生本人執筆（1980 年起至 1996 年），後由藤子プロ接手續作。與電影的最大差異在於：漫畫版的故事往往更詳細，包含電影剪掉的細節和補充劇情；部分感人橋段因為漫畫的頁面形式，情感鋪陳比電影更細膩豐富。</p>
+        <p class="manga-desc">哆啦A夢每年劇場版電影的漫畫版，第 1〜17 冊由藤子・F・不二雄先生本人執筆（對應 1980–1996 年電影），後由藤子プロ接手第 18〜24 冊（1997–2004 年電影）。與電影相比，漫畫版的故事往往更詳細，包含電影因時長限制而刪掉的細節和補充劇情；部分感人橋段因為漫畫的頁面形式，情感鋪陳比電影更細膩豐富。「一個故事 ＝ 一冊」的形式讓每部作品的故事完整保存。</p>
         <div class="manga-note"><b>收藏建議：</b>電影看過後再讀漫畫版，能發現許多電影刪去的細節，是雙重享受哆啦A夢劇場版故事的最佳方式。「大雄的恐龍」和「鐵人兵團」的漫畫版尤其值得一讀。</div>
-        <div class="panel-section">
-          <div class="panel-section-title">📋 代表場景示意</div>
-          <div class="panel-grid two-col">
-            <div class="panel tall">
-              <div class="panel-char">🦕</div>
-              <div class="speech-bubble">「皮助！你要好好的！」</div>
-              <div class="panel-scene">大雄與皮助<br>含淚道別</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🤖</div>
-              <div class="panel-scene">利琉路決定<br>反抗命令</div>
-            </div>
-            <div class="panel">
-              <div class="sfx">BOOM！</div>
-              <div class="panel-scene">巨大鐵人<br>現身</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
     <div class="manga-card">
-      <div class="manga-cover mcg-purple">
-        <div class="cover-inner"><span class="cover-icon">✨</span><div class="cover-label">藤子先生的最後手稿</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-purple"></div>
       <div class="manga-body">
         <div class="manga-title-jp">大長篇 vs 映画の違い</div>
-        <div class="manga-title">大長篇 vs 電影版：五大差異</div>
+        <div class="manga-title">大長篇漫畫版 vs 電影版：五大差異</div>
         <div class="manga-meta">
           <span class="manga-badge badge-sub">深度比較</span>
         </div>
-        <p class="manga-desc">①<b>細節補完</b>：漫畫有電影刪除的角色對話與內心獨白；②<b>結局差異</b>：部分結局在兩版中不同；③<b>感情線</b>：漫畫的靜香情感表現往往比電影更明顯；④<b>道具說明</b>：漫畫有更完整的道具使用邏輯解釋；⑤<b>分鏡差異</b>：藤子先生以漫畫家的視角重新設計分鏡，與電影導演的剪接邏輯截然不同，讀起來是截然不同的體驗。</p>
+        <p class="manga-desc">①<b>細節補完</b>：漫畫有電影刪除的角色對話與內心獨白；②<b>結局差異</b>：部分結局在兩版中不同，漫畫版有時更感人；③<b>感情線</b>：靜香的情感表現在漫畫版往往更清晰；④<b>道具說明</b>：漫畫有更完整的道具使用邏輯說明；⑤<b>分鏡差異</b>：藤子先生以漫畫家的視角重新設計分鏡，與電影導演的剪接邏輯截然不同，讀起來是截然不同的體驗。</p>
         <div class="manga-note"><b>特別推薦：</b>「のび太の日本誕生」漫畫版對克魯魯的內心描寫遠比電影版豐富；「宇宙小戰爭」漫畫版的帕比故鄉場景更加詳細。</div>
       </div>
     </div>
 
-  </div><!-- /大長篇 -->
+  </div>
 
-  <!-- ══ ザ・ドラえもんズ ══ -->
+  <!-- 大長篇 24-volume list -->
+  <div style="font-family:'M PLUS Rounded 1c',sans-serif;font-size:0.88rem;font-weight:800;color:#990000;margin:18px 0 10px;padding:8px 14px;background:#fff4f0;border-radius:8px;border-left:4px solid #cc2200;">
+    📋 大長篇ドラえもん 全 24 冊一覧
+  </div>
+  <div class="dc-list">
+    <div class="dc-row"><div class="dc-num">01</div><div class="dc-info"><div class="dc-title">のび太の恐竜</div><div class="dc-title-zh">大雄的恐龍</div><div class="dc-meta">電影：1980.03 ｜ 漫畫：1983.11 ｜ ISBN 9784091406026</div></div></div>
+    <div class="dc-row"><div class="dc-num">02</div><div class="dc-info"><div class="dc-title">のび太の宇宙開拓史</div><div class="dc-title-zh">大雄的宇宙開拓史</div><div class="dc-meta">電影：1981.03 ｜ 漫畫：1984.02 ｜ ISBN 9784091406033</div></div></div>
+    <div class="dc-row"><div class="dc-num">03</div><div class="dc-info"><div class="dc-title">のび太の大魔境</div><div class="dc-title-zh">大雄的大魔境</div><div class="dc-meta">電影：1982.03 ｜ 漫畫：1985.08 ｜ ISBN 9784091406057</div></div></div>
+    <div class="dc-row"><div class="dc-num">04</div><div class="dc-info"><div class="dc-title">のび太の海底鬼岩城</div><div class="dc-title-zh">大雄的海底鬼岩城</div><div class="dc-meta">電影：1983.03 ｜ 漫畫：1983.05 ｜ ISBN 9784091406019</div></div></div>
+    <div class="dc-row"><div class="dc-num">05</div><div class="dc-info"><div class="dc-title">のび太の魔界大冒険</div><div class="dc-title-zh">大雄的魔界大冒險</div><div class="dc-meta">電影：1984.03 ｜ 漫畫：1984.09 ｜ ISBN 9784091406040</div></div></div>
+    <div class="dc-row"><div class="dc-num">06</div><div class="dc-info"><div class="dc-title">のび太の宇宙小戦争</div><div class="dc-title-zh">大雄的宇宙小戰爭</div><div class="dc-meta">電影：1985.03 ｜ 漫畫：1985.10 ｜ ISBN 9784091406064</div></div></div>
+    <div class="dc-row"><div class="dc-num">07</div><div class="dc-info"><div class="dc-title">のび太と鉄人兵団</div><div class="dc-title-zh">大雄與鐵人兵團</div><div class="dc-meta">電影：1986.03 ｜ 漫畫：1986 ｜ ISBN 9784091406071</div></div></div>
+    <div class="dc-row"><div class="dc-num">08</div><div class="dc-info"><div class="dc-title">のび太と竜の騎士</div><div class="dc-title-zh">大雄與龍的騎士</div><div class="dc-meta">電影：1987.03 ｜ 漫畫：1987 ｜ ISBN 9784091406088</div></div></div>
+    <div class="dc-row"><div class="dc-num">09</div><div class="dc-info"><div class="dc-title">のび太の日本誕生</div><div class="dc-title-zh">大雄的日本誕生</div><div class="dc-meta">電影：1989.03 ｜ 漫畫：1989 ｜ ISBN 9784091406095</div></div></div>
+    <div class="dc-row"><div class="dc-num">10</div><div class="dc-info"><div class="dc-title">のび太とアニマル惑星</div><div class="dc-title-zh">大雄與動物星球</div><div class="dc-meta">電影：1990.03 ｜ 漫畫：1990 ｜ ISBN 9784091406101</div></div></div>
+    <div class="dc-row"><div class="dc-num">11</div><div class="dc-info"><div class="dc-title">のび太のドラビアンナイト</div><div class="dc-title-zh">大雄的天方夜譚</div><div class="dc-meta">電影：1991.03 ｜ 漫畫：1991 ｜ ISBN 9784091417510</div></div></div>
+    <div class="dc-row"><div class="dc-num">12</div><div class="dc-info"><div class="dc-title">のび太と雲の王国</div><div class="dc-title-zh">大雄與雲的王國</div><div class="dc-meta">電影：1992.03 ｜ 漫畫：1992 ｜ ISBN 9784091417527</div></div></div>
+    <div class="dc-row"><div class="dc-num">13</div><div class="dc-info"><div class="dc-title">のび太とブリキの迷宮</div><div class="dc-title-zh">大雄與機器人迷宮</div><div class="dc-meta">電影：1993.03 ｜ 漫畫：1993 ｜ ISBN 9784091417534</div></div></div>
+    <div class="dc-row"><div class="dc-num">14</div><div class="dc-info"><div class="dc-title">のび太と夢幻三剣士</div><div class="dc-title-zh">大雄與夢幻三劍士</div><div class="dc-meta">電影：1994.03 ｜ 漫畫：1994 ｜ ISBN 9784091417541</div></div></div>
+    <div class="dc-row"><div class="dc-num">15</div><div class="dc-info"><div class="dc-title">のび太の創世日記</div><div class="dc-title-zh">大雄的創世日記</div><div class="dc-meta">電影：1995.03 ｜ 漫畫：1995 ｜ ISBN 9784091417541</div></div></div>
+    <div class="dc-row"><div class="dc-num">16</div><div class="dc-info"><div class="dc-title">のび太と銀河超特急</div><div class="dc-title-zh">大雄與銀河超特急</div><div class="dc-meta">電影：1996.03 ｜ 漫畫：1996 ｜ ISBN 9784091417558</div></div></div>
+    <div class="dc-row"><div class="dc-num">17</div><div class="dc-info"><div class="dc-title">のび太のねじ巻き都市冒険記</div><div class="dc-title-zh">大雄的發條城市冒險記</div><div class="dc-meta">電影：1997.03 ｜ 漫畫：1997 ｜ ISBN 9784091417572</div></div></div>
+    <div class="dc-row"><div class="dc-num">18</div><div class="dc-info"><div class="dc-title">のび太の南海大冒険</div><div class="dc-title-zh">大雄的南海大冒險</div><div class="dc-meta">電影：1998.03 ｜ 漫畫：1998 ｜ ISBN 9784091417589</div></div></div>
+    <div class="dc-row"><div class="dc-num">19</div><div class="dc-info"><div class="dc-title">のび太の宇宙漂流記</div><div class="dc-title-zh">大雄的宇宙漂流記</div><div class="dc-meta">電影：1999.03 ｜ 漫畫：1999 ｜ ISBN 9784091417596</div></div></div>
+    <div class="dc-row"><div class="dc-num">20</div><div class="dc-info"><div class="dc-title">のび太の太陽王伝説</div><div class="dc-title-zh">大雄的太陽王傳說</div><div class="dc-meta">電影：2000.03 ｜ 漫畫：2000 ｜ ISBN 9784091417602</div></div></div>
+    <div class="dc-row"><div class="dc-num">21</div><div class="dc-info"><div class="dc-title">のび太と翼の勇者たち</div><div class="dc-title-zh">大雄與翼之勇者</div><div class="dc-meta">電影：2001.03 ｜ 漫畫：2001 ｜ ISBN 9784091428615</div></div></div>
+    <div class="dc-row"><div class="dc-num">22</div><div class="dc-info"><div class="dc-title">のび太とロボット王国</div><div class="dc-title-zh">大雄與機器人王國</div><div class="dc-meta">電影：2002.03 ｜ 漫畫：2002 ｜ ISBN 9784091428622</div></div></div>
+    <div class="dc-row"><div class="dc-num">23</div><div class="dc-info"><div class="dc-title">のび太とふしぎ風使い</div><div class="dc-title-zh">大雄與神秘的風使者</div><div class="dc-meta">電影：2003.03 ｜ 漫畫：2003 ｜ ISBN 9784091428639</div></div></div>
+    <div class="dc-row"><div class="dc-num">24</div><div class="dc-info"><div class="dc-title">のび太のワンニャン時空伝</div><div class="dc-title-zh">大雄的汪喵時空傳</div><div class="dc-meta">電影：2004.03 ｜ 漫畫：2004 ｜ ISBN 9784091428646</div></div></div>
+  </div><!-- /dc-list -->
+
+
+  <!-- ══════════════════════════════════════════════════════
+       ザ・ドラえもんズ
+  ══════════════════════════════════════════════════════ -->
   <div class="cat-header cat-doraz">
     <div class="cat-icon">🌏</div>
     <div>
@@ -368,10 +586,7 @@
   <div class="manga-grid">
 
     <div class="manga-card">
-      <div class="manga-cover mcg-blue">
-        <div class="cover-inner"><span class="cover-icon">🌍</span><div class="cover-label">世界の哆啦A夢們</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-blue"></div>
       <div class="manga-body">
         <div class="manga-title-jp">ザ・ドラえもんズ（小学館 コロコロコミックス）</div>
         <div class="manga-title">ザ・ドラえもんズ</div>
@@ -379,86 +594,43 @@
           <span class="manga-badge badge-vol">8 角色</span>
           <span class="manga-badge badge-pub">コロコロ</span>
           <span class="manga-badge badge-sub">番外篇</span>
+          <span class="manga-badge badge-date">1995–2001</span>
         </div>
         <p class="manga-desc">以「世界各地都有一個哆啦A夢」為概念創作的衍生系列。八位外型和個性各異的機器人貓，各自守護著屬於自己的「大雄型」孩子，卻在特殊任務中齊聚一堂展開冒險。每個角色都有鮮明的文化背景，是哆啦A夢宇宙中最充滿多元文化色彩的番外篇。</p>
         <div class="panel-section">
           <div class="panel-section-title">📋 八位ドラえもんズ</div>
           <div class="panel-grid">
-            <div class="panel">
-              <div class="panel-char">🔵</div>
-              <div class="speech-bubble">ドラえもん</div>
-              <div class="panel-scene">日本・藍色<br>主角</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🟡</div>
-              <div class="speech-bubble">ドラミ</div>
-              <div class="panel-scene">日本・黃色<br>ドラえもん妹妹</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">👑</div>
-              <div class="speech-bubble">王ドラ</div>
-              <div class="panel-scene">金色・王様タイプ<br>傲嬌性格</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🤠</div>
-              <div class="speech-bubble">ドラ・ザ・キッド</div>
-              <div class="panel-scene">美國西部・綠色<br>牛仔帽</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">❄️</div>
-              <div class="speech-bubble">ドラニコフ</div>
-              <div class="panel-scene">ロシア・白色<br>熊型</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🦅</div>
-              <div class="speech-bubble">エル・マタドール</div>
-              <div class="panel-scene">西班牙・鬥牛士<br>斗篷造型</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🐼</div>
-              <div class="speech-bubble">ドラパン</div>
-              <div class="panel-scene">東亞・熊猫型<br>武術専門</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🥋</div>
-              <div class="speech-bubble">ウォン・ニャ</div>
-              <div class="panel-scene">朝鮮半島・<br>跆拳道型</div>
-            </div>
+            <div class="panel"><div class="panel-char">🔵</div><div class="speech-bubble">ドラえもん</div><div class="panel-scene">日本・藍色<br>主角</div></div>
+            <div class="panel"><div class="panel-char">🟡</div><div class="speech-bubble">ドラミ</div><div class="panel-scene">日本・黃色<br>ドラえもん妹妹</div></div>
+            <div class="panel"><div class="panel-char">👑</div><div class="speech-bubble">王ドラ</div><div class="panel-scene">金色・王様タイプ<br>傲嬌性格</div></div>
+            <div class="panel"><div class="panel-char">🤠</div><div class="speech-bubble">ドラ・ザ・キッド</div><div class="panel-scene">美國西部・綠色<br>牛仔帽</div></div>
+            <div class="panel"><div class="panel-char">❄️</div><div class="speech-bubble">ドラニコフ</div><div class="panel-scene">ロシア・白色<br>熊型</div></div>
+            <div class="panel"><div class="panel-char">🦅</div><div class="speech-bubble">エル・マタドール</div><div class="panel-scene">西班牙・鬥牛士<br>斗篷造型</div></div>
+            <div class="panel"><div class="panel-char">🐼</div><div class="speech-bubble">ドラパン</div><div class="panel-scene">東亞・熊猫型<br>武術専門</div></div>
+            <div class="panel"><div class="panel-char">🥋</div><div class="speech-bubble">ウォン・ニャ</div><div class="panel-scene">朝鮮半島・<br>跆拳道型</div></div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="manga-card">
-      <div class="manga-cover mcg-navy">
-        <div class="cover-inner"><span class="cover-icon">🎭</span><div class="cover-label">番外短篇集</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-navy"></div>
       <div class="manga-body">
         <div class="manga-title-jp">ザ・ドラえもんズ スペシャル（全 8 巻）</div>
         <div class="manga-title">ザ・ドラえもんズ 特別短篇集</div>
         <div class="manga-meta">
           <span class="manga-badge badge-vol">全 8 卷</span>
           <span class="manga-badge badge-pub">小学館</span>
+          <span class="manga-badge badge-date">1995–2001</span>
         </div>
         <p class="manga-desc">在 1995–2001 年的 CoroCoro 漫畫雜誌連載期間，各角色均有獨立的短篇故事集。每一冊聚焦一位 Doraemon-type 角色的冒險——從王ドラ的宮廷生活到ドラ・ザ・キッド的西部牛仔冒險，每個角色的故事都帶有鮮明的文化特色和獨特的幽默風格。</p>
         <div class="manga-note"><b>文化趣味：</b>ドラニコフ的俄羅斯冬天故事和エル・マタドール的鬥牛場景尤其有趣，是讓兒童在歡笑中接觸不同文化的寓教於樂之作。</div>
         <div class="panel-section">
           <div class="panel-section-title">📋 各角色代表場景</div>
           <div class="panel-grid">
-            <div class="panel wide">
-              <div class="panel-char">🤠</div>
-              <div class="speech-bubble">「這個西部鎮我說了算！」</div>
-              <div class="panel-scene">キッドの西部冒險</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">👑</div>
-              <div class="panel-scene">王ドラ<br>被困宮廷難題</div>
-            </div>
-            <div class="panel">
-              <div class="sfx">バカ！</div>
-              <div class="panel-scene">8人が<br>大喧嘩！</div>
-            </div>
+            <div class="panel wide"><div class="panel-char">🤠</div><div class="speech-bubble">「這個西部鎮我說了算！」</div><div class="panel-scene">キッドの西部冒險</div></div>
+            <div class="panel"><div class="panel-char">👑</div><div class="panel-scene">王ドラ<br>被困宮廷難題</div></div>
+            <div class="panel"><div class="sfx">バカ！</div><div class="panel-scene">8人が<br>大喧嘩！</div></div>
           </div>
         </div>
       </div>
@@ -466,7 +638,10 @@
 
   </div><!-- /ザ・ドラえもんズ -->
 
-  <!-- ══ 学習まんが ══ -->
+
+  <!-- ══════════════════════════════════════════════════════
+       学習まんが
+  ══════════════════════════════════════════════════════ -->
   <div class="cat-header cat-gakushu">
     <div class="cat-icon">✏️</div>
     <div>
@@ -475,14 +650,11 @@
     </div>
   </div>
 
-  <!-- 野球 -->
   <div class="manga-grid">
 
+    <!-- 野球 -->
     <div class="manga-card">
-      <div class="manga-cover mcg-teal">
-        <div class="cover-inner"><span class="cover-icon">⚾</span><div class="cover-label">ドラえもんの野球</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-teal"></div>
       <div class="manga-body">
         <div class="manga-title-jp">ドラえもんの学習シリーズ ── スポーツ 野球編（小学館）</div>
         <div class="manga-title">哆啦A夢的野球（棒球）入門</div>
@@ -496,29 +668,11 @@
         <div class="panel-section">
           <div class="panel-section-title">📋 漫畫場景重現</div>
           <div class="panel-grid">
-            <div class="panel">
-              <div class="panel-char">😰</div>
-              <div class="speech-bubble">「三振！出局！」</div>
-              <div class="panel-scene">大雄第一次<br>上場打擊</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🤖</div>
-              <div class="panel-scene">哆啦A夢用<br>「投球練習機器」<br>訓練大雄</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">💡</div>
-              <div class="speech-bubble">「好球帶就是這個範圍！」</div>
-              <div class="panel-scene">好球帶<br>圖解說明</div>
-            </div>
-            <div class="panel wide">
-              <div class="panel-char">⚾</div>
-              <div class="speech-bubble">「我投出了完美的變化球！」</div>
-              <div class="panel-scene">大雄練成投球技巧，首次讓胖虎揮空</div>
-            </div>
-            <div class="panel">
-              <div class="sfx">CRACK！</div>
-              <div class="panel-scene">大雄安打！<br>全場歡呼</div>
-            </div>
+            <div class="panel"><div class="panel-char">😰</div><div class="speech-bubble">「三振！出局！」</div><div class="panel-scene">大雄第一次<br>上場打擊</div></div>
+            <div class="panel"><div class="panel-char">🤖</div><div class="panel-scene">哆啦A夢用<br>「投球練習機器」<br>訓練大雄</div></div>
+            <div class="panel"><div class="panel-char">💡</div><div class="speech-bubble">「好球帶就是這個範圍！」</div><div class="panel-scene">好球帶<br>圖解說明</div></div>
+            <div class="panel wide"><div class="panel-char">⚾</div><div class="speech-bubble">「我投出了完美的變化球！」</div><div class="panel-scene">大雄練成投球技巧，首次讓胖虎揮空</div></div>
+            <div class="panel"><div class="sfx">CRACK！</div><div class="panel-scene">大雄安打！<br>全場歡呼</div></div>
           </div>
         </div>
       </div>
@@ -526,10 +680,7 @@
 
     <!-- 算數 -->
     <div class="manga-card">
-      <div class="manga-cover mcg-orange">
-        <div class="cover-inner"><span class="cover-icon">🔢</span><div class="cover-label">ドラえもんの算数</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-orange"></div>
       <div class="manga-body">
         <div class="manga-title-jp">ドラえもんの算数おもしろ攻略シリーズ（小学館 全10冊以上）</div>
         <div class="manga-title">哆啦A夢的算數趣味攻略</div>
@@ -543,28 +694,11 @@
         <div class="panel-section">
           <div class="panel-section-title">📋 漫畫場景重現</div>
           <div class="panel-grid">
-            <div class="panel">
-              <div class="panel-char">😭</div>
-              <div class="speech-bubble">「分數完全不懂啊！」</div>
-              <div class="panel-scene">大雄的<br>算數苦惱</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🍕</div>
-              <div class="panel-scene">用「披薩圖解」<br>說明分數概念<br>1/2 與 1/4</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🤖</div>
-              <div class="speech-bubble">「先算乘除，再算加減！」</div>
-              <div class="panel-scene">四則運算<br>優先順序解說</div>
-            </div>
-            <div class="panel wide">
-              <div class="sfx">わかった！</div>
-              <div class="panel-scene">大雄突然理解了面積公式：「長×寬就是面積！」—— 生活化例子讓數學概念變得直觀</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">📊</div>
-              <div class="panel-scene">圓面積<br>π × r² 圖解</div>
-            </div>
+            <div class="panel"><div class="panel-char">😭</div><div class="speech-bubble">「分數完全不懂啊！」</div><div class="panel-scene">大雄的<br>算數苦惱</div></div>
+            <div class="panel"><div class="panel-char">🍕</div><div class="panel-scene">用「披薩圖解」<br>說明分數概念<br>1/2 與 1/4</div></div>
+            <div class="panel"><div class="panel-char">🤖</div><div class="speech-bubble">「先算乘除，再算加減！」</div><div class="panel-scene">四則運算<br>優先順序解說</div></div>
+            <div class="panel wide"><div class="sfx">わかった！</div><div class="panel-scene">大雄突然理解了面積公式：「長×寬就是面積！」—— 生活化例子讓數學概念變得直觀</div></div>
+            <div class="panel"><div class="panel-char">📊</div><div class="panel-scene">圓面積<br>π × r² 圖解</div></div>
           </div>
         </div>
       </div>
@@ -572,10 +706,7 @@
 
     <!-- 理科 -->
     <div class="manga-card">
-      <div class="manga-cover mcg-cyan">
-        <div class="cover-inner"><span class="cover-icon">🔬</span><div class="cover-label">ドラえもんの理科</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-cyan"></div>
       <div class="manga-body">
         <div class="manga-title-jp">ドラえもんのふしぎのサイエンスシリーズ（小学館 全12冊以上）</div>
         <div class="manga-title">哆啦A夢的不可思議科學</div>
@@ -589,22 +720,10 @@
         <div class="panel-section">
           <div class="panel-section-title">📋 宇宙・天文篇場景</div>
           <div class="panel-grid">
-            <div class="panel tall">
-              <div class="panel-char">🌌</div>
-              <div class="panel-scene">哆啦A夢帶大雄<br>搭乘宇宙飛船<br>觀察太陽系<br>行星排列</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🌑</div>
-              <div class="speech-bubble">「月球上為什麼沒有空氣？」</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">⭐</div>
-              <div class="panel-scene">光年的概念：<br>光一年能走的距離<br>圖解說明</div>
-            </div>
-            <div class="panel wide">
-              <div class="panel-char">🔭</div>
-              <div class="panel-scene">大雄用望遠鏡觀察木星的大紅斑 ── 「它比地球大三倍！」哆啦A夢解說</div>
-            </div>
+            <div class="panel tall"><div class="panel-char">🌌</div><div class="panel-scene">哆啦A夢帶大雄<br>搭乘宇宙飛船<br>觀察太陽系<br>行星排列</div></div>
+            <div class="panel"><div class="panel-char">🌑</div><div class="speech-bubble">「月球上為什麼沒有空氣？」</div></div>
+            <div class="panel"><div class="panel-char">⭐</div><div class="panel-scene">光年的概念：<br>光一年能走的距離<br>圖解說明</div></div>
+            <div class="panel wide"><div class="panel-char">🔭</div><div class="panel-scene">大雄用望遠鏡觀察木星的大紅斑 ── 「它比地球大三倍！」哆啦A夢解說</div></div>
           </div>
         </div>
       </div>
@@ -612,10 +731,7 @@
 
     <!-- 社会科・歴史 -->
     <div class="manga-card">
-      <div class="manga-cover mcg-brown">
-        <div class="cover-inner"><span class="cover-icon">🏯</span><div class="cover-label">ドラえもんの社会科</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-brown"></div>
       <div class="manga-body">
         <div class="manga-title-jp">ドラえもんの社会科おもしろ攻略・日本の歴史シリーズ（小学館 全4冊）</div>
         <div class="manga-title">哆啦A夢的社會科・日本歷史</div>
@@ -626,32 +742,15 @@
           <span class="manga-badge badge-grade">小4–小6</span>
         </div>
         <p class="manga-desc">以時光機為設定，哆啦A夢帶大雄穿越到日本各歷史時代，親眼「目擊」重要歷史事件。四冊分別涵蓋：①舊石器時代～平安時代 ②鎌倉時代～江戸時代前半 ③江戸時代後半～現代 ④昭和時代後半～令和時代。時光機設定讓歷史學習有了「身歷其境」的臨場感。</p>
-        <div class="manga-note"><b>學習方式：</b>大雄在歷史現場的無知反應和哆啦A夢的解說形成完美的問答結構——大雄的疑問=讀者的疑問，哆啦A夢的回答=課本知識，但以漫畫形式呈現更有趣。</div>
+        <div class="manga-note"><b>學習方式：</b>大雄在歷史現場的無知反應和哆啦A夢的解說形成完美的問答結構——大雄的疑問 ＝ 讀者的疑問，哆啦A夢的回答 ＝ 課本知識，但以漫畫形式呈現更有趣。</div>
         <div class="panel-section">
           <div class="panel-section-title">📋 時光機歷史之旅</div>
           <div class="panel-grid">
-            <div class="panel">
-              <div class="panel-char">⏰</div>
-              <div class="panel-scene">時光機抵達<br>戦國時代<br>1560 年</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">⚔️</div>
-              <div class="speech-bubble">「這是桶狹間之戰！」</div>
-              <div class="panel-scene">織田信長<br>登場</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">😱</div>
-              <div class="speech-bubble">「這裡好危險！快跑！」</div>
-              <div class="panel-scene">大雄差點<br>捲入戰亂</div>
-            </div>
-            <div class="panel wide">
-              <div class="panel-char">📜</div>
-              <div class="panel-scene">江戶幕府成立 ── 哆啦A夢解說「参勤交代」制度如何維繫了德川家的統治</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🎌</div>
-              <div class="panel-scene">明治維新<br>西洋服裝<br>突然流行</div>
-            </div>
+            <div class="panel"><div class="panel-char">⏰</div><div class="panel-scene">時光機抵達<br>戦國時代<br>1560 年</div></div>
+            <div class="panel"><div class="panel-char">⚔️</div><div class="speech-bubble">「這是桶狹間之戰！」</div><div class="panel-scene">織田信長<br>登場</div></div>
+            <div class="panel"><div class="panel-char">😱</div><div class="speech-bubble">「快跑！危險！」</div><div class="panel-scene">大雄差點<br>捲入戰亂</div></div>
+            <div class="panel wide"><div class="panel-char">📜</div><div class="panel-scene">江戶幕府成立 ── 哆啦A夢解說「参勤交代」制度如何維繫了德川家的統治</div></div>
+            <div class="panel"><div class="panel-char">🎌</div><div class="panel-scene">明治維新<br>西洋服裝<br>突然流行</div></div>
           </div>
         </div>
       </div>
@@ -659,10 +758,7 @@
 
     <!-- 国語 -->
     <div class="manga-card">
-      <div class="manga-cover mcg-pink">
-        <div class="cover-inner"><span class="cover-icon">✍️</span><div class="cover-label">ドラえもんの国語</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-pink"></div>
       <div class="manga-body">
         <div class="manga-title-jp">ドラえもんの国語おもしろ攻略シリーズ（小学館 全10冊以上）</div>
         <div class="manga-title">哆啦A夢的國語趣味攻略</div>
@@ -676,20 +772,9 @@
         <div class="panel-section">
           <div class="panel-section-title">📋 慣用句篇場景</div>
           <div class="panel-grid two-col">
-            <div class="panel tall">
-              <div class="panel-char">😅</div>
-              <div class="speech-bubble">「我的腳都變成出去啦！」</div>
-              <div class="panel-scene">大雄把「足が出る」<br>（超出預算）<br>誤解為字面意思</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🤖</div>
-              <div class="speech-bubble">「其實是指預算超支喔！」</div>
-              <div class="panel-scene">哆啦A夢<br>正確解釋</div>
-            </div>
-            <div class="panel">
-              <div class="sfx">なるほど！</div>
-              <div class="panel-scene">大雄<br>豁然開朗</div>
-            </div>
+            <div class="panel tall"><div class="panel-char">😅</div><div class="speech-bubble">「我的腳都變成出去啦！」</div><div class="panel-scene">大雄把「足が出る」<br>（超出預算）<br>誤解為字面意思</div></div>
+            <div class="panel"><div class="panel-char">🤖</div><div class="speech-bubble">「其實是指預算超支喔！」</div><div class="panel-scene">哆啦A夢<br>正確解釋</div></div>
+            <div class="panel"><div class="sfx">なるほど！</div><div class="panel-scene">大雄<br>豁然開朗</div></div>
           </div>
         </div>
       </div>
@@ -697,10 +782,7 @@
 
     <!-- 英語 -->
     <div class="manga-card">
-      <div class="manga-cover mcg-lime">
-        <div class="cover-inner"><span class="cover-icon">🇬🇧</span><div class="cover-label">ドラえもんの英語</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-lime"></div>
       <div class="manga-body">
         <div class="manga-title-jp">ドラえもんの英語おもしろ攻略シリーズ（小学館）</div>
         <div class="manga-title">哆啦A夢的英語趣味攻略</div>
@@ -714,20 +796,9 @@
         <div class="panel-section">
           <div class="panel-section-title">📋 英語冒險場景</div>
           <div class="panel-grid">
-            <div class="panel">
-              <div class="panel-char">🌍</div>
-              <div class="panel-scene">哆啦A夢的<br>翻譯道具壞掉！<br>大雄必須說英語</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">😰</div>
-              <div class="speech-bubble">「H-Hello...?」</div>
-              <div class="panel-scene">大雄<br>緊張地開口</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">😊</div>
-              <div class="speech-bubble">「Nice to meet you!」</div>
-              <div class="panel-scene">當地人<br>友善回應</div>
-            </div>
+            <div class="panel"><div class="panel-char">🌍</div><div class="panel-scene">哆啦A夢的<br>翻譯道具壞掉！<br>大雄必須說英語</div></div>
+            <div class="panel"><div class="panel-char">😰</div><div class="speech-bubble">「H-Hello...?」</div><div class="panel-scene">大雄<br>緊張地開口</div></div>
+            <div class="panel"><div class="panel-char">😊</div><div class="speech-bubble">「Nice to meet you!」</div><div class="panel-scene">當地人<br>友善回應</div></div>
           </div>
         </div>
       </div>
@@ -735,10 +806,7 @@
 
     <!-- サッカー -->
     <div class="manga-card">
-      <div class="manga-cover mcg-green">
-        <div class="cover-inner"><span class="cover-icon">⚽</span><div class="cover-label">ドラえもんのサッカー</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-green"></div>
       <div class="manga-body">
         <div class="manga-title-jp">ドラえもんの学習シリーズ スポーツ サッカー編（小学館）</div>
         <div class="manga-title">哆啦A夢的足球入門</div>
@@ -752,15 +820,8 @@
         <div class="panel-section">
           <div class="panel-section-title">📋 漫畫場景重現</div>
           <div class="panel-grid two-col">
-            <div class="panel">
-              <div class="panel-char">⚽</div>
-              <div class="speech-bubble">「進球了！」→「越位！無效！」</div>
-              <div class="panel-scene">大雄不懂越位<br>頻頻踩規</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🤖</div>
-              <div class="panel-scene">哆啦A夢圖解<br>越位線概念</div>
-            </div>
+            <div class="panel"><div class="panel-char">⚽</div><div class="speech-bubble">「進球了！」→「越位！無效！」</div><div class="panel-scene">大雄不懂越位<br>頻頻踩規</div></div>
+            <div class="panel"><div class="panel-char">🤖</div><div class="panel-scene">哆啦A夢圖解<br>越位線概念</div></div>
           </div>
         </div>
       </div>
@@ -768,35 +829,24 @@
 
     <!-- プログラミング -->
     <div class="manga-card">
-      <div class="manga-cover mcg-grape">
-        <div class="cover-inner"><span class="cover-icon">💻</span><div class="cover-label">ドラえもんのプログラミング</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-grape"></div>
       <div class="manga-body">
-        <div class="manga-title-jp">ドラえもんのプログラミング おもしろ攻略（小学館）</div>
+        <div class="manga-title-jp">ドラえもんのプログラミング おもしろ攻略（小学館 2019–）</div>
         <div class="manga-title">哆啦A夢的程式設計趣味攻略</div>
         <div class="manga-meta">
           <span class="manga-badge badge-pub">小学館</span>
           <span class="manga-badge badge-sub">資訊・程式</span>
           <span class="manga-badge badge-grade">小3–中學</span>
+          <span class="manga-badge badge-date">2019 年起</span>
         </div>
         <p class="manga-desc">因應日本小學程式設計必修化（2020 年起）而推出的新系列。以「哆啦A夢的秘密道具其實是程式」為切入點，解說程式設計的核心概念：順序執行、條件判斷（if-then）、迴圈（loop）、函式等。道具任意門的工作原理被比喻為「輸入起點→目的地，輸出結果」，讓程式邏輯和日常生活產生連結。</p>
         <div class="manga-note"><b>現代必讀：</b>2020 年後出版的最新系列，涵蓋 Scratch 視覺化程式語言的基礎操作，是目前學習まんが系列中最符合當代教育需求的一冊。</div>
         <div class="panel-section">
           <div class="panel-section-title">📋 程式概念場景</div>
           <div class="panel-grid">
-            <div class="panel wide">
-              <div class="panel-char">🚪</div>
-              <div class="panel-scene">「任意門的運作原理其實就是程式：input（出發地） → process（計算路徑） → output（目的地）！」</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">🔄</div>
-              <div class="panel-scene">迴圈概念：<br>重複執行<br>直到條件結束</div>
-            </div>
-            <div class="panel">
-              <div class="panel-char">❓</div>
-              <div class="panel-scene">if-then：<br>如果下雨<br>就帶雨傘</div>
-            </div>
+            <div class="panel wide"><div class="panel-char">🚪</div><div class="panel-scene">「任意門的運作原理其實就是程式：input（出發地） → process（計算路徑） → output（目的地）！」</div></div>
+            <div class="panel"><div class="panel-char">🔄</div><div class="panel-scene">迴圈概念：<br>重複執行<br>直到條件結束</div></div>
+            <div class="panel"><div class="panel-char">❓</div><div class="panel-scene">if-then：<br>如果下雨<br>就帶雨傘</div></div>
           </div>
         </div>
       </div>
@@ -804,21 +854,21 @@
 
   </div><!-- /学習まんが -->
 
-  <!-- ══ プラス ══ -->
+
+  <!-- ══════════════════════════════════════════════════════
+       プラス & 特別版
+  ══════════════════════════════════════════════════════ -->
   <div class="cat-header cat-plus">
     <div class="cat-icon">⭐</div>
     <div>
-      <div class="cat-title">ドラえもんプラス ＆ 特別版</div>
-      <div class="cat-sub">2005 – 現在 ｜ 補完主線的珍藏系列</div>
+      <div class="cat-title">ドラえもんプラス ＆ 特別版・大全集</div>
+      <div class="cat-sub">2005 – 現在 ｜ 補完主線、彩色版、112 卷大全集</div>
     </div>
   </div>
   <div class="manga-grid">
 
     <div class="manga-card">
-      <div class="manga-cover mcg-gold">
-        <div class="cover-inner"><span class="cover-icon">💛</span><div class="cover-label">ドラえもん プラス</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-gold"></div>
       <div class="manga-body">
         <div class="manga-title-jp">ドラえもん プラス（小学館 全6巻）</div>
         <div class="manga-title">哆啦A夢 PLUS</div>
@@ -826,6 +876,7 @@
           <span class="manga-badge badge-vol">全 6 卷</span>
           <span class="manga-badge badge-pub">小学館</span>
           <span class="manga-badge badge-sub">補完主線</span>
+          <span class="manga-badge badge-date">2005–2007</span>
         </div>
         <p class="manga-desc">2005–2007 年出版的 6 冊特別版，收錄了原始 45 冊主線之外、散落在各雜誌的「未收錄短篇」。這些故事曾被認為「遺失」或「刻意省略」，在 PLUS 系列中首次以單行本形式集結出版。部分故事是藤子先生在實驗不同風格時的嘗試，具有很高的收藏與研究價值。</p>
         <div class="manga-note"><b>為何未收錄？</b>原因各異：有些故事是早期試作，風格尚未定型；有些含有後期修改的設定矛盾；有些是為雜誌特輯創作的季節限定篇。PLUS 的出版讓哆啦A夢的故事宇宙更加完整。</div>
@@ -833,27 +884,22 @@
     </div>
 
     <div class="manga-card">
-      <div class="manga-cover mcg-red">
-        <div class="cover-inner"><span class="cover-icon">🌈</span><div class="cover-label">カラー作品集</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-red"></div>
       <div class="manga-body">
         <div class="manga-title-jp">ドラえもん カラー作品集 ＆ 小学館版全集（小学館）</div>
         <div class="manga-title">哆啦A夢彩色作品集 ＆ 全集版</div>
         <div class="manga-meta">
           <span class="manga-badge badge-pub">小学館</span>
           <span class="manga-badge badge-sub">全集・彩色</span>
+          <span class="manga-badge badge-date">2009</span>
         </div>
-        <p class="manga-desc">藤子先生在生前創作了少量彩色漫畫，以及部分短篇故事的彩色版本。2009 年出版的「小学館版 ドラえもん全集」（全45冊）是目前最完整的主線收藏版本，採用更接近原稿品質的印刷，部分珍稀短篇也包含其中。彩色作品集則收錄了原版雜誌刊登時的彩色扉頁藝術原稿。</p>
+        <p class="manga-desc">藤子先生在生前創作了少量彩色漫畫，以及部分短篇故事的彩色版本。2009 年出版的「小学館版 ドラえもん全集」（全 45 冊）是目前最完整的主線收藏版本，採用更接近原稿品質的印刷，部分珍稀短篇也包含其中。彩色作品集則收錄了原版雜誌刊登時的彩色扉頁藝術原稿。</p>
         <div class="manga-note"><b>收藏價值：</b>45 冊全集版是哆啦A夢迷必備的收藏，目前仍在印刷中，購買管道包含日本 Amazon 或各大書店，部分台灣書店也有進口。</div>
       </div>
     </div>
 
     <div class="manga-card">
-      <div class="manga-cover mcg-teal">
-        <div class="cover-inner"><span class="cover-icon">🎨</span><div class="cover-label">藤子作品集</div></div>
-        <div class="cover-overlay"></div>
-      </div>
+      <div class="manga-bar bar-teal"></div>
       <div class="manga-body">
         <div class="manga-title-jp">藤子・F・不二雄 大全集（小学館 全112巻）</div>
         <div class="manga-title">藤子・F・不二雄大全集</div>
@@ -861,6 +907,7 @@
           <span class="manga-badge badge-vol">全 112 卷</span>
           <span class="manga-badge badge-pub">小学館</span>
           <span class="manga-badge badge-sub">大師全作品</span>
+          <span class="manga-badge badge-date">2009–2013</span>
         </div>
         <p class="manga-desc">2009–2013 年出版的藤子先生完整作品大全集，涵蓋哆啦A夢之外的所有作品，包括：オバケのQ太郎、パーマン、21エモン、キテレツ大百科等。其中哆啦A夢部分以最接近原稿的品質重新印製，含大量從未收錄過的初期試稿和草稿，是研究藤子先生創作歷程的最珍貴資料。</p>
         <div class="manga-note"><b>超級珍藏：</b>112 卷全集具有極高的文化價值，但因絕版問題目前二手價格相當高。部分圖書館有館藏，也是研究日本漫畫史的重要文獻。</div>
